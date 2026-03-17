@@ -2,9 +2,51 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>AIGC Studio Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIGC Studio | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body style="background-color: black; color: white; display: flex; justify-content: center; align-items: center; height: 100vh;">
-    <h1>如果你能看到这行字，说明网页终于正常了！</h1>
+<body>
+    <nav>
+        <div class="logo">AIGC STUDIO</div>
+        <div class="nav-links">
+            <a href="#video">AE Motion</a>
+            <a href="#photo">Photography</a>
+            <a href="#podcast">Audio</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>探索視覺與 AI 的邊界</h1>
+            <p>数字传播与文化硕士 / AIGC 创作者 / 视觉策划师</p>
+        </div>
+    </header>
+
+    <main>
+        <section id="video" class="section">
+            <h2>AE Motion Graphics</h2>
+            <div class="placeholder">VIDEO SHOWREEL</div>
+        </section>
+
+        <section id="photo" class="section">
+            <h2>Photography</h2>
+            <div class="grid">
+                <img src="photo1.jpg" alt="Work 1" class="img-card">
+                <img src="photo2.jpg" alt="Work 2" class="img-card">
+            </div>
+        </section>
+
+        <section id="podcast" class="section">
+            <h2>Au Podcast</h2>
+            <audio controls>
+                <source src="podcast.mp3" type="audio/mpeg">
+            </audio>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Designed with AI & Human Creativity.</p>
+    </footer>
 </body>
 </html>
