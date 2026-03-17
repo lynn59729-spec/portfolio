@@ -1,72 +1,54 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2821
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+body {
+    background-color: #0a0a0a;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    line-height: 1.6;
+}
 
-\f0\fs24 \cf0 :root \{\
-    --bg-color: #0a0a0a;\
-    --text-color: #ffffff;\
-    --accent-color: #007aff; /* \uc0\u34315 \u26524 \u34253 \u65292 \u20195 \u34920 \u31185 \u25216 \u24863  */\
-\}\
-\
-body \{\
-    background-color: var(--bg-color);\
-    color: var(--text-color);\
-    font-family: 'Inter', sans-serif;\
-    margin: 0;\
-    line-height: 1.6;\
-\}\
-\
-nav \{\
-    display: flex;\
-    justify-content: space-between;\
-    padding: 2rem 5%;\
-    position: sticky;\
-    top: 0;\
-    background: rgba(10, 10, 10, 0.8);\
-    backdrop-filter: blur(10px); /* \uc0\u30952 \u30722 \u29627 \u29827 \u25928 \u26524  */\
-    z-index: 100;\
-\}\
-\
-.hero \{\
-    height: 80vh;\
-    display: flex;\
-    align-items: center;\
-    justify-content: center;\
-    text-align: center;\
-    background: linear-gradient(45deg, #1a1a1a, #0a0a0a);\
-\}\
-\
-.project-section \{\
-    padding: 5rem 10%;\
-\}\
-\
-.grid \{\
-    display: grid;\
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\
-    gap: 20px;\
-\}\
-\
-.card \{\
-    background: #1a1a1a;\
-    border-radius: 12px;\
-    overflow: hidden;\
-    transition: transform 0.3s ease;\
-\}\
-\
-.card:hover \{\
-    transform: translateY(-10px);\
-    border: 1px solid var(--accent-color);\
-\}\
-\
-.video-placeholder \{\
-    width: 100%;\
-    aspect-ratio: 16/9;\
-    background: #222;\
-    display: flex;\
-    align-items: center;\
-    justify-content: center;\
-    border-radius: 15px;\
-\}}
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 5%;
+    position: sticky;
+    top: 0;
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(15px); /* 磨砂效果 */
+    z-index: 1000;
+}
+
+.hero {
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: radial-gradient(circle, #1a1a1a 0%, #0a0a0a 100%);
+}
+
+.section { padding: 60px 10%; }
+
+.placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #1a1a1a;
+    border: 1px dashed #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.img-card {
+    width: 100%;
+    border-radius: 8px;
+    background: #1a1a1a;
+}
+
+h2 { border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 30px; }
+a { color: #fff; text-decoration: none; margin-left: 20px; font-size: 0.9rem; }
