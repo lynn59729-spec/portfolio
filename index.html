@@ -17,8 +17,8 @@
                 <h1 class="glitch-text" data-text="YI LU / 卢怡">YI LU / 卢怡</h1>
                 <h2 class="role-tag">VISUAL STRATEGIST <span class="red-dot">●</span> BRAND OPERATIONS</h2>
                 <div class="bio-box">
-                    <p class="edu">悉尼大学 · 数字传播与文化硕士 (Class of 2026)</p>
-                    <p class="desc">AIGC 创作者 / 跨媒介制作人：摄影 · 短片 · 杂志 · 播客</p>
+                    <p class="edu">悉尼大学 · 数字传播与文化硕士 (2026届)</p>
+                    <p class="desc">AIGC 创作者 / 品牌策划 / 跨媒介制作人：摄影 · 短片 · 杂志 · 播客</p>
                 </div>
                 <div class="skill-labels">
                     <span>AIGC PRODUCTION</span>
@@ -76,6 +76,60 @@
         </div>
     </section>
 </div>
+<script>
+    // 1. 3D 视线跟随逻辑
+    const avatarContainer = document.querySelector('.avatar-container');
+    const avatarImg = document.querySelector('.hero-avatar');
 
+    document.addEventListener('mousemove', (e) => {
+        // 获取鼠标相对屏幕中心的位置
+        let xAxis = (window.innerWidth / 2 - e.pageX) / 25; // 数值越小偏转越大
+        let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+
+        // 应用 3D 旋转
+        if (avatarImg) {
+            avatarImg.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg) scale(1.05)`;
+        }
+    });
+
+    // 鼠标移入时增加平滑过渡，移出时重置
+    avatarContainer.addEventListener('mouseenter', () => {
+        avatarImg.style.transition = 'none'; // 跟随阶段不需要延迟
+    });
+
+    avatarContainer.addEventListener('mouseleave', () => {
+        avatarImg.style.transition = 'all 0.5s ease';
+        avatarImg.style.transform = `rotateY(0deg) rotateX(0deg) scale(1)`;
+    });
+
+    // 2. 随机数字扰动 (Glitch) 触发逻辑
+    // 每隔随机时间让头像闪烁一次红光或产生位移
+    setInterval(() => {
+        if (Math.random() > 0.95) { // 5% 的概率触发
+            avatarImg.style.filter = 'none';
+            avatarImg.style.boxShadow = '20px 0 0 rgba(206, 32, 40, 0.5), -20px 0 0 rgba(128, 128, 128, 0.3)';
+            
+            setTimeout(() => {
+                avatarImg.style.filter = 'grayscale(100%) contrast(1.1)';
+                avatarImg.style.boxShadow = 'none';
+            }, 150);
+        }
+    }, 1000);
+
+    // 3. 滚动吸附后的导航高亮逻辑 (可选增强)
+    const sections = document.querySelectorAll('.snap-section');
+    const options = { threshold: 0.7 };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                console.log('当前进入章节:', entry.target.className);
+                // 这里可以用来触发每个章节特有的 AIGC 动画
+            }
+        });
+    }, options);
+
+    sections.forEach(section => observer.observe(section));
+</script>
 </body>
 </html>
