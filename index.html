@@ -42,6 +42,7 @@
             </div>
             <div class="mag-visual">
                 <div class="mockup-box">MAGAZINE MOCKUP</div>
+            </div>
         </div>
     </section>
     
@@ -50,8 +51,6 @@
         <div class="video-placeholder">
             <p>[ AE SHOWREEL / 2:00 ]</p>
             <div class="play-btn"></div>
-
-            </div>
         </div>
     </section>
 
@@ -59,7 +58,8 @@
         <div class="audio-box">
             <h3 class="section-title">03. AUDITORY</h3>
             <p>8 MIN PODCAST PRODUCTION</p>
-            <div class="wave-visualizer"></div> </div>
+            <div class="wave-visualizer"></div> 
+        </div>
         <div class="photo-box">
             <h3 class="section-title">04. LENS</h3>
             <p>LANDSCAPE & ASTROPHOTOGRAPHY</p>
@@ -77,6 +77,44 @@
         </div>
     </section>
 </div>
+
+<script>
+    const avatarContainer = document.querySelector('.avatar-container');
+    const avatarImg = document.querySelector('.hero-avatar');
+
+    // 1. 3D 视线跟随
+    document.addEventListener('mousemove', (e) => {
+        let xAxis = (window.innerWidth / 2 - e.pageX) / 25; 
+        let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+
+        if (avatarImg) {
+            avatarImg.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg) scale(1.05)`;
+        }
+    });
+
+    // 2. 交互过渡
+    avatarContainer.addEventListener('mouseenter', () => {
+        avatarImg.style.transition = 'none';
+    });
+
+    avatarContainer.addEventListener('mouseleave', () => {
+        avatarImg.style.transition = 'all 0.5s ease';
+        avatarImg.style.transform = `rotateY(0deg) rotateX(0deg) scale(1)`;
+    });
+
+    // 3. 随机 Glitch 数字扰动效果
+    setInterval(() => {
+        if (Math.random() > 0.95) { 
+            avatarImg.style.filter = 'none';
+            avatarImg.style.boxShadow = '20px 0 0 rgba(206, 32, 40, 0.3), -20px 0 0 rgba(128, 128, 128, 0.2)';
+            
+            setTimeout(() => {
+                avatarImg.style.filter = 'grayscale(100%) contrast(1.1)';
+                avatarImg.style.boxShadow = 'none';
+            }, 120);
+        }
+    }, 1000);
+</script>
 
 </body>
 </html>
