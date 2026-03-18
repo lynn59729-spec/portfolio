@@ -1,121 +1,137 @@
-/* 基础重置 */
-body, html {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    background-color: #050505; /* 深邃黑 */
-    color: #FFFFFF;
-    font-family: 'Montserrat', sans-serif; /* 辅助字体 */
+/* 全局变量设定 */
+:root {
+    --red: #CE2028;
+    --black: #050505;
+    --white: #FFFFFF;
+    --grey: #808080;
 }
 
-/* Hero Section 布局 */
-.hero-section {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    background-color: var(--black);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden; /* 禁用原生滚动条，交给容器 */
+}
+
+/* 核心滚动吸附逻辑 */
+.main-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory; /* 开启纵向吸附 */
+    scroll-behavior: smooth;
+}
+
+.snap-section {
     height: 100vh;
     width: 100%;
+    scroll-snap-align: start; /* 强制对齐顶部 */
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 8%;
+    border-bottom: 1px solid rgba(206, 32, 40, 0.1);
+}
+
+/* --- Section 1: Hero 样式 --- */
+.hero { background: radial-gradient(circle at 70%, #1a0505 0%, var(--black) 70%); }
+
+.bg-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 500px; height: 500px;
+    background: var(--red);
+    filter: blur(150px);
+    opacity: 0.15;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    z-index: 2;
+}
+
+.glitch-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 8rem);
+    line-height: 0.9;
+    margin-bottom: 20px;
+}
+
+.role-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--red);
+    letter-spacing: 2px;
+}
+
+.red-dot { animation: blink 1s infinite; }
+
+.bio-box { margin: 30px 0; font-weight: 300; color: var(--grey); line-height: 1.8; }
+
+.skill-labels span {
+    border: 1px solid var(--red);
+    padding: 4px 12px;
+    font-size: 0.7rem;
+    margin-right: 10px;
+    color: var(--red);
+}
+
+.avatar-container { width: 35%; perspective: 1000px; }
+
+.hero-avatar {
+    width: 100%;
+    filter: grayscale(100%) contrast(1.1);
+    transition: all 0.6s ease;
+    border-radius: 5px;
+}
+
+.hero-avatar:hover {
+    filter: none;
+    transform: rotateY(-10deg) scale(1.02);
+    box-shadow: -20px 20px 50px rgba(206, 32, 40, 0.3);
+}
+
+/* --- 公用组件 --- */
+.section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--red);
+    position: absolute;
+    top: 50px; left: 8%;
+}
+
+.video-placeholder, .mockup-box, .photo-preview {
+    width: 100%; height: 60vh;
+    background: #0f0f0f;
+    border: 1px solid #1a1a1a;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    overflow: hidden;
-}
-
-/* 字体样式 */
-h1.glitch {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 8rem;
-    color: #FFFFFF;
-    margin: 0;
-    line-height: 0.9;
-    letter-spacing: -2px;
-}
-
-.sub-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3rem;
-    color: #CE2028; /* 热情红 */
-    margin: 10px 0;
-    line-height: 1;
-}
-
-.edu-info {
-    font-size: 0.9rem;
-    font-weight: 300;
-    opacity: 0.7;
+    color: var(--grey);
     text-transform: uppercase;
+    letter-spacing: 5px;
 }
 
-/* 头像容器 */
-.avatar-container {
+.video-placeholder:hover { border-color: var(--red); color: white; cursor: pointer; }
+
+/* 动画定义 */
+@keyframes blink { 50% { opacity: 0; } }
+
+.scroll-indicator {
     position: absolute;
-    z-index: 2;
-    width: 400px; /* 根据需要调整 */
-    height: 400px;
-}
-
-.avatar-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%; /* 如果喜欢圆形 */
-    /* 初始状态可能带有一点红色滤镜 */
-    filter: grayscale(100%) sepia(100%) hue-rotate(-50deg) saturate(300%);
-    transition: filter 0.3s ease;
-}
-
-/* 交互效果：鼠标悬停时头像恢复正常三色调，并产生故障 */
-.avatar-container:hover .avatar-img {
-    filter: none; /* 恢复你生成的红黑灰三色 */
-}
-
-/* 故障风核心 CSS (鼠标悬停触发) */
-.glitch-avatar {
-    position: relative;
-}
-
-.avatar-container:hover .glitch-avatar::before,
-.avatar-container:hover .glitch-avatar::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('path/to/your/aigc-avatar.png') no-repeat center;
-    background-size: cover;
-    border-radius: 50%;
-    opacity: 0.8;
-}
-
-/* 红色偏差层 */
-.avatar-container:hover .glitch-avatar::before {
-    left: 2px;
-    text-shadow: -2px 0 #CE2028;
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim 5s infinite linear alternate-reverse;
-}
-
-/* 灰色偏差层 */
-.avatar-container:hover .glitch-avatar::after {
-    left: -2px;
-    text-shadow: -2px 0 #808080;
-    clip: rect(85px, 450px, 140px, 0);
-    animation: glitch-anim 3s infinite linear alternate-reverse;
-}
-
-/* 故障动画定义 */
-@keyframes glitch-anim {
-  0% { clip: rect(31px, 9999px, 94px, 0); }
-  5% { clip: rect(70px, 9999px, 71px, 0); }
-  /* ... 可以增加更多帧使动画更零碎 ... */
-  100% { clip: rect(67px, 9999px, 62px, 0); }
-}
-
-/* 底部标签 */
-.media-tags {
-    position: absolute;
-    bottom: 30px;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.5rem;
-    letter-spacing: 2px;
-    opacity: 0.5;
+    bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: var(--grey);
 }
