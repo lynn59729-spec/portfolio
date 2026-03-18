@@ -86,8 +86,19 @@ body, html {
     color: var(--red);
 }
 
-.avatar-container { width: 35%; perspective: 1000px; }
+.avatar-container { 
+    width: 35%;
+    perspective: 1000px; /* 增加透视深度，让 3D 旋转看起来更立体 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.hero-avatar {
+    width: 100%;
+    transform-style: preserve-3d; /* 保持子元素在 3D 空间 */
+    will-change: transform; /* 优化性能，减少卡顿 */
+}
 .hero-avatar {
     width: 100%;
     filter: grayscale(100%) contrast(1.1);
