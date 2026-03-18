@@ -88,10 +88,7 @@ body, html {
 
 .avatar-container { 
     width: 35%;
-    perspective: 1000px; /* 增加透视深度，让 3D 旋转看起来更立体 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    perspective: 1000px
 }
 
 .hero-avatar {
