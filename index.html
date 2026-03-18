@@ -33,16 +33,8 @@
         <div class="scroll-indicator">SCROLL TO EXPLORE</div>
     </section>
 
-    <section class="snap-section work-video">
-        <h3 class="section-title">01. MOTION DESIGN</h3>
-        <div class="video-placeholder">
-            <p>[ AE SHOWREEL / 2:00 ]</p>
-            <div class="play-btn"></div>
-        </div>
-    </section>
-
     <section class="snap-section work-magazine">
-        <h3 class="section-title">02. EDITORIAL DESIGN</h3>
+        <h3 class="section-title">01. EDITORIAL DESIGN</h3>
         <div class="magazine-grid">
             <div class="mag-info">
                 <h4>16-PAGE MAGAZINE</h4>
@@ -50,6 +42,15 @@
             </div>
             <div class="mag-visual">
                 <div class="mockup-box">MAGAZINE MOCKUP</div>
+        </div>
+    </section>
+    
+    <section class="snap-section work-video">
+        <h3 class="section-title">02. MOTION DESIGN</h3>
+        <div class="video-placeholder">
+            <p>[ AE SHOWREEL / 2:00 ]</p>
+            <div class="play-btn"></div>
+
             </div>
         </div>
     </section>
@@ -76,60 +77,6 @@
         </div>
     </section>
 </div>
-<script>
-    // 1. 3D 视线跟随逻辑
-    const avatarContainer = document.querySelector('.avatar-container');
-    const avatarImg = document.querySelector('.hero-avatar');
 
-    document.addEventListener('mousemove', (e) => {
-        // 获取鼠标相对屏幕中心的位置
-        let xAxis = (window.innerWidth / 2 - e.pageX) / 25; // 数值越小偏转越大
-        let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-
-        // 应用 3D 旋转
-        if (avatarImg) {
-            avatarImg.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg) scale(1.05)`;
-        }
-    });
-
-    // 鼠标移入时增加平滑过渡，移出时重置
-    avatarContainer.addEventListener('mouseenter', () => {
-        avatarImg.style.transition = 'none'; // 跟随阶段不需要延迟
-    });
-
-    avatarContainer.addEventListener('mouseleave', () => {
-        avatarImg.style.transition = 'all 0.5s ease';
-        avatarImg.style.transform = `rotateY(0deg) rotateX(0deg) scale(1)`;
-    });
-
-    // 2. 随机数字扰动 (Glitch) 触发逻辑
-    // 每隔随机时间让头像闪烁一次红光或产生位移
-    setInterval(() => {
-        if (Math.random() > 0.95) { // 5% 的概率触发
-            avatarImg.style.filter = 'none';
-            avatarImg.style.boxShadow = '20px 0 0 rgba(206, 32, 40, 0.5), -20px 0 0 rgba(128, 128, 128, 0.3)';
-            
-            setTimeout(() => {
-                avatarImg.style.filter = 'grayscale(100%) contrast(1.1)';
-                avatarImg.style.boxShadow = 'none';
-            }, 150);
-        }
-    }, 1000);
-
-    // 3. 滚动吸附后的导航高亮逻辑 (可选增强)
-    const sections = document.querySelectorAll('.snap-section');
-    const options = { threshold: 0.7 };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                console.log('当前进入章节:', entry.target.className);
-                // 这里可以用来触发每个章节特有的 AIGC 动画
-            }
-        });
-    }, options);
-
-    sections.forEach(section => observer.observe(section));
-</script>
 </body>
 </html>
