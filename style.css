@@ -143,3 +143,66 @@ body, html {
     letter-spacing: 3px;
     color: var(--grey);
 }
+
+/* 作品通用容器 */
+.work-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 60px;
+    z-index: 2;
+}
+
+/* 左右交替排版 */
+.work-container.invert {
+    flex-direction: row-reverse;
+}
+
+/* 文字介绍区 */
+.work-description {
+    flex: 0 0 30%; /* 占据 30% 宽度 */
+    text-align: left;
+}
+
+.section-title-alt {
+    font-family: 'Bebas Neue';
+    font-size: 1.5rem;
+    color: var(--red);
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+}
+
+.work-name {
+    font-family: 'Bebas Neue';
+    font-size: 3rem;
+    color: white;
+    line-height: 1;
+    margin-bottom: 20px;
+}
+
+.work-context {
+    font-size: 0.9rem;
+    color: var(--grey);
+    line-height: 1.8;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+/* 逻辑标签样式 */
+.logic-tag {
+    display: inline-block;
+    padding: 8px 15px;
+    background: transparent;
+    border-left: 3px solid var(--red);
+    color: var(--red);
+    font-size: 0.75rem;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* 调整作品展示区宽度 */
+.magazine-display, .video-display {
+    flex: 1;
+}
