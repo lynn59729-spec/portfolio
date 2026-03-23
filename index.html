@@ -11,7 +11,6 @@
 
 <div class="main-container">
     <section class="snap-section hero">
-        <div class="bg-glow"></div>
         <div class="content-wrapper">
             <div class="text-info">
                 <h1 class="glitch-text">YI LU / 卢怡</h1>
@@ -27,7 +26,7 @@
                 </div>
             </div>
             <div class="avatar-container">
-                <img src="images/avatar.png" alt="Yi Lu Digital Soul" class="hero-avatar">
+                <img src="images/avatar.png" alt="Yi Lu" class="hero-avatar">
             </div>
         </div>
         <div class="scroll-indicator">SCROLL TO EXPLORE</div>
@@ -38,107 +37,16 @@
             <div class="work-description">
                 <h3 class="section-title-alt">01. EDITORIAL</h3>
                 <h4 class="work-name">16-PAGE VISUAL NARRATIVE</h4>
-                <p class="work-context">
-                    探索超现实主义与数字排版的边界。通过 7 组跨页设计，构建流动的视觉叙事，强调品牌在跨媒介环境下的视觉张力。
-                </p>
-                <div class="logic-tag">STRATEGY: VISUAL FLOW & SCALE</div>
+                <p class="work-context">探索超现实主义与数字排版的边界。通过 7 组跨页设计，构建流动的视觉叙事。</p>
+                <div class="logic-tag">STRATEGY: VISUAL FLOW</div>
             </div>
 
             <div class="magazine-display">
                 <div class="magazine-container" id="magScroll">
                     <div class="magazine-track">
-                        <div class="mag-page single">
-                            <img src="images/Page1.jpg" alt="Cover">
-                            <span class="page-tag">P01 / COVER</span>
-                        </div>
-                        <div class="mag-page spread">
-                            <img src="images/Spread1.jpg" alt="Spread 1">
-                            <span class="page-tag">P02-03 / CONCEPT</span>
-                        </div>
-                        <div class="mag-page spread">
-                            <img src="images/Spread2.jpg" alt="Spread 2">
-                            <span class="page-tag">P04-05 / LOGIC</span>
-                        </div>
-                        <div class="mag-page spread">
-                            <img src="images/Spread3.jpg" alt="Spread 3">
-                            <span class="page-tag">P06-07 / VISUAL</span>
-                        </div>
-                        <div class="mag-page spread">
-                            <img src="images/Spread4.jpg" alt="Spread 4">
-                            <span class="page-tag">P08-09 / DETAIL</span>
-                        </div>
-                        <div class="mag-page spread">
-                            <img src="images/Spread5.jpg" alt="Spread 5">
-                            <span class="page-tag">P10-11 / COMPOSITION</span>
-                        </div>
-                        <div class="mag-page spread">
-                            <img src="images/Spread6.jpg" alt="Spread 6">
-                            <span class="page-tag">P12-13 / TEXTURE</span>
-                        </div>
-                        <div class="mag-page spread">
-                            <img src="images/Spread7.jpg" alt="Spread 7">
-                            <span class="page-tag">P14-15 / ENDING</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="mag-scroll-hint">USE MOUSE WHEEL TO NAVIGATE PAGES</div>
-            </div>
-        </div>
-    </section>
-
-   <section class="snap-section">
-        <div class="work-container invert">
-            <div class="work-description">
-                <h3 class="section-title-alt">02. MOTION</h3>
-                <h4 class="work-name">AE SHOWREEL</h4>
-                <p class="work-context">结合 AIGC 视觉资产，通过 After Effects 进行后期合成与动态转场。</p>
-                <div class="logic-tag">AIGC WORKFLOW: MJ -> AE</div>
-            </div>
-            <div class="video-display">
-                <div class="video-placeholder"><span>[ AE SHOWREEL ]</span></div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<script>
-    // 1. 头像交互逻辑
-    const avatar = document.querySelector('.hero-avatar');
-    document.addEventListener('mousemove', (e) => {
-        if(avatar) {
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 35;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 35;
-            avatar.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg) scale(1.02)`;
-        }
-    });
-
-    // 2. 核心：强制拦截与吸附切换
-    const magContainer = document.getElementById('magScroll');
-    const mainWrapper = document.querySelector('.main-container');
-
-    if (magContainer && mainWrapper) {
-        // 当鼠标进入杂志区，关掉整页吸附
-        magContainer.addEventListener('mouseenter', () => {
-            mainWrapper.style.scrollSnapType = 'none';
-        });
-
-        // 鼠标离开，恢复吸附
-        magContainer.addEventListener('mouseleave', () => {
-            mainWrapper.style.scrollSnapType = 'y mandatory';
-        });
-
-        // 强力接管滚轮：哪怕微小的滚动也会被捕捉
-        magContainer.addEventListener('wheel', (e) => {
-            const isAtEnd = magContainer.scrollLeft + magContainer.clientWidth >= magContainer.scrollWidth - 10;
-            const isAtStart = magContainer.scrollLeft <= 10;
-
-            // 只要没到边缘，就只准横向滑
-            if ((e.deltaY > 0 && !isAtEnd) || (e.deltaY < 0 && !isAtStart)) {
-                e.preventDefault();
-                magContainer.scrollLeft += e.deltaY * 1.5; 
-            }
-        }, { passive: false });
-    }
-</script>
-</body>
-</html>
+                        <div class="mag-page single"><img src="images/Page1.jpg" alt="P01"><span class="page-tag">P01</span></div>
+                        <div class="mag-page spread"><img src="images/Spread1.jpg" alt="P02"><span class="page-tag">P02-03</span></div>
+                        <div class="mag-page spread"><img src="images/Spread2.jpg" alt="P04"><span class="page-tag">P04-05</span></div>
+                        <div class="mag-page spread"><img src="images/Spread3.jpg" alt="P06"><span class="page-tag">P06-07</span></div>
+                        <div class="mag-page spread"><img src="images/Spread4.jpg" alt="P08"><span class="page-tag">P08-09</span></div>
+                        <div class="mag-page spread"><img src="images/Spread5.jpg
