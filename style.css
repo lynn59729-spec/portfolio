@@ -1,4 +1,6 @@
-/* 全局基础设置 */
+/* ============================================================
+   1. GLOBAL & FONTS (恢复原本的字体和背景)
+   ============================================================ */
 :root {
     --red: #CE2028;
     --black: #050505;
@@ -6,18 +8,15 @@
     --grey: #808080;
 }
 
-* {
-    margin: 0; padding: 0; box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body, html {
     background-color: var(--black);
     color: var(--white);
     font-family: 'Montserrat', sans-serif;
-    overflow: hidden;
+    overflow: hidden; 
 }
 
-/* 核心滚动吸附 */
 .main-container {
     height: 100vh;
     overflow-y: scroll;
@@ -36,118 +35,129 @@ body, html {
     padding: 0 8%;
 }
 
-/* --- 1. HERO SECTION --- */
+/* ============================================================
+   2. HERO SECTION (恢复原本的头像比例和文字)
+   ============================================================ */
 .hero { background: radial-gradient(circle at 70%, #1a0505 0%, var(--black) 70%); }
-.glitch-text { font-family: 'Bebas Neue'; font-size: clamp(3rem, 8vw, 6rem); color: var(--white); }
-.role-tag { color: var(--red); font-family: 'Bebas Neue'; font-size: 1.5rem; letter-spacing: 2px; }
 
-/* --- 2. 杂志板块核心 (修复读取与显示) --- */
-/* --- 1. 重新定义杂志板块的外框 --- */
-.work-magazine {
+.content-wrapper {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-start; /* 靠左对齐，给右侧展示留出流出感 */
-    padding: 0 5%;
-    background: var(--black);
-    position: relative;
-    overflow: hidden; /* 整体板块不溢出，但内部容器开启滑动 */
+    width: 100%;
+    z-index: 2;
 }
 
+.glitch-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 8rem);
+    line-height: 0.9;
+    margin-bottom: 20px;
+}
+
+.role-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--red);
+    letter-spacing: 2px;
+}
+
+/* 恢复头像比例 35% */
+.avatar-container { 
+    width: 35%; 
+    perspective: 1000px;
+}
+
+.hero-avatar {
+    width: 100%;
+    filter: grayscale(100%) contrast(1.1);
+    transition: all 0.6s ease;
+    border-radius: 5px;
+}
+
+.hero-avatar:hover {
+    filter: none;
+    transform: rotateY(-10deg) scale(1.02);
+}
+
+/* ============================================================
+   3. WORK LAYOUT (恢复原本的左右排版逻辑)
+   ============================================================ */
 .work-container {
     display: flex;
-    flex-direction: row; /* 强制横向排布文字与作品 */
-    width: 100%;
-    height: 85vh; /* 占据屏幕绝大部分高度 */
     align-items: center;
-    gap: 30px;
+    justify-content: space-between;
+    width: 100%;
+    gap: 60px;
 }
 
-/* --- 2. 文字介绍区（固定宽度，不随滑动移动） --- */
-.work-description {
-    flex: 0 0 280px; /* 给文字一个固定宽度，不被挤压 */
-    z-index: 10;
-    background: var(--black); /* 确保文字背景不透明 */
-    padding-right: 20px;
+.work-container.invert { flex-direction: row-reverse; }
+
+.work-description { flex: 0 0 30%; text-align: left; }
+
+.work-name {
+    font-family: 'Bebas Neue';
+    font-size: 3rem;
+    line-height: 1;
+    margin-bottom: 20px;
 }
 
-/* --- 3. 核心展示区：这是解决“显示不全”的关键 --- */
+/* ============================================================
+   4. MAGAZINE FIX (只保留正确的尺寸，并强制横向滑动)
+   ============================================================ */
 .magazine-display {
-    flex: 1; /* 占据剩余所有空间 */
-    height: 100%;
-    position: relative;
-    overflow: visible; /* 允许内部 track 自由延伸 */
+    flex: 1;
+    height: 65vh; /* 限制高度，防止由于高度过大导致模糊或覆盖 */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
 }
 
-/* 建立一个独立的横向滚动视窗 */
 .magazine-container {
     width: 100%;
     height: 100%;
-    overflow-x: auto; /* 必须：强制开启横向滚动 */
+    overflow-x: auto; /* 核心：允许横向溢出 */
     overflow-y: hidden;
-    white-space: nowrap; /* 强制内容不换行 */
+    white-space: nowrap;
     cursor: grab;
-    
-    /* 解决部分浏览器不显示滚动条导致无法滑动的问题 */
-    scrollbar-width: auto; 
-    -webkit-overflow-scrolling: touch;
+    /* 解决滑动冲突 */
+    touch-action: pan-x; 
 }
 
-/* 自定义滚动条样式，增加引导感 */
-.magazine-container::-webkit-scrollbar {
-    height: 6px;
-}
-.magazine-container::-webkit-scrollbar-thumb {
-    background: var(--red);
-    border-radius: 10px;
-}
+/* 隐藏滚动条但保留功能 */
+.magazine-container::-webkit-scrollbar { height: 4px; }
+.magazine-container::-webkit-scrollbar-thumb { background: var(--red); }
 
-/* --- 4. 图片轨道：根据内容自动撑开宽度 --- */
 .magazine-track {
-    display: inline-flex; /* 必须：让容器宽度随图片内容无限延伸 */
-    height: 90%; /* 给上下留出 5% 的呼吸感，防止被裁切 */
+    display: flex;
+    height: 100%;
+    width: max-content; /* 核心：宽度随图片伸展 */
+    gap: 30px;
     align-items: center;
-    gap: 40px;
-    padding: 20px 0;
 }
 
-/* --- 5. 页面样式：比例优先 --- */
 .mag-page {
-    flex: 0 0 auto; /* 极其重要：禁止图片被缩放或挤压 */
-    height: 100%; 
-    position: relative;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-    background: #111;
+    flex-shrink: 0;
+    height: 90%; /* 给上下留出呼吸空间 */
+    background: #000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-/* 根据杂志常见的 1:1.41 比例设定 */
-.mag-page.single {
-    width: auto;
-    aspect-ratio: 1 / 1.414;
-}
-
-.mag-page.spread {
-    width: auto;
-    aspect-ratio: 2 / 1.414;
-}
+/* 比例修正 */
+.mag-page.single { aspect-ratio: 1 / 1.414; width: auto; }
+.mag-page.spread { aspect-ratio: 2 / 1.414; width: auto; }
 
 .mag-page img {
-    height: 100%; /* 以高度为准 */
+    height: 100%;
     width: auto;
-    object-fit: contain; /* 绝对不裁切，保证完整显示 */
+    object-fit: contain; /* 绝不裁切 */
     display: block;
-    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.page-tag {
-    position: absolute;
-    bottom: -35px;
-    left: 0;
-    font-size: 10px;
-    color: var(--grey);
-    font-family: 'Bebas Neue';
-}
-
-
-/* --- 3. 动画与辅助 --- */
-@keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
-.mag-scroll-hint { color: var(--red); font-size: 10px; margin-top: 10px; animation: pulse 2s infinite; text-align: center; }
+/* ============================================================
+   5. OTHER ELEMENTS (补全缺失样式)
+   ============================================================ */
+.section-title-alt { font-family: 'Bebas Neue'; font-size: 1.5rem; color: var(--red); letter-spacing: 4px; }
+.work-context { font-size: 0.9rem; color: var(--grey); line-height: 1.8; margin-bottom: 30px; }
+.logic-tag { border-left: 3px solid var(--red); padding-left: 15px; color: var(--red); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+.scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); font-size: 0.7rem; color: var(--grey); letter-spacing: 3px; }
