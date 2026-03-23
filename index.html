@@ -7,29 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-
-    <script>
-    // 1. 头像交互逻辑 (保留)
-    const avatarImg = document.querySelector('.hero-avatar');
-    document.addEventListener('mousemove', (e) => {
-        let xAxis = (window.innerWidth / 2 - e.pageX) / 25; 
-        let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-        if (avatarImg) avatarImg.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg) scale(1.05)`;
-    });
-
-    // 2. 核心：强制开启横向滚轮滑动
-    const magContainer = document.querySelector('.magazine-container');
-    if (magContainer) {
-        magContainer.addEventListener('wheel', (evt) => {
-            // 只有当图片宽度超过容器时才拦截滚动
-            if (magContainer.scrollWidth > magContainer.clientWidth) {
-                evt.preventDefault();
-                magContainer.scrollLeft += evt.deltaY;
-            }
-        }, { passive: false });
-    }
-</script>
-    
 <body>
 
 <div class="main-container">
@@ -79,87 +56,23 @@
                             <span class="page-tag">P02-03 / CONCEPT</span>
                         </div>
                         <div class="mag-page spread">
-                            <img src="images/Spread2.jpg" alt="Spread 2">
-                            <span class="page-tag">P04-05 / LOGIC</span>
-                        </div>
-                        <div class="mag-page spread">
-                            <img src="images/Spread3.jpg" alt="Spread 3">
-                            <span class="page-tag">P06-07 / VISUAL</span>
-                        </div>
-                        <div class="mag-page spread">
-                            <img src="images/Spread4.jpg" alt="Spread 4">
-                            <span class="page-tag">P08-09 / DETAIL</span>
-                        </div>
-                        <div class="mag-page spread">
-                            <img src="images/Spread5.jpg" alt="Spread 5">
-                            <span class="page-tag">P10-11 / COMPOSITION</span>
-                        </div>
-                        <div class="mag-page spread">
-                            <img src="images/Spread6.jpg" alt="Spread 6">
-                            <span class="page-tag">P12-13 / TEXTURE</span>
-                        </div>
-                        <div class="mag-page spread">
                             <img src="images/Spread7.jpg" alt="Spread 7">
                             <span class="page-tag">P14-15 / ENDING</span>
                         </div>
                     </div>
                 </div>
-                <div class="mag-scroll-hint">← SWIPE TO READ →</div>
+                <div class="mag-scroll-hint">← SWIPE OR USE WHEEL TO READ →</div>
             </div>
         </div>
     </section>
 
-    <section class="snap-section work-video">
-        <div class="work-container invert">
-            <div class="work-description">
-                <h3 class="section-title-alt">02. MOTION</h3>
-                <h4 class="work-name">AE SHOWREEL / 2:00</h4>
-                <p class="work-context">结合 AIGC 生成的视觉资产，通过 After Effects 进行后期合成与动态转场，构建一个完整的数字感官世界。</p>
-                <div class="logic-tag">AIGC WORKFLOW: MJ -> AE -> RENDERING</div>
-            </div>
-            <div class="video-display">
-                <div class="video-placeholder">
-                    <span>[ AE SHOWREEL CONTENT ]</span>
-                    <div class="play-btn"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="snap-section work-mixed">
-        <div class="audio-box">
-            <h3 class="section-title-alt">03. AUDITORY</h3>
-            <h4 class="work-name-small">8 MIN PODCAST</h4>
-            <p class="work-context">数字文化深度探讨：关于 AIGC 伦理与未来传播的叙事。</p>
-            <div class="wave-visualizer"></div> 
-            <div class="logic-tag">MEDIUM: MULTIMODAL PODCAST</div>
-        </div>
-        <div class="photo-box">
-            <h3 class="section-title-alt">04. LENS</h3>
-            <h4 class="work-name-small">ASTROPHOTOGRAPHY</h4>
-            <p class="work-context">捕捉不可见之美：澳洲内陆星空与景观摄影集。</p>
-            <div class="photo-preview">VIEW GALLERY</div>
-            <div class="logic-tag">SKILL: LOW-LIGHT CAPTURE</div>
-        </div>
-    </section>
-
-    <section class="snap-section logic-page">
-        <div class="logic-content">
-            <h3 class="section-title-alt">GENESIS LOGIC</h3>
-            <p class="mono-text">PROMPT > [SURREALISM] + [RED_#CE2028] + [DIGITAL_SOUL]</p>
-            <div class="logic-flow">
-                <p>WORKFLOW: PROMPT ENGINEERING > GEN-AI ASSET > MANUAL CURATION > MULTIMEDIA OUTPUT</p>
-                <p style="margin-top: 20px; color: #fff;">展示 AIGC 辅助设计的工作流与专业逻辑背书</p>
-            </div>
-        </div>
-    </section>
-</div>
+    </div>
 
 <script>
-    const avatarContainer = document.querySelector('.avatar-container');
     const avatarImg = document.querySelector('.hero-avatar');
+    const magContainer = document.querySelector('.magazine-container');
 
-    // 3D 视线跟随
+    // 1. 头像 3D 跟随效果
     document.addEventListener('mousemove', (e) => {
         let xAxis = (window.innerWidth / 2 - e.pageX) / 25; 
         let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
@@ -168,27 +81,14 @@
         }
     });
 
-    avatarContainer.addEventListener('mouseenter', () => {
-        avatarImg.style.transition = 'none';
-    });
-
-    avatarContainer.addEventListener('mouseleave', () => {
-        avatarImg.style.transition = 'all 0.5s ease';
-        avatarImg.style.transform = `rotateY(0deg) rotateX(0deg) scale(1)`;
-    });
-
-    // 随机数字扰动
-    setInterval(() => {
-        if (Math.random() > 0.95) { 
-            avatarImg.style.filter = 'none';
-            avatarImg.style.boxShadow = '20px 0 0 rgba(206, 32, 40, 0.3), -20px 0 0 rgba(128, 128, 128, 0.2)';
-            setTimeout(() => {
-                avatarImg.style.filter = 'grayscale(100%) contrast(1.1)';
-                avatarImg.style.boxShadow = 'none';
-            }, 120);
-        }
-    }, 1000);
+    // 2. 杂志横向滚动锁定 (解决无法滑动的问题)
+    if (magContainer) {
+        magContainer.addEventListener('wheel', (evt) => {
+            // 只要鼠标在杂志区域，就强行把纵向滚动转为横向
+            evt.preventDefault();
+            magContainer.scrollLeft += evt.deltaY;
+        }, { passive: false });
+    }
 </script>
-
 </body>
 </html>
