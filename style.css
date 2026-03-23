@@ -1,145 +1,57 @@
-/* ============================================================
-   1. 基础复原 (字体与颜色)
-   ============================================================ */
-:root {
-    --red: #CE2028;
-    --black: #050505;
-    --white: #FFFFFF;
-    --grey: #808080;
-}
-
+/* --- 基础设定 --- */
+:root { --red: #CE2028; --black: #050505; --white: #FFFFFF; --grey: #808080; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
+body, html { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; overflow: hidden; }
 
-body, html {
-    background-color: var(--black);
-    color: var(--white);
-    font-family: 'Montserrat', sans-serif;
-    overflow: hidden; 
-}
-
+/* --- 纵向滚动吸附 --- */
 .main-container {
     height: 100vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
+    background: var(--black);
 }
-
 .snap-section {
     height: 100vh;
     width: 100%;
     scroll-snap-align: start;
-    position: relative;
     display: flex;
     align-items: center;
     padding: 0 8%;
-}
-
-/* ============================================================
-   2. HERO 样式复原 (找回你的信息介绍设计)
-   ============================================================ */
-.hero { background: radial-gradient(circle at 70%, #1a0505 0%, var(--black) 70%); }
-
-.text-info { flex: 0 0 60%; }
-
-.glitch-text {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(4rem, 10vw, 8rem);
-    line-height: 0.9;
-    margin-bottom: 20px;
-    letter-spacing: -2px;
-}
-
-.role-tag {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
-    color: var(--red);
-    letter-spacing: 2px;
-    margin-bottom: 30px;
-}
-
-/* 重点：恢复你的 bio 和标签设计 */
-.bio-box { margin: 30px 0; }
-.edu { font-weight: 500; color: var(--white); margin-bottom: 8px; font-size: 1.1rem; }
-.desc { font-weight: 300; color: var(--grey); line-height: 1.8; font-size: 0.95rem; }
-
-.skill-labels { margin-top: 30px; display: flex; gap: 10px; }
-.skill-labels span {
-    border: 1px solid var(--red);
-    padding: 5px 15px;
-    font-size: 0.7rem;
-    color: var(--red);
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-/* 恢复头像比例 */
-.avatar-container { width: 35%; perspective: 1000px; }
-.hero-avatar {
-    width: 100%;
-    filter: grayscale(100%) contrast(1.1);
-    transition: transform 0.1s ease-out; /* 缩短跟随延迟 */
-    border-radius: 5px;
-}
-
-/* ============================================================
-   3. 杂志板块样式 (保持尺寸正确 + 允许滑动)
-   ============================================================ */
-.magazine-display {
-    flex: 1;
-    height: 60vh;
+    position: relative;
     overflow: hidden;
-    display: flex;
-    align-items: center;
 }
 
+/* --- HERO 复原 --- */
+.hero { background: radial-gradient(circle at 70%, #1a0505 0%, var(--black) 70%); }
+.glitch-text { font-family: 'Bebas Neue'; font-size: clamp(4rem, 10vw, 8rem); line-height: 0.9; margin-bottom: 20px; }
+.role-tag { font-family: 'Bebas Neue'; font-size: 1.8rem; color: var(--red); letter-spacing: 2px; }
+.bio-box { margin: 30px 0; }
+.edu { font-weight: 700; font-size: 1.1rem; margin-bottom: 5px; }
+.desc { font-weight: 300; color: var(--grey); line-height: 1.6; }
+.skill-labels span { border: 1px solid var(--red); padding: 5px 12px; font-size: 0.7rem; color: var(--red); margin-right: 10px; font-weight: 700; }
+.avatar-container { width: 35%; perspective: 1000px; }
+.hero-avatar { width: 100%; filter: grayscale(100%); transition: transform 0.1s; border-radius: 4px; }
+
+/* --- 杂志板块 (精确控制) --- */
+.work-container { display: flex; align-items: center; width: 100%; gap: 50px; }
+.work-description { flex: 0 0 300px; }
+.work-name { font-family: 'Bebas Neue'; font-size: 3rem; margin: 15px 0; }
+.section-title-alt { font-family: 'Bebas Neue'; color: var(--red); font-size: 1.5rem; letter-spacing: 3px; }
+.logic-tag { border-left: 3px solid var(--red); padding-left: 15px; color: var(--red); font-weight: 700; font-size: 0.7rem; }
+
+/* 关键：杂志显示区域 */
+.magazine-display { flex: 1; height: 60vh; position: relative; }
 .magazine-container {
-    width: 100%;
-    height: 100%;
-    overflow-x: auto; /* 开启横向溢出 */
-    overflow-y: hidden;
-    white-space: nowrap;
-    padding-bottom: 20px;
+    width: 100%; height: 100%;
+    overflow-x: auto; overflow-y: hidden;
+    white-space: nowrap; scrollbar-width: none;
 }
-
-/* 隐藏滚动条 */
 .magazine-container::-webkit-scrollbar { display: none; }
 
-.magazine-track {
-    display: flex;
-    height: 100%;
-    width: max-content;
-    gap: 30px;
-    align-items: center;
-}
-
-.mag-page {
-    flex-shrink: 0;
-    height: 90%;
-    background: #000;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    position: relative;
-}
-
-.mag-page.single { aspect-ratio: 1 / 1.414; width: auto; }
-.mag-page.spread { aspect-ratio: 2 / 1.414; width: auto; }
-
-.mag-page img { height: 100%; width: auto; object-fit: contain; display: block; }
-
-.page-tag {
-    position: absolute;
-    bottom: -25px; left: 0;
-    font-size: 0.6rem; color: var(--grey);
-}
-
-.mag-scroll-hint {
-    color: var(--red); font-size: 0.7rem; letter-spacing: 2px;
-    text-align: center; margin-top: 15px; opacity: 0.6;
-}
-
-/* ============================================================
-   4. 通用组件 (确保 Section 标题等恢复)
-   ============================================================ */
-.work-name { font-family: 'Bebas Neue'; font-size: 3rem; color: white; margin-bottom: 15px; }
-.section-title-alt { font-family: 'Bebas Neue'; font-size: 1.5rem; color: var(--red); letter-spacing: 4px; }
-.logic-tag { border-left: 3px solid var(--red); padding-left: 15px; color: var(--red); font-weight: 700; font-size: 0.75rem; }
-.scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); font-size: 0.7rem; color: var(--grey); letter-spacing: 3px; }
+.magazine-track { display: flex; height: 100%; width: max-content; align-items: center; gap: 30px; }
+.mag-page { flex-shrink: 0; height: 95%; background: #111; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.mag-page.single { aspect-ratio: 1 / 1.41; }
+.mag-page.spread { aspect-ratio: 2 / 1.41; }
+.mag-page img { height: 100%; width: 100%; object-fit: contain; display: block; }
+.page-tag { position: absolute; bottom: -25px; left: 0; font-size: 0.6rem; color: var(--grey); }
+.mag-scroll-hint { color: var(--red); font-size: 0.6rem; text-align: center; margin-top
