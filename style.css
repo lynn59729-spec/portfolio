@@ -1,4 +1,4 @@
-/* --- 1. 全局样式 --- */
+/* --- 1. 基础全局设定 --- */
 :root {
     --red: #CE2028;
     --black: #050505;
@@ -9,16 +9,18 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body, html {
-    background-color: var(--black);
+    background: var(--black);
     color: var(--white);
     font-family: 'Montserrat', sans-serif;
     overflow: hidden; 
 }
 
+/* --- 2. 纵向吸附容器 --- */
 .main-container {
     height: 100vh;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
 }
 
 .snap-section {
@@ -29,99 +31,74 @@ body, html {
     align-items: center;
     padding: 0 8%;
     position: relative;
-    overflow: hidden;
+    flex-shrink: 0;
 }
 
-/* --- 2. HERO SECTION 样式回归 --- */
+/* --- 3. HERO 视觉微调 (22% 比例头像) --- */
 .hero { background: radial-gradient(circle at 70%, #1a0505 0%, var(--black) 70%); }
 .content-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
 
-.glitch-text { font-family: 'Bebas Neue'; font-size: clamp(4rem, 10vw, 8rem); line-height: 0.9; margin-bottom: 20px; }
-.role-tag { font-family: 'Bebas Neue'; font-size: 1.8rem; color: var(--red); letter-spacing: 2px; }
+.text-info { flex: 0 0 65%; }
+.glitch-text { font-family: 'Bebas Neue'; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 0.9; margin-bottom: 20px; }
+.role-tag { font-family: 'Bebas Neue'; font-size: 1.6rem; color: var(--red); letter-spacing: 2px; }
 
-.bio-box { margin: 30px 0; }
-.edu { font-weight: 700; font-size: 1.1rem; color: var(--white); margin-bottom: 8px; }
-.desc { font-weight: 300; font-size: 0.95rem; color: var(--grey); line-height: 1.8; }
+.bio-box { margin: 25px 0; }
+.edu { font-weight: 700; font-size: 1rem; margin-bottom: 5px; color: var(--white); }
+.desc { font-weight: 300; font-size: 0.88rem; color: var(--grey); line-height: 1.7; }
 
 .skill-labels { display: flex; gap: 10px; margin-top: 20px; }
 .skill-labels span {
     border: 1px solid var(--red);
-    padding: 5px 12px;
-    font-size: 0.7rem;
+    padding: 4px 10px;
+    font-size: 0.65rem;
     color: var(--red);
     font-weight: 700;
+    letter-spacing: 1px;
 }
 
-/* 头像比例严格锁定 35% */
-
+/* 核心修改：让头像更精致 */
 .avatar-container { 
-    flex: 0 0 25% !important; /* 强制缩小到 25% */
+    flex: 0 0 22%; 
+    max-width: 250px; 
     perspective: 1000px;
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 4%; 
+    margin-left: auto;
+}
+.hero-avatar { 
+    width: 100%; 
+    filter: grayscale(100%) contrast(1.1); 
+    transition: transform 0.1s ease-out; 
+    border-radius: 4px; 
 }
 
-/* 保持头像本身宽度为容器的 100% */
-.hero-avatar {
-    width: 100%;
-    max-width: 280px; /* 给一个硬性的最大宽度上限 */
-    filter: grayscale(100%) contrast(1.1);
-    transition: transform 0.1s ease-out;
-    border-radius: 4px;
-}
-
-/* --- 3. 杂志板块样式 (修复显示与滑动) --- */
-.work-container { display: flex; align-items: center; width: 100%; gap: 60px; }
+/* --- 4. 杂志板块显示修复 --- */
+.work-container { display: flex; align-items: center; width: 100%; gap: 50px; }
 .work-container.invert { flex-direction: row-reverse; }
 
 .work-description { flex: 0 0 300px; }
-.section-title-alt { font-family: 'Bebas Neue'; font-size: 1.5rem; color: var(--red); letter-spacing: 4px; }
-.work-name { font-family: 'Bebas Neue'; font-size: 3rem; margin: 15px 0; }
-.work-context { font-size: 0.9rem; color: var(--grey); line-height: 1.6; margin-bottom: 25px; }
-.logic-tag { border-left: 3px solid var(--red); padding-left: 15px; color: var(--red); font-weight: 700; font-size: 0.75rem; }
+.section-title-alt { font-family: 'Bebas Neue'; font-size: 1.4rem; color: var(--red); letter-spacing: 4px; }
+.work-name { font-family: 'Bebas Neue'; font-size: 2.8rem; margin: 10px 0; }
+.work-context { font-size: 0.85rem; color: var(--grey); line-height: 1.6; margin-bottom: 20px; }
+.logic-tag { border-left: 2px solid var(--red); padding-left: 12px; color: var(--red); font-weight: 700; font-size: 0.7rem; }
 
-.magazine-display { 
-    flex: 1; 
-    height: 60vh; 
-    position: relative;
-    /* 核心修复：防止纵向溢出干扰 */
-    overflow: hidden; 
-}
+/* 杂志视口控制 */
+.magazine-display { flex: 1; height: 55vh; position: relative; overflow: visible; }
 .magazine-container {
-    width: 100%; 
-    height: 100%;
-    /* 开启原生平滑滚动 */
-    overflow-x: auto; 
-    overflow-y: hidden;
-    white-space: nowrap;
-    /* 隐藏滚动条但保留功能 */
-    scrollbar-width: none; 
-    -ms-overflow-style: none;
-    /* 关键：允许在这里进行触摸和滚轮交互 */
-    touch-action: pan-x; 
-    scroll-snap-type: x mandatory; /* 杂志内部也加吸附，手感更好 */
+    width: 100%; height: 100%;
+    overflow-x: auto; overflow-y: hidden;
+    white-space: nowrap; scrollbar-width: none;
 }
-
 .magazine-container::-webkit-scrollbar { display: none; }
 
-.mag-page { 
-    height: 100%; 
-    flex-shrink: 0; 
-    scroll-snap-align: center; /* 每次滚动停在页面中间 */
-    margin-right: 40px;
-}
+.magazine-track { display: flex; height: 100%; align-items: center; gap: 30px; }
+.mag-page { height: 95%; flex-shrink: 0; position: relative; box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
 
-/* 页面比例修正 */
-.mag-page.single { aspect-ratio: 1 / 1.414; }
-.mag-page.spread { aspect-ratio: 2 / 1.414; }
+.mag-page.single { aspect-ratio: 1 / 1.41; }
+.mag-page.spread { aspect-ratio: 2 / 1.41; }
 
 .mag-page img { height: 100%; width: 100%; object-fit: contain; display: block; }
-.page-tag { position: absolute; bottom: -30px; left: 0; font-size: 0.6rem; color: var(--grey); font-family: 'Montserrat'; }
+.page-tag { position: absolute; bottom: -25px; left: 0; font-size: 0.6rem; color: var(--grey); }
 
-.mag-scroll-hint { position: absolute; bottom: -50px; width: 100%; text-align: center; color: var(--red); font-size: 0.6rem; letter-spacing: 2px; opacity: 0.6; }
-
-/* --- 4. 辅助样式 --- */
-.scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); font-size: 0.7rem; color: var(--grey); letter-spacing: 3px; }
-
-.video-display { flex: 1; height: 50vh; background: #111; display: flex; align-items: center; justify-content: center; border: 1px solid #333; }
+/* --- 5. 辅助元素 --- */
+.scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); font-size: 0.65rem; color: var(--grey); letter-spacing: 3px; opacity: 0.6; }
+.video-display { flex: 1; height: 50vh; background: #0a0a0a; display: flex; align-items: center; justify-content: center; border: 1px solid #222; }
+.mag-scroll-hint { color: var(--red); font-size: 0.
