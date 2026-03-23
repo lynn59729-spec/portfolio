@@ -42,82 +42,111 @@ body, html {
 .role-tag { color: var(--red); font-family: 'Bebas Neue'; font-size: 1.5rem; letter-spacing: 2px; }
 
 /* --- 2. 杂志板块核心 (修复读取与显示) --- */
-/* --- 1. 调整外层显示区 --- */
-.magazine-display {
-    flex: 1;
-    height: 75vh; /* 稍微调高一点，给杂志留出呼吸空间 */
+/* --- 1. 重新定义杂志板块的外框 --- */
+.work-magazine {
     display: flex;
-    flex-direction: column;
-    justify-content: center; /* 垂直居中 */
-    overflow: hidden;
-    padding: 20px 0;
+    align-items: center;
+    justify-content: flex-start; /* 靠左对齐，给右侧展示留出流出感 */
+    padding: 0 5%;
+    background: var(--black);
+    position: relative;
+    overflow: hidden; /* 整体板块不溢出，但内部容器开启滑动 */
 }
 
-/* --- 2. 滑动容器：禁止裁切 --- */
+.work-container {
+    display: flex;
+    flex-direction: row; /* 强制横向排布文字与作品 */
+    width: 100%;
+    height: 85vh; /* 占据屏幕绝大部分高度 */
+    align-items: center;
+    gap: 30px;
+}
+
+/* --- 2. 文字介绍区（固定宽度，不随滑动移动） --- */
+.work-description {
+    flex: 0 0 280px; /* 给文字一个固定宽度，不被挤压 */
+    z-index: 10;
+    background: var(--black); /* 确保文字背景不透明 */
+    padding-right: 20px;
+}
+
+/* --- 3. 核心展示区：这是解决“显示不全”的关键 --- */
+.magazine-display {
+    flex: 1; /* 占据剩余所有空间 */
+    height: 100%;
+    position: relative;
+    overflow: visible; /* 允许内部 track 自由延伸 */
+}
+
+/* 建立一个独立的横向滚动视窗 */
 .magazine-container {
     width: 100%;
     height: 100%;
-    overflow-x: auto;
-    overflow-y: hidden; /* 绝对禁止纵向溢出 */
-    white-space: nowrap;
-    padding-bottom: 30px; /* 为底部的页码标签留出空间 */
-    -webkit-overflow-scrolling: touch; /* 优化移动端滑动 */
+    overflow-x: auto; /* 必须：强制开启横向滚动 */
+    overflow-y: hidden;
+    white-space: nowrap; /* 强制内容不换行 */
+    cursor: grab;
+    
+    /* 解决部分浏览器不显示滚动条导致无法滑动的问题 */
+    scrollbar-width: auto; 
+    -webkit-overflow-scrolling: touch;
 }
 
-/* 隐藏滚动条但保留功能 */
+/* 自定义滚动条样式，增加引导感 */
 .magazine-container::-webkit-scrollbar {
-    height: 3px;
+    height: 6px;
 }
 .magazine-container::-webkit-scrollbar-thumb {
     background: var(--red);
+    border-radius: 10px;
 }
 
-/* --- 3. 轨道：根据内容自动撑开 --- */
+/* --- 4. 图片轨道：根据内容自动撑开宽度 --- */
 .magazine-track {
-    display: inline-flex; /* 改为 inline-flex 确保宽度能无限延伸 */
-    height: 100%;
+    display: inline-flex; /* 必须：让容器宽度随图片内容无限延伸 */
+    height: 90%; /* 给上下留出 5% 的呼吸感，防止被裁切 */
     align-items: center;
-    gap: 40px; /* 增加页面间距，更有策展感 */
+    gap: 40px;
+    padding: 20px 0;
 }
 
-/* --- 4. 页面：核心显示逻辑 --- */
+/* --- 5. 页面样式：比例优先 --- */
 .mag-page {
-    flex-shrink: 0;
-    height: 90%; /* 图片高度占容器的 90%，防止贴边 */
+    flex: 0 0 auto; /* 极其重要：禁止图片被缩放或挤压 */
+    height: 100%; 
     position: relative;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    background: #111;
 }
 
-/* 根据杂志常规比例设置宽度（这里是关键） */
+/* 根据杂志常见的 1:1.41 比例设定 */
 .mag-page.single {
-    aspect-ratio: 1 / 1.414; /* A4 比例 */
-    width: auto; /* 宽度随高度自适应 */
+    width: auto;
+    aspect-ratio: 1 / 1.414;
 }
 
 .mag-page.spread {
-    aspect-ratio: 2 / 1.414; /* 跨页比例 */
     width: auto;
+    aspect-ratio: 2 / 1.414;
 }
 
 .mag-page img {
-    width: 100%;
-    height: 100%;
-    /* 🛠️ 最关键的一行：使用 contain 确保图片完整显示，绝不裁切 */
-    object-fit: contain; 
+    height: 100%; /* 以高度为准 */
+    width: auto;
+    object-fit: contain; /* 绝对不裁切，保证完整显示 */
     display: block;
-    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* 页码标签位置修正 */
 .page-tag {
     position: absolute;
-    bottom: -25px;
+    bottom: -35px;
     left: 0;
     font-size: 10px;
-    font-family: 'Montserrat';
     color: var(--grey);
-    text-transform: uppercase;
+    font-family: 'Bebas Neue';
 }
+
 
 /* --- 3. 动画与辅助 --- */
 @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
