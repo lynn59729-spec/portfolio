@@ -36,7 +36,13 @@ body, html {
 
 /* --- 3. HERO 视觉微调 (22% 比例头像) --- */
 .hero { background: radial-gradient(circle at 70%, #1a0505 0%, var(--black) 70%); }
-.content-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.content-wrapper { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%; 
+    min-height: 60vh; /* 新增：保证基础高度 */
+}
 
 .text-info { flex: 0 0 65%; }
 .glitch-text { font-family: 'Bebas Neue'; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 0.9; margin-bottom: 20px; }
@@ -81,7 +87,13 @@ body, html {
 .logic-tag { border-left: 2px solid var(--red); padding-left: 12px; color: var(--red); font-weight: 700; font-size: 0.7rem; }
 
 /* 杂志视口控制 */
-.magazine-display { flex: 1; height: 55vh; position: relative; overflow: visible; }
+.magazine-display { 
+    flex: 1; 
+    height: 60vh; 
+    min-width: 0; /* 修复 Flex 布局下的溢出问题 */
+    position: relative; 
+}
+
 .magazine-container {
     width: 100%; height: 100%;
     overflow-x: auto; overflow-y: hidden;
@@ -95,7 +107,14 @@ body, html {
 .mag-page.single { aspect-ratio: 1 / 1.41; }
 .mag-page.spread { aspect-ratio: 2 / 1.41; }
 
-.mag-page img { height: 100%; width: 100%; object-fit: contain; display: block; }
+.mag-page img { 
+    height: 100%; 
+    width: auto; /* 改为 auto，让它根据比例自适应 */
+    object-fit: contain; 
+    display: block;
+    background: #111; /* 临时加个背景，如果图片没出来，你会看到黑块，说明容器在 */
+}
+
 .page-tag { position: absolute; bottom: -25px; left: 0; font-size: 0.6rem; color: var(--grey); }
 
 /* --- 5. 辅助元素 --- */
