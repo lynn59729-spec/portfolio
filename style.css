@@ -101,4 +101,4 @@ body, html {
 /* --- 5. 辅助元素 --- */
 .scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); font-size: 0.65rem; color: var(--grey); letter-spacing: 3px; opacity: 0.6; }
 .video-display { flex: 1; height: 50vh; background: #0a0a0a; display: flex; align-items: center; justify-content: center; border: 1px solid #222; }
-.mag-scroll-hint { color: var(--red); font-size: 0.
+.mag-scroll-hint { color: var(--red); font-size: 0.6rem; margin-top: 35px; text-align: center; opacity: 0.5; letter-spacing: 1px; }
