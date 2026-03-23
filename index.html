@@ -103,42 +103,44 @@
 
 <script>
     <script>
-    // 1. 头像 3D 跟随 (优化了灵敏度，更平滑)
+   <script>
+    // 1. 头像交互逻辑 (保持 3D 效果)
     const avatar = document.querySelector('.hero-avatar');
     document.addEventListener('mousemove', (e) => {
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 35;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 35;
         if(avatar) {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 35;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 35;
             avatar.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg) scale(1.02)`;
         }
     });
 
-    // 2. 核心：强制解除 Snap-Scroll 对杂志区域的锁定
-    function initMagazineScroll() {
-        const mag = document.getElementById('magScroll');
-        if (!mag) return;
+    // 2. 核心：强制拦截与吸附切换
+    const magContainer = document.getElementById('magScroll');
+    const mainWrapper = document.querySelector('.main-container');
 
-        // 使用 wheel 事件拦截
-        mag.addEventListener('wheel', (e) => {
-            const isAtEnd = mag.scrollLeft + mag.clientWidth >= mag.scrollWidth - 10;
-            const isAtStart = mag.scrollLeft <= 10;
+    if (magContainer && mainWrapper) {
+        // 当鼠标进入杂志区，关掉整页吸附，防止被“吸走”
+        magContainer.addEventListener('mouseenter', () => {
+            mainWrapper.style.scrollSnapType = 'none';
+        });
 
-            // 关键逻辑：只要不是在“最左且往上滚”或“最右且往下滚”，就截断全局滚动
-            if (e.deltaY > 0 && !isAtEnd) {
+        // 鼠标离开，恢复吸附
+        magContainer.addEventListener('mouseleave', () => {
+            mainWrapper.style.scrollSnapType = 'y mandatory';
+        });
+
+        // 强力接管滚轮
+        magContainer.addEventListener('wheel', (e) => {
+            const isAtEnd = magContainer.scrollLeft + magContainer.clientWidth >= magContainer.scrollWidth - 10;
+            const isAtStart = magContainer.scrollLeft <= 10;
+
+            // 只有在没滑到头的时候，才阻止整页滚动
+            if ((e.deltaY > 0 && !isAtEnd) || (e.deltaY < 0 && !isAtStart)) {
                 e.preventDefault();
-                mag.scrollLeft += e.deltaY * 1.2; // 略微加速，手感更丝滑
-            } else if (e.deltaY < 0 && !isAtStart) {
-                e.preventDefault();
-                mag.scrollLeft += e.deltaY * 1.2;
+                magContainer.scrollLeft += e.deltaY * 1.5; // 加快滑动感
             }
-        }, { passive: false }); // 必须为 false 才能执行 preventDefault
+        }, { passive: false });
     }
-
-    // 确保 DOM 加载后立即执行
-    window.onload = initMagazineScroll;
-    
-    // 应对 GitHub Pages 可能的延迟加载，再加一层保障
-    document.addEventListener('DOMContentLoaded', initMagazineScroll);
 </script>
 </script>
 
