@@ -86,7 +86,7 @@
         </div>
     </section>
 
-    <section class="snap-section">
+   <section class="snap-section">
         <div class="work-container invert">
             <div class="work-description">
                 <h3 class="section-title-alt">02. MOTION</h3>
@@ -102,9 +102,7 @@
 </div>
 
 <script>
-    <script>
-   <script>
-    // 1. 头像交互逻辑 (保持 3D 效果)
+    // 1. 头像交互逻辑
     const avatar = document.querySelector('.hero-avatar');
     document.addEventListener('mousemove', (e) => {
         if(avatar) {
@@ -119,7 +117,7 @@
     const mainWrapper = document.querySelector('.main-container');
 
     if (magContainer && mainWrapper) {
-        // 当鼠标进入杂志区，关掉整页吸附，防止被“吸走”
+        // 当鼠标进入杂志区，关掉整页吸附
         magContainer.addEventListener('mouseenter', () => {
             mainWrapper.style.scrollSnapType = 'none';
         });
@@ -129,20 +127,18 @@
             mainWrapper.style.scrollSnapType = 'y mandatory';
         });
 
-        // 强力接管滚轮
+        // 强力接管滚轮：哪怕微小的滚动也会被捕捉
         magContainer.addEventListener('wheel', (e) => {
             const isAtEnd = magContainer.scrollLeft + magContainer.clientWidth >= magContainer.scrollWidth - 10;
             const isAtStart = magContainer.scrollLeft <= 10;
 
-            // 只有在没滑到头的时候，才阻止整页滚动
+            // 只要没到边缘，就只准横向滑
             if ((e.deltaY > 0 && !isAtEnd) || (e.deltaY < 0 && !isAtStart)) {
                 e.preventDefault();
-                magContainer.scrollLeft += e.deltaY * 1.5; // 加快滑动感
+                magContainer.scrollLeft += e.deltaY * 1.5; 
             }
         }, { passive: false });
     }
 </script>
-</script>
-
 </body>
 </html>
