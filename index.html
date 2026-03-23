@@ -102,26 +102,44 @@
 </div>
 
 <script>
-    // 1. 头像 3D 跟随交互
+    <script>
+    // 1. 头像 3D 跟随 (优化了灵敏度，更平滑)
     const avatar = document.querySelector('.hero-avatar');
     document.addEventListener('mousemove', (e) => {
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 30;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 30;
-        if(avatar) avatar.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg) scale(1.05)`;
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 35;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 35;
+        if(avatar) {
+            avatar.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg) scale(1.02)`;
+        }
     });
 
-    // 2. 核心：接管杂志滚动，防止 Snap-Scroll 干扰
-    const mag = document.getElementById('magScroll');
-    mag.addEventListener('wheel', (e) => {
-        const isAtEnd = mag.scrollLeft + mag.clientWidth >= mag.scrollWidth - 5;
-        const isAtStart = mag.scrollLeft <= 5;
+    // 2. 核心：强制解除 Snap-Scroll 对杂志区域的锁定
+    function initMagazineScroll() {
+        const mag = document.getElementById('magScroll');
+        if (!mag) return;
 
-        // 如果在杂志区域向上/下滚，且没到边界，强行让杂志横移，不准页面翻页
-        if ((e.deltaY > 0 && !isAtEnd) || (e.deltaY < 0 && !isAtStart)) {
-            e.preventDefault();
-            mag.scrollLeft += e.deltaY;
-        }
-    }, { passive: false });
+        // 使用 wheel 事件拦截
+        mag.addEventListener('wheel', (e) => {
+            const isAtEnd = mag.scrollLeft + mag.clientWidth >= mag.scrollWidth - 10;
+            const isAtStart = mag.scrollLeft <= 10;
+
+            // 关键逻辑：只要不是在“最左且往上滚”或“最右且往下滚”，就截断全局滚动
+            if (e.deltaY > 0 && !isAtEnd) {
+                e.preventDefault();
+                mag.scrollLeft += e.deltaY * 1.2; // 略微加速，手感更丝滑
+            } else if (e.deltaY < 0 && !isAtStart) {
+                e.preventDefault();
+                mag.scrollLeft += e.deltaY * 1.2;
+            }
+        }, { passive: false }); // 必须为 false 才能执行 preventDefault
+    }
+
+    // 确保 DOM 加载后立即执行
+    window.onload = initMagazineScroll;
+    
+    // 应对 GitHub Pages 可能的延迟加载，再加一层保障
+    document.addEventListener('DOMContentLoaded', initMagazineScroll);
+</script>
 </script>
 
 </body>
