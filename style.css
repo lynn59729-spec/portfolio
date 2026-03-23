@@ -206,3 +206,16 @@ body, html {
 .magazine-display, .video-display {
     flex: 1;
 }
+
+.magazine-track {
+    display: flex;
+    gap: 40px; /* 图片之间的间距 */
+    padding-right: 50px;
+}
+.mag-page.spread {
+    width: 60vw; /* 跨页宽度占屏幕 60% */
+    flex-shrink: 0; /* 极其重要：防止图片被挤压变形 */
+}
+.mag-page.single {
+    width: 30vw; /* 单页宽度占屏幕 30% */
+    flex-shrink: 0;
