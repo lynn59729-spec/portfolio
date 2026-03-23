@@ -42,73 +42,82 @@ body, html {
 .role-tag { color: var(--red); font-family: 'Bebas Neue'; font-size: 1.5rem; letter-spacing: 2px; }
 
 /* --- 2. 杂志板块核心 (修复读取与显示) --- */
-.work-container {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    gap: 40px;
-}
-
-.work-description {
-    flex: 0 0 25%; /* 文字占 25% */
-}
-
+/* --- 1. 调整外层显示区 --- */
 .magazine-display {
     flex: 1;
-    height: 60vh; /* 限制高度，防止溢出 */
-    overflow: hidden;
+    height: 75vh; /* 稍微调高一点，给杂志留出呼吸空间 */
     display: flex;
     flex-direction: column;
+    justify-content: center; /* 垂直居中 */
+    overflow: hidden;
+    padding: 20px 0;
 }
 
+/* --- 2. 滑动容器：禁止裁切 --- */
 .magazine-container {
     width: 100%;
     height: 100%;
-    overflow-x: auto; /* 开启横向滑动 */
-    overflow-y: hidden;
+    overflow-x: auto;
+    overflow-y: hidden; /* 绝对禁止纵向溢出 */
     white-space: nowrap;
-    padding-bottom: 20px;
+    padding-bottom: 30px; /* 为底部的页码标签留出空间 */
+    -webkit-overflow-scrolling: touch; /* 优化移动端滑动 */
 }
 
-/* 确保轨道能撑开宽度 */
+/* 隐藏滚动条但保留功能 */
+.magazine-container::-webkit-scrollbar {
+    height: 3px;
+}
+.magazine-container::-webkit-scrollbar-thumb {
+    background: var(--red);
+}
+
+/* --- 3. 轨道：根据内容自动撑开 --- */
 .magazine-track {
-    display: flex;
+    display: inline-flex; /* 改为 inline-flex 确保宽度能无限延伸 */
     height: 100%;
-    width: max-content; 
     align-items: center;
-    gap: 20px;
+    gap: 40px; /* 增加页面间距，更有策展感 */
 }
 
-/* 单页和跨页的尺寸重设 */
+/* --- 4. 页面：核心显示逻辑 --- */
 .mag-page {
     flex-shrink: 0;
-    height: 100%;
-    background: #111; /* 图片没加载出来时显示深灰色块 */
+    height: 90%; /* 图片高度占容器的 90%，防止贴边 */
     position: relative;
-    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
 }
 
-.mag-page.single { width: 22vw; }
-.mag-page.spread { width: 42vw; }
+/* 根据杂志常规比例设置宽度（这里是关键） */
+.mag-page.single {
+    aspect-ratio: 1 / 1.414; /* A4 比例 */
+    width: auto; /* 宽度随高度自适应 */
+}
+
+.mag-page.spread {
+    aspect-ratio: 2 / 1.414; /* 跨页比例 */
+    width: auto;
+}
 
 .mag-page img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* 保证图片完整显示，不被覆盖 */
-    display: block; /* 防止图片下方出现间隙 */
+    /* 🛠️ 最关键的一行：使用 contain 确保图片完整显示，绝不裁切 */
+    object-fit: contain; 
+    display: block;
+    background: #000;
 }
 
-/* 图片下方的标签 */
+/* 页码标签位置修正 */
 .page-tag {
     position: absolute;
     bottom: -25px;
+    left: 0;
     font-size: 10px;
+    font-family: 'Montserrat';
     color: var(--grey);
+    text-transform: uppercase;
 }
-
-/* 隐藏滚动条 */
-.magazine-container::-webkit-scrollbar { height: 2px; }
-.magazine-container::-webkit-scrollbar-thumb { background: var(--red); }
 
 /* --- 3. 动画与辅助 --- */
 @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
