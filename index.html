@@ -39,8 +39,7 @@
                 <h3 class="section-title-alt">01. EDITORIAL</h3>
                 <h4 class="work-name">16-PAGE VISUAL NARRATIVE</h4>
                 <p class="work-context">
-                    该项目展示了超现实主义与数字排版的融合。通过 7 组跨页设计（Across Layer），
-                    构建了一个流动的视觉叙事空间，强调品牌在跨媒介环境下的视觉张力。
+                    探索超现实主义与数字排版的边界。通过 7 组跨页设计（Across Layer），构建流动的视觉叙事，强调品牌在跨媒介环境下的视觉张力。
                 </p>
                 <div class="logic-tag">STRATEGY: VISUAL FLOW & SCALE</div>
             </div>
@@ -92,34 +91,42 @@
             <div class="work-description">
                 <h3 class="section-title-alt">02. MOTION</h3>
                 <h4 class="work-name">AE SHOWREEL / 2:00</h4>
-                <p class="work-context">结合 AIGC 素材进行动态二次创作。展示节奏控制、合成技术与数字美学。</p>
-                <div class="logic-tag">AIGC WORKFLOW: MJ -> AE</div>
+                <p class="work-context">结合 AIGC 生成的视觉资产，通过 After Effects 进行后期合成与动态转场，构建一个完整的数字感官世界。</p>
+                <div class="logic-tag">AIGC WORKFLOW: MJ -> AE -> RENDERING</div>
             </div>
             <div class="video-display">
-                <div class="video-placeholder">[ VIDEO CONTENT / PLACEHOLDER ]</div>
+                <div class="video-placeholder">
+                    <span>[ AE SHOWREEL CONTENT ]</span>
+                    <div class="play-btn"></div>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="snap-section work-mixed">
         <div class="audio-box">
-            <h3 class="section-title">03. AUDITORY</h3>
-            <p>8 MIN PODCAST PRODUCTION</p>
+            <h3 class="section-title-alt">03. AUDITORY</h3>
+            <h4 class="work-name-small">8 MIN PODCAST</h4>
+            <p class="work-context">数字文化深度探讨：关于 AIGC 伦理与未来传播的叙事。</p>
             <div class="wave-visualizer"></div> 
+            <div class="logic-tag">MEDIUM: MULTIMODAL PODCAST</div>
         </div>
         <div class="photo-box">
-            <h3 class="section-title">04. LENS</h3>
-            <p>LANDSCAPE & ASTROPHOTOGRAPHY</p>
-            <div class="photo-preview">PHOTO GALLERY</div>
+            <h3 class="section-title-alt">04. LENS</h3>
+            <h4 class="work-name-small">ASTROPHOTOGRAPHY</h4>
+            <p class="work-context">捕捉不可见之美：澳洲内陆星空与景观摄影集。</p>
+            <div class="photo-preview">VIEW GALLERY</div>
+            <div class="logic-tag">SKILL: LOW-LIGHT CAPTURE</div>
         </div>
     </section>
 
     <section class="snap-section logic-page">
         <div class="logic-content">
-            <h3 class="section-title">GENESIS LOGIC</h3>
+            <h3 class="section-title-alt">GENESIS LOGIC</h3>
             <p class="mono-text">PROMPT > [SURREALISM] + [RED_#CE2028] + [DIGITAL_SOUL]</p>
             <div class="logic-flow">
-                展示 AIGC 辅助设计的工作流与逻辑背书
+                <p>WORKFLOW: PROMPT ENGINEERING > GEN-AI ASSET > MANUAL CURATION > MULTIMEDIA OUTPUT</p>
+                <p style="margin-top: 20px; color: #fff;">展示 AIGC 辅助设计的工作流与专业逻辑背书</p>
             </div>
         </div>
     </section>
@@ -129,17 +136,15 @@
     const avatarContainer = document.querySelector('.avatar-container');
     const avatarImg = document.querySelector('.hero-avatar');
 
-    // 1. 3D 视线跟随
+    // 3D 视线跟随
     document.addEventListener('mousemove', (e) => {
         let xAxis = (window.innerWidth / 2 - e.pageX) / 25; 
         let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-
         if (avatarImg) {
             avatarImg.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg) scale(1.05)`;
         }
     });
 
-    // 2. 交互过渡
     avatarContainer.addEventListener('mouseenter', () => {
         avatarImg.style.transition = 'none';
     });
@@ -149,12 +154,11 @@
         avatarImg.style.transform = `rotateY(0deg) rotateX(0deg) scale(1)`;
     });
 
-    // 3. 随机 Glitch 数字扰动效果
+    // 随机数字扰动
     setInterval(() => {
         if (Math.random() > 0.95) { 
             avatarImg.style.filter = 'none';
             avatarImg.style.boxShadow = '20px 0 0 rgba(206, 32, 40, 0.3), -20px 0 0 rgba(128, 128, 128, 0.2)';
-            
             setTimeout(() => {
                 avatarImg.style.filter = 'grayscale(100%) contrast(1.1)';
                 avatarImg.style.boxShadow = 'none';
