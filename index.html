@@ -7,6 +7,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
+    <script>
+    // 1. 头像交互逻辑 (保留)
+    const avatarImg = document.querySelector('.hero-avatar');
+    document.addEventListener('mousemove', (e) => {
+        let xAxis = (window.innerWidth / 2 - e.pageX) / 25; 
+        let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        if (avatarImg) avatarImg.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg) scale(1.05)`;
+    });
+
+    // 2. 核心：强制开启横向滚轮滑动
+    const magContainer = document.querySelector('.magazine-container');
+    if (magContainer) {
+        magContainer.addEventListener('wheel', (evt) => {
+            // 只有当图片宽度超过容器时才拦截滚动
+            if (magContainer.scrollWidth > magContainer.clientWidth) {
+                evt.preventDefault();
+                magContainer.scrollLeft += evt.deltaY;
+            }
+        }, { passive: false });
+    }
+</script>
+    
 <body>
 
 <div class="main-container">
