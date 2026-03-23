@@ -246,45 +246,78 @@ body, html {
 }
 
 /* 3. 内部轨道：让所有页面排成一横排 */
+/* --- 杂志展示区基础设置 --- */
+.magazine-display {
+    flex: 1;
+    width: 65%;
+    overflow: hidden; 
+    position: relative;
+}
+
+/* --- 核心滑动容器 --- */
+.magazine-container {
+    width: 100%;
+    height: 70vh;
+    overflow-x: auto; /* 必须：开启横向滚动 */
+    overflow-y: hidden;
+    white-space: nowrap;
+    cursor: grab;
+    padding-bottom: 20px;
+    
+    /* 自定义滚动条样式 */
+    scrollbar-width: thin;
+    scrollbar-color: var(--red) transparent;
+}
+
+/* 针对 Chrome/Safari 隐藏或美化滚动条 */
+.magazine-container::-webkit-scrollbar {
+    height: 4px;
+}
+.magazine-container::-webkit-scrollbar-thumb {
+    background: var(--red);
+    border-radius: 10px;
+}
+
+/* --- 内部轨道：强制图片排成一排 --- */
 .magazine-track {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 40px; /* 页面之间的间距 */
+    gap: 40px;
     height: 100%;
-    width: max-content; /* 宽度根据内容自动撑开，这是滑动的关键 */
+    width: max-content; /* 必须：确保容器随内容无限延伸 */
 }
 
-/* 4. 单个页面样式 */
+/* --- 单个页面样式 --- */
 .mag-page {
-    flex-shrink: 0; /* 禁止图片被压缩 */
+    flex-shrink: 0; /* 必须：防止图片变窄 */
     height: 100%;
     position: relative;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     transition: transform 0.4s ease;
 }
 
+/* 之前这里的大括号没关，现在补齐了 */
 .mag-page.spread {
-    width: 55vw; /* 跨页宽度 */
+    width: 55vw; 
 }
 
 .mag-page.single {
-    width: 28vw; /* 单页宽度 */
+    width: 28vw;
 }
 
 .mag-page img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 确保图片不变形地填满 */
+    object-fit: cover;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .mag-page:hover {
     transform: translateY(-10px);
-    border-color: var(--red);
 }
 
-/* 5. 提示语动画 */
+/* --- 提示语动画 --- */
 .mag-scroll-hint {
     color: var(--red);
     font-size: 0.7rem;
