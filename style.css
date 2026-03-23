@@ -220,103 +220,75 @@ body, html {
     width: 30vw; /* 单页宽度占屏幕 30% */
     flex-shrink: 0;
 
-    /* --- 杂志板块横向滑动核心修复 --- */
 
-/* 1. 确保右侧展示区有足够的空间 */
+/* --- 1. 缩小展示区域的容器 --- */
 .magazine-display {
     flex: 1;
-    width: 65%; /* 给图片区分配更多宽度 */
+    width: 60%; /* 减小占比，给左侧留白 */
+    height: 60vh; /* 降低高度，从 70vh 降到 60vh */
     overflow: hidden; 
-    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.01); /* 给背景一个极微弱的灰色，增加图层感 */
+    padding: 20px;
 }
 
-/* 2. 滑动窗口：这是最关键的容器 */
+/* --- 2. 优化滚动容器 --- */
 .magazine-container {
     width: 100%;
-    height: 70vh; /* 高度占屏幕的 70% */
-    overflow-x: auto; /* 开启横向滚动 */
-    overflow-y: hidden; /* 禁止纵向滚动 */
-    white-space: nowrap; /* 强制内容不换行 */
-    cursor: grab; /* 鼠标变成抓取形状，提示可滑动 */
-    padding-bottom: 30px; /* 为滚动条留出空间 */
-    
-    /* 隐藏默认滚动条（可选，为了美观） */
-    scrollbar-width: thin;
-    scrollbar-color: var(--red) transparent;
-}
-
-/* 3. 内部轨道：让所有页面排成一横排 */
-/* --- 杂志展示区基础设置 --- */
-.magazine-display {
-    flex: 1;
-    width: 65%;
-    overflow: hidden; 
-    position: relative;
-}
-
-/* --- 核心滑动容器 --- */
-.magazine-container {
-    width: 100%;
-    height: 70vh;
-    overflow-x: auto; /* 必须：开启横向滚动 */
+    height: 100%; /* 继承父级的 60vh */
+    overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
-    cursor: grab;
-    padding-bottom: 20px;
-    
-    /* 自定义滚动条样式 */
-    scrollbar-width: thin;
-    scrollbar-color: var(--red) transparent;
+    /* 🛠️ 解决像素模糊的关键：强制浏览器开启高质量渲染 */
+    image-rendering: -webkit-optimize-contrast; 
+    scrollbar-width: none; /* 隐藏滚动条让视觉更干净 */
 }
 
-/* 针对 Chrome/Safari 隐藏或美化滚动条 */
 .magazine-container::-webkit-scrollbar {
-    height: 4px;
-}
-.magazine-container::-webkit-scrollbar-thumb {
-    background: var(--red);
-    border-radius: 10px;
+    display: none; /* 针对 Chrome 隐藏滚动条 */
 }
 
-/* --- 内部轨道：强制图片排成一排 --- */
+/* --- 3. 核心：缩小图片展示尺寸 --- */
 .magazine-track {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    gap: 40px;
+    gap: 30px; /* 缩小间距，让内容更紧凑 */
     height: 100%;
-    width: max-content; /* 必须：确保容器随内容无限延伸 */
+    width: max-content;
 }
 
-/* --- 单个页面样式 --- */
 .mag-page {
-    flex-shrink: 0; /* 必须：防止图片变窄 */
-    height: 100%;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    transition: transform 0.4s ease;
+    flex-shrink: 0;
+    height: 90%; /* 图片只占据容器高度的 90%，留出上下呼吸空间，防止被裁切 */
+    background: #000;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+    transition: all 0.5s ease;
 }
 
-/* 之前这里的大括号没关，现在补齐了 */
+/* 🛠️ 缩小横向占比，防止图片过大导致模糊 */
 .mag-page.spread {
-    width: 55vw; 
+    width: 40vw; /* 跨页从 60vw 降到 40vw，像素点会更密集，看起来更清晰 */
 }
 
 .mag-page.single {
-    width: 28vw;
+    width: 20vw; /* 单页从 30vw 降到 20vw */
 }
 
 .mag-page img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    /* 🛠️ 解决“被覆盖/不完整”：使用 contain 模式 */
+    object-fit: contain; 
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* 悬停时的精致感 */
 .mag-page:hover {
-    transform: translateY(-10px);
+    transform: scale(1.03); /* 轻微放大即可，不要破坏布局 */
+    border-color: var(--red);
 }
-
+    
 /* --- 提示语动画 --- */
 .mag-scroll-hint {
     color: var(--red);
