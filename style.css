@@ -53,8 +53,21 @@ body, html {
 }
 
 /* 头像比例严格锁定 35% */
-.avatar-container { flex: 0 0 35%; perspective: 1000px; }
-.hero-avatar { width: 100%; filter: grayscale(100%) contrast(1.1); transition: transform 0.1s ease-out; border-radius: 4px; }
+
+.avatar-container { 
+    flex: 0 0 28%; /* 数值越小头像越小，建议在 25%-30% 之间尝试 */
+    perspective: 1000px;
+    display: flex;
+    justify-content: flex-end; /* 确保头像依然靠右对齐 */
+}
+
+/* 保持头像本身宽度为容器的 100% */
+.hero-avatar { 
+    width: 100%; 
+    filter: grayscale(100%) contrast(1.1);
+    transition: transform 0.1s ease-out;
+    border-radius: 4px;
+}
 
 /* --- 3. 杂志板块样式 (修复显示与滑动) --- */
 .work-container { display: flex; align-items: center; width: 100%; gap: 60px; }
