@@ -49,14 +49,22 @@
                         <div class="mag-page spread"><img src="images/Spread2.jpg" alt="P04"><span class="page-tag">P04-05</span></div>
                         <div class="mag-page spread"><img src="images/Spread3.jpg" alt="P06"><span class="page-tag">P06-07</span></div>
                         <div class="mag-page spread"><img src="images/Spread4.jpg" alt="P08"><span class="page-tag">P08-09</span></div>
-                        <div class="mag-page spread"><img src="images/Spread5.jpg
+                        <div class="mag-page spread"><img src="images/Spread5.jpg" alt="P10"><span class="page-tag">P10-11</span></div>
+                        <div class="mag-page spread"><img src="images/Spread6.jpg" alt="P12"><span class="page-tag">P12-13</span></div>
+                        <div class="mag-page spread"><img src="images/Spread7.jpg" alt="P14"><span class="page-tag">P14-15</span></div>
+                    </div>
+                </div>
+                <div class="mag-scroll-hint">USE MOUSE WHEEL TO SWIPE</div>
+            </div>
+        </div>
+    </section>
 
-                                                         <section class="snap-section">
+    <section class="snap-section">
         <div class="work-container invert">
             <div class="work-description">
                 <h3 class="section-title-alt">02. MOTION</h3>
-                <h4 class="work-name">AE SHOWREEL</h4>
-                <p class="work-context">结合 AIGC 视觉资产，通过 After Effects 进行后期合成、动态转场与粒子特效实验，探索数字灵魂的流动感。</p>
+                <h4 class="work-name">AE SHOWREEL / 2026</h4>
+                <p class="work-context">基于 AIGC 资产的后期合成。通过 After Effects 进行动态转场与粒子特效实验，探索数字内容的叙事张力。</p>
                 <div class="logic-tag">AIGC WORKFLOW: MJ -> AE</div>
             </div>
             
@@ -73,4 +81,49 @@
             </div>
         </div>
     </section>
-                            
+</div>
+
+<script>
+    // 1. 头像 3D 跟随效果
+    const avatar = document.querySelector('.hero-avatar');
+    document.addEventListener('mousemove', (e) => {
+        if(avatar) {
+            const x = (window.innerWidth / 2 - e.pageX) / 45;
+            const y = (window.innerHeight / 2 - e.pageY) / 45;
+            avatar.style.transform = `rotateY(${x}deg) rotateX(${-y}deg) scale(1.02)`;
+        }
+    });
+
+    // 2. 杂志滑动拦截系统
+    const mag = document.getElementById('magScroll');
+    const main = document.querySelector('.main-container');
+
+    if (mag && main) {
+        mag.addEventListener('mouseenter', () => { main.style.overflowY = 'hidden'; });
+        mag.addEventListener('mouseleave', () => { main.style.overflowY = 'scroll'; });
+
+        mag.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            mag.scrollLeft += e.deltaY * 1.5; 
+        }, { passive: false });
+    }
+
+    // 3. AE 视频播放控制
+    const videoTrigger = document.getElementById('videoTrigger');
+    const aeVideo = document.getElementById('aeVideo');
+
+    if (videoTrigger && aeVideo) {
+        videoTrigger.addEventListener('click', () => {
+            if (aeVideo.paused) {
+                aeVideo.play();
+                videoTrigger.classList.add('playing');
+            } else {
+                aeVideo.pause();
+                videoTrigger.classList.remove('playing');
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
