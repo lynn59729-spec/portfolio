@@ -16,15 +16,16 @@ body, html {
     background-color: var(--black);
     color: var(--white);
     font-family: 'Montserrat', sans-serif;
-    overflow: hidden; /* 禁用原生滚动条，交给容器 */
+    overflow: hidden; 
 }
 
 /* 核心滚动吸附逻辑 */
 .main-container {
     height: 100vh;
     overflow-y: scroll;
-    scroll-snap-type: y mandatory; /* 开启纵向吸附 */
+    scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
+    background-color: var(--black);
 }
 
 .snap-section {
@@ -32,13 +33,13 @@ body, html {
     width: 100%;
     scroll-snap-align: start;
     position: relative;
-    display: flex; /* 确保是 flex 布局 */
-    align-items: center; /* 垂直居中 */
-    padding: 0 8%; /* 左右留白 */
-    overflow: hidden; /* 防止内容溢出屏幕 */
+    display: flex;
+    align-items: center;
+    padding: 0 8%;
+    overflow: hidden;
 }
 
-/* --- Section 1: Hero 样式 --- */
+/* --- Section 1: Hero --- */
 .hero { background: radial-gradient(circle at 70%, #1a0505 0%, var(--black) 70%); }
 
 .bg-glow {
@@ -88,19 +89,15 @@ body, html {
 
 .avatar-container { 
     width: 35%;
-    perspective: 1000px
+    perspective: 1000px;
 }
 
-.hero-avatar {
-    width: 100%;
-    transform-style: preserve-3d; /* 保持子元素在 3D 空间 */
-    will-change: transform; /* 优化性能，减少卡顿 */
-}
 .hero-avatar {
     width: 100%;
     filter: grayscale(100%) contrast(1.1);
     transition: all 0.6s ease;
     border-radius: 5px;
+    transform-style: preserve-3d;
 }
 
 .hero-avatar:hover {
@@ -109,59 +106,20 @@ body, html {
     box-shadow: -20px 20px 50px rgba(206, 32, 40, 0.3);
 }
 
-/* --- 公用组件 --- */
-.section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    color: var(--red);
-    position: absolute;
-    top: 50px; left: 8%;
-}
-
-.video-placeholder, .mockup-box, .photo-preview {
-    width: 100%; height: 60vh;
-    background: #0f0f0f;
-    border: 1px solid #1a1a1a;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--grey);
-    text-transform: uppercase;
-    letter-spacing: 5px;
-}
-
-.video-placeholder:hover { border-color: var(--red); color: white; cursor: pointer; }
-
-/* 动画定义 */
-@keyframes blink { 50% { opacity: 0; } }
-
-.scroll-indicator {
-    position: absolute;
-    bottom: 30px; left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    color: var(--grey);
-}
-
-/* 作品通用容器 */
+/* --- 作品通用布局 --- */
 .work-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    gap: 60px;
+    gap: 40px;
     z-index: 2;
 }
 
-/* 左右交替排版 */
-.work-container.invert {
-    flex-direction: row-reverse;
-}
+.work-container.invert { flex-direction: row-reverse; }
 
-/* 文字介绍区 */
 .work-description {
-    flex: 0 0 30%; /* 占据 30% 宽度 */
+    flex: 0 0 30%;
     text-align: left;
 }
 
@@ -184,123 +142,115 @@ body, html {
 .work-context {
     font-size: 0.9rem;
     color: var(--grey);
-    line-height: 1.8;
+    line-height: 1.6;
     margin-bottom: 30px;
     font-weight: 300;
 }
 
-/* 逻辑标签样式 */
 .logic-tag {
     display: inline-block;
     padding: 8px 15px;
-    background: transparent;
     border-left: 3px solid var(--red);
     color: var(--red);
-    font-size: 0.75rem;
-    font-family: 'Montserrat';
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
 }
 
-/* 调整作品展示区宽度 */
-.magazine-display, .video-display {
-    flex: 1;
-}
-
-.magazine-track {
-    display: flex;
-    gap: 40px; /* 图片之间的间距 */
-    padding-right: 50px;
-}
-.mag-page.spread {
-    width: 60vw; /* 跨页宽度占屏幕 60% */
-    flex-shrink: 0; /* 极其重要：防止图片被挤压变形 */
-}
-.mag-page.single {
-    width: 30vw; /* 单页宽度占屏幕 30% */
-    flex-shrink: 0;
-
-
-/* --- 1. 缩小展示区域的容器 --- */
+/* --- 杂志板块核心修复 (缩小展示面积) --- */
 .magazine-display {
     flex: 1;
-    width: 60%; /* 减小占比，给左侧留白 */
-    height: 60vh; /* 降低高度，从 70vh 降到 60vh */
-    overflow: hidden; 
+    height: 60vh;
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.01); /* 给背景一个极微弱的灰色，增加图层感 */
-    padding: 20px;
+    overflow: hidden;
 }
 
-/* --- 2. 优化滚动容器 --- */
 .magazine-container {
     width: 100%;
-    height: 100%; /* 继承父级的 60vh */
+    height: 100%;
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
-    /* 🛠️ 解决像素模糊的关键：强制浏览器开启高质量渲染 */
-    image-rendering: -webkit-optimize-contrast; 
-    scrollbar-width: none; /* 隐藏滚动条让视觉更干净 */
+    padding-bottom: 10px;
+    image-rendering: -webkit-optimize-contrast;
 }
 
-.magazine-container::-webkit-scrollbar {
-    display: none; /* 针对 Chrome 隐藏滚动条 */
-}
+/* 隐藏滚动条 */
+.magazine-container::-webkit-scrollbar { display: none; }
 
-/* --- 3. 核心：缩小图片展示尺寸 --- */
 .magazine-track {
     display: flex;
     align-items: center;
-    gap: 30px; /* 缩小间距，让内容更紧凑 */
+    gap: 30px;
     height: 100%;
     width: max-content;
 }
 
 .mag-page {
     flex-shrink: 0;
-    height: 90%; /* 图片只占据容器高度的 90%，留出上下呼吸空间，防止被裁切 */
+    height: 90%;
     background: #000;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
     transition: all 0.5s ease;
+    position: relative;
 }
 
-/* 🛠️ 缩小横向占比，防止图片过大导致模糊 */
-.mag-page.spread {
-    width: 40vw; /* 跨页从 60vw 降到 40vw，像素点会更密集，看起来更清晰 */
-}
-
-.mag-page.single {
-    width: 20vw; /* 单页从 30vw 降到 20vw */
-}
+.mag-page.spread { width: 40vw; }
+.mag-page.single { width: 22vw; }
 
 .mag-page img {
     width: 100%;
     height: 100%;
-    /* 🛠️ 解决“被覆盖/不完整”：使用 contain 模式 */
-    object-fit: contain; 
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    object-fit: contain;
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
-/* 悬停时的精致感 */
 .mag-page:hover {
-    transform: scale(1.03); /* 轻微放大即可，不要破坏布局 */
+    transform: scale(1.02);
     border-color: var(--red);
 }
-    
-/* --- 提示语动画 --- */
-.mag-scroll-hint {
-    color: var(--red);
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    margin-top: 15px;
-    text-align: center;
-    opacity: 0.6;
-    animation: pulse 2s infinite;
+
+.page-tag {
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    font-size: 0.6rem;
+    color: var(--grey);
+    letter-spacing: 1px;
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.8; }
+/* --- 视频占位符 --- */
+.video-placeholder {
+    width: 100%;
+    height: 60vh;
+    background: #0f0f0f;
+    border: 1px solid #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--grey);
+    letter-spacing: 5px;
+}
+
+/* 动画定义 */
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+
+.mag-scroll-hint {
+    color: var(--red);
+    font-size: 0.6rem;
+    text-align: center;
+    margin-top: 10px;
+    animation: pulse 2s infinite;
+    letter-spacing: 2px;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    color: var(--grey);
+    letter-spacing: 3px;
 }
