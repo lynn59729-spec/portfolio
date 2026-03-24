@@ -59,29 +59,33 @@
         </div>
     </section>
 
-    <section class="snap-section">
+  <section class="snap-section">
         <div class="work-container invert">
             <div class="work-description">
                 <h3 class="section-title-alt">02. MOTION</h3>
-                <h4 class="work-name">AE SHOWREEL / 2026</h4>
-                <p class="work-context">基于 AIGC 资产的后期合成。通过 After Effects 进行动态转场与粒子特效实验，探索数字内容的叙事张力。</p>
-                <div class="logic-tag">AIGC WORKFLOW: MJ -> AE</div>
+                <h4 class="work-name">THE CUBE OF BLOOD</h4>
+                <p class="work-context">
+                    《锈湖安魂曲》：基于 AIGC 资产的叙事动画实验。利用 After Effects 进行深度合成，通过红黑视觉张力构建超现实的心理叙事空间。
+                </p>
+                <div class="logic-tag">AIGC WORKFLOW: MJ -> AE -> PR</div>
             </div>
             
-            <div class="video-display" id="videoTrigger">
-                <div class="video-frame">
-                    <video id="aeVideo" poster="images/video-cover.jpg" loop muted playsinline>
-                        <source src="videos/showreel.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+            <div class="video-display" id="videoWrapper">
+                <div class="video-cover" id="videoCover">
+                    <img src="images/video-cover.jpg" alt="The Cube of Blood Cover">
                     <div class="play-btn">
                         <div class="play-icon"></div>
                     </div>
                 </div>
+
+                <iframe 
+                    id="biliPlayer"
+                    src="//player.bilibili.com/player.html?bvid=BV1UhQqB7EfS&page=1&high_quality=1&danmaku=0&autoplay=0" 
+                    scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
+                </iframe>
             </div>
         </div>
     </section>
-</div>
 
 <script>
     // 1. 头像 3D 跟随效果
