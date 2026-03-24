@@ -202,3 +202,84 @@ body, html {
         padding: 0;
     }
 }
+
+/* --- PODCAST SECTION --- */
+.podcast-display {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pod-card {
+    width: 100%;
+    max-width: 750px;
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid #1a1a1a;
+    display: flex;
+    padding: 40px;
+    gap: 40px;
+    backdrop-filter: blur(10px);
+    border-radius: 2px;
+}
+
+/* 封面与涟漪特效 */
+.pod-visual {
+    width: 240px;
+    height: 240px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.pod-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 5;
+    position: relative;
+    filter: grayscale(100%) brightness(0.8);
+}
+
+.water-ripple {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--red);
+    border-radius: 50%;
+    animation: ripple 3s infinite linear;
+    z-index: 1;
+    opacity: 0;
+}
+
+.delay-1 { animation-delay: 1.5s; }
+
+@keyframes ripple {
+    0% { width: 100%; height: 100%; opacity: 0.5; }
+    100% { width: 160%; height: 160%; opacity: 0; }
+}
+
+/* 播放器交互 */
+.pod-player {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pod-tag { color: var(--red); font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; }
+.pod-ep-title { font-family: 'Bebas Neue'; font-size: 1.8rem; letter-spacing: 1px; margin-bottom: 30px; }
+
+/* 深度定制音频播放器颜色 (适配红黑主题) */
+.custom-audio {
+    width: 100%;
+    filter: invert(100%) hue-rotate(180deg) brightness(1.5); /* 将默认播放器反色为浅色，更好地匹配暗黑背景 */
+}
+
+/* 描述文字排版 */
+.en-desc { font-size: 0.85rem; line-height: 1.6; color: var(--grey); font-style: italic; }
+.zh-desc { font-size: 0.88rem; line-height: 1.8; color: #aaa; font-weight: 300; }
+
+
