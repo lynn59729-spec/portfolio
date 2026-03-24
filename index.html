@@ -59,14 +59,12 @@
         </div>
     </section>
 
-  <section class="snap-section">
+    <section class="snap-section">
         <div class="work-container invert">
             <div class="work-description">
                 <h3 class="section-title-alt">02. MOTION</h3>
                 <h4 class="work-name">THE CUBE OF BLOOD</h4>
-                <p class="work-context">
-                    《锈湖安魂曲》：基于 AIGC 资产的叙事动画实验。利用 After Effects 进行深度合成，通过红黑视觉张力构建超现实的心理叙事空间。
-                </p>
+                <p class="work-context">《锈湖安魂曲》：基于 AIGC 资产的叙事动画实验。通过红黑视觉张力构建超现实叙事空间。</p>
                 <div class="logic-tag">AIGC WORKFLOW: MJ -> AE -> PR</div>
             </div>
             
@@ -77,18 +75,17 @@
                         <div class="play-icon"></div>
                     </div>
                 </div>
-
-                <iframe 
-                    id="biliPlayer"
+                <iframe id="biliPlayer" 
                     src="//player.bilibili.com/player.html?bvid=BV1UhQqB7EfS&page=1&high_quality=1&danmaku=0&autoplay=0" 
                     scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
                 </iframe>
             </div>
         </div>
     </section>
+</div>
 
 <script>
-    // 1. 头像 3D 跟随效果
+    // 1. 头像 3D 跟随
     const avatar = document.querySelector('.hero-avatar');
     document.addEventListener('mousemove', (e) => {
         if(avatar) {
@@ -98,32 +95,30 @@
         }
     });
 
-    // 2. 杂志滑动拦截系统
+    // 2. 杂志横向滑动拦截
     const mag = document.getElementById('magScroll');
     const main = document.querySelector('.main-container');
 
     if (mag && main) {
         mag.addEventListener('mouseenter', () => { main.style.overflowY = 'hidden'; });
         mag.addEventListener('mouseleave', () => { main.style.overflowY = 'scroll'; });
-
         mag.addEventListener('wheel', (e) => {
             e.preventDefault();
             mag.scrollLeft += e.deltaY * 1.5; 
         }, { passive: false });
     }
 
-    // 3. AE 视频播放控制
-    const videoTrigger = document.getElementById('videoTrigger');
-    const aeVideo = document.getElementById('aeVideo');
+    // 3. B 站嵌入视频控制 (点击封面 -> 播放)
+    const videoWrapper = document.getElementById('videoWrapper');
+    const videoCover = document.getElementById('videoCover');
+    const biliPlayer = document.getElementById('biliPlayer');
 
-    if (videoTrigger && aeVideo) {
-        videoTrigger.addEventListener('click', () => {
-            if (aeVideo.paused) {
-                aeVideo.play();
-                videoTrigger.classList.add('playing');
-            } else {
-                aeVideo.pause();
-                videoTrigger.classList.remove('playing');
+    if (videoCover && biliPlayer) {
+        videoCover.addEventListener('click', () => {
+            videoWrapper.classList.add('playing');
+            const currentSrc = biliPlayer.src;
+            if (!currentSrc.includes('autoplay=1')) {
+                biliPlayer.src = currentSrc + "&autoplay=1";
             }
         });
     }
