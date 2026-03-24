@@ -124,57 +124,81 @@ body, html {
 .video-display { flex: 1; height: 50vh; background: #0a0a0a; display: flex; align-items: center; justify-content: center; border: 1px solid #222; }
 .mag-scroll-hint { color: var(--red); font-size: 0.6rem; margin-top: 35px; text-align: center; opacity: 0.5; letter-spacing: 1px; }
 
-/* --- 02. MOTION (AE) 板块 拓宽版 --- */
-
-/* 1. 视频容器：占据 70% 左右的宽度 */
-.video-display {
-    flex: 2.5; 
-    max-width: 1000px; 
-    aspect-ratio: 16 / 9; 
-    background: #000;
-    position: relative;
-    border: 1px solid #222;
-    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+/* --- 00. 全局容器微调 (增加呼吸感) --- */
+.snap-section {
+    height: 100vh;
+    width: 100%;
+    padding: 0 4%; /* 缩小两侧边距，给视频腾位置 */
+    display: flex;
+    align-items: center;
     overflow: hidden;
 }
 
-/* 悬停效果：边框变红并有微弱红光 */
+/* --- 02. MOTION (AE) 核心布局 --- */
+.work-container.invert {
+    display: flex;
+    flex-direction: row-reverse; /* 视频在右，文字在左 */
+    width: 100%;
+    height: 80vh; /* 容器加高 */
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+/* 文字区域：收窄并精致化 */
+.work-container .work-description {
+    flex: 0 0 280px; /* 固定文字宽度，不随屏幕变宽 */
+    text-align: left;
+    z-index: 10;
+}
+
+.section-title-alt { font-family: 'Bebas Neue'; font-size: 1.2rem; color: var(--red); letter-spacing: 4px; }
+.work-name { font-family: 'Bebas Neue'; font-size: 3rem; margin: 10px 0; line-height: 1; }
+.work-context { font-size: 0.85rem; color: var(--grey); line-height: 1.6; margin-bottom: 20px; }
+
+/* 视频视窗：极致拓宽 */
+.video-display {
+    flex: 1; /* 自动撑开占据剩余所有空间 */
+    position: relative;
+    max-width: 1200px; /* 提升上限，确保在大屏上足够震撼 */
+    aspect-ratio: 16 / 9; /* 强制锁定 16:9，彻底消灭黑边 */
+    background: #000;
+    border: 1px solid #222;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
 .video-display:hover {
     border-color: var(--red);
-    box-shadow: 0 0 20px rgba(206, 32, 40, 0.1);
+    box-shadow: 0 0 40px rgba(206, 32, 40, 0.2);
+    transform: scale(1.01); /* 轻微浮动感 */
 }
 
-/* 2. 嵌入播放器：完全填满容器 */
+/* 核心：让 B 站播放器完美贴合容器 */
 #biliPlayer {
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    top: -1px; /* 微调以覆盖可能的边框缝隙 */
+    left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
     border: none;
-    display: block;
 }
 
-/* 3. 文字描述区域：锁定宽度并留白 */
-.work-container .work-description {
-    flex: 0 0 320px;
-    padding-right: 40px; 
-    z-index: 5;
-}
-
-/* 4. 布局反转：文字在左，视频在右 */
-.work-container.invert {
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    width: 100%;
-    gap: 20px;
-}
-
-/* 适配移动端或小屏幕：当屏幕太小时自动堆叠 */
-@media (max-width: 1024px) {
+/* --- 响应式适配 (Pad & Mobile) --- */
+@media (max-width: 1100px) {
     .work-container.invert {
         flex-direction: column-reverse;
-        gap: 30px;
+        height: auto;
+        padding-top: 50px;
     }
     .video-display {
         width: 100%;
         max-width: 100%;
+    }
+    .work-description {
+        flex: 0 0 auto;
+        width: 100%;
+        text-align: center;
+        padding: 0;
     }
 }
