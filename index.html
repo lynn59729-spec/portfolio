@@ -59,7 +59,7 @@
         </div>
     </section>
 
-    <section class="snap-section">
+   <section class="snap-section">
         <div class="work-container invert">
             <div class="work-description">
                 <h3 class="section-title-alt">02. MOTION</h3>
@@ -68,22 +68,17 @@
                 <div class="logic-tag">AIGC WORKFLOW: MJ -> AE -> PR</div>
             </div>
             
-            <div class="video-display" id="videoWrapper">
-                <div class="video-cover" id="videoCover">
-                    <img src="images/video-cover.jpg" alt="The Cube of Blood Cover">
-                    <div class="play-btn">
-                        <div class="play-icon"></div>
-                    </div>
-                </div>
-                <iframe id="biliPlayer" 
-                    src="//player.bilibili.com/player.html?bvid=BV1UhQqB7EfS&page=1&high_quality=1&danmaku=0&autoplay=0" 
+            <div class="video-display">
+                <iframe 
+                    id="biliPlayer" 
+                    src="//player.bilibili.com/player.html?bvid=BV1UhQqB7EfS&page=1&high_quality=1&danmaku=0" 
                     scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
                 </iframe>
             </div>
         </div>
     </section>
-</div>
 
+    
 <script>
     // 1. 头像 3D 跟随
     const avatar = document.querySelector('.hero-avatar');
