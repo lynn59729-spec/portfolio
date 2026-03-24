@@ -124,69 +124,57 @@ body, html {
 .video-display { flex: 1; height: 50vh; background: #0a0a0a; display: flex; align-items: center; justify-content: center; border: 1px solid #222; }
 .mag-scroll-hint { color: var(--red); font-size: 0.6rem; margin-top: 35px; text-align: center; opacity: 0.5; letter-spacing: 1px; }
 
-/* --- AE SECTION 动态增强 --- */
+/* --- 02. MOTION (AE) 板块 拓宽版 --- */
+
+/* 1. 视频容器：占据 70% 左右的宽度 */
 .video-display {
-    flex: 1;
-    max-width: 800px;
-    height: 50vh;
+    flex: 2.5; 
+    max-width: 1000px; 
+    aspect-ratio: 16 / 9; 
     background: #000;
     position: relative;
-    cursor: pointer;
     border: 1px solid #222;
-    transition: all 0.5s ease;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
     overflow: hidden;
 }
 
+/* 悬停效果：边框变红并有微弱红光 */
 .video-display:hover {
     border-color: var(--red);
-    box-shadow: 0 0 30px rgba(206, 32, 40, 0.2);
+    box-shadow: 0 0 20px rgba(206, 32, 40, 0.1);
 }
 
-.video-frame {
+/* 2. 嵌入播放器：完全填满容器 */
+#biliPlayer {
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: none;
+    display: block;
 }
 
-.video-frame video {
+/* 3. 文字描述区域：锁定宽度并留白 */
+.work-container .work-description {
+    flex: 0 0 320px;
+    padding-right: 40px; 
+    z-index: 5;
+}
+
+/* 4. 布局反转：文字在左，视频在右 */
+.work-container.invert {
+    flex-direction: row-reverse;
+    justify-content: space-between;
     width: 100%;
-    height: 100%;
-    object-fit: cover; /* 填满容器 */
-    opacity: 0.6;
-    transition: opacity 0.5s ease;
+    gap: 20px;
 }
 
-.video-display.playing video {
-    opacity: 1;
-}
-
-/* 播放按钮 UI */
-.play-btn {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    background: rgba(206, 32, 40, 0.8);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 10;
-}
-
-.play-icon {
-    width: 0; 
-    height: 0; 
-    border-top: 15px solid transparent;
-    border-bottom: 15px solid transparent;
-    border-left: 25px solid white;
-    margin-left: 8px;
-}
-
-.video-display.playing .play-btn {
-    opacity: 0;
-    transform: scale(1.5);
-    pointer-events: none;
+/* 适配移动端或小屏幕：当屏幕太小时自动堆叠 */
+@media (max-width: 1024px) {
+    .work-container.invert {
+        flex-direction: column-reverse;
+        gap: 30px;
+    }
+    .video-display {
+        width: 100%;
+        max-width: 100%;
+    }
 }
