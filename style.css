@@ -300,3 +300,21 @@ body, html {
     z-index: 100; /* 确保它在最顶层 */
     pointer-events: auto !important; /* 强制开启点击事件 */
 }
+
+/* 强制让音频播放器在最前端显示 */
+.custom-audio {
+    position: relative !important;
+    z-index: 9999 !important;
+    width: 100% !important;
+    max-width: 400px;
+    height: 50px !important;
+    /* 暂时删掉所有 filter 滤镜，先看原生的灰色条能不能出来 */
+    filter: none !important; 
+    opacity: 1 !important;
+    pointer-events: auto !important; /* 确保能点到播放键 */
+}
+
+/* 检查父容器是否把内容切掉了 */
+.podcast-display, .work-container {
+    overflow: visible !important;
+}
