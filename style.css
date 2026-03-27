@@ -294,3 +294,9 @@ body, html {
     .pod-card { flex-direction: column; text-align: center; padding: 20px; }
     .pod-visual { width: 180px; height: 180px; }
 }
+
+.custom-audio {
+    position: relative;
+    z-index: 100; /* 确保它在最顶层 */
+    pointer-events: auto !important; /* 强制开启点击事件 */
+}
