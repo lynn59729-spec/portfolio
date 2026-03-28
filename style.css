@@ -192,89 +192,116 @@ body, html {
         padding-top: 50px;
     }
 
-/* --- 03. 播客长方控制台：强制更新版 --- */
-.pod-console-new {
+/* --- 03. 播客精致窄条控制台 (最终优化版) --- */
+.final-pod-bar {
     width: 100%;
-    max-width: 850px;
-    height: 160px !important; /* 强制锁定高度 */
-    background: #0a0a0a;
+    max-width: 800px;
+    height: 120px !important; /* 进一步缩窄控制台高度，显得更精致 */
+    background: #080808;
     border: 1px solid #1a1a1a;
     display: flex;
     align-items: center;
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* 隐藏溢出的线条 */
     border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-.console-img-left {
-    width: 160px;
-    height: 160px;
+/* 小型封面图容器 (锁定 100px) */
+.final-visual {
+    width: 120px; /* 与高度保持一致，形成方块 */
+    height: 120px;
+    position: relative;
     flex-shrink: 0;
     border-right: 1px solid #1a1a1a;
 }
 
-.console-img-left img {
+.final-visual img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(100%) brightness(0.6);
+    filter: grayscale(100%) brightness(0.7);
+    transition: filter 0.3s;
 }
 
-.console-main-content {
-    flex: 1;
-    padding: 0 40px;
-    z-index: 10;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.final-visual:hover img {
+    filter: grayscale(0%) brightness(1); /* 悬停时恢复色彩 */
 }
 
-.pod-ep-title {
-    font-family: 'Bebas Neue';
-    font-size: 1.6rem;
-    color: var(--white);
-    margin: 0;
+.final-visual-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(206, 32, 40, 0.05); /* 极淡的红色调 */
 }
 
-.custom-audio-player {
-    width: 260px;
-    filter: invert(100%) hue-rotate(180deg) brightness(1.5);
-}
-
-/* 动态声波线条 */
-.wave-bg {
+/* 动态声波线条背景 (移到底层) */
+.final-wave-container {
     position: absolute;
     right: 50px;
-    height: 100%;
+    width: 50%; height: 100%;
     display: flex;
     align-items: center;
-    gap: 8px;
-    opacity: 0.15;
+    justify-content: flex-end;
+    gap: 12px;
+    opacity: 0.12; /* 线条透明度 */
+    pointer-events: none;
     z-index: 1;
 }
 
-.w-bar {
+.bar {
     width: 2px;
-    height: 30px;
+    height: 25px;
     background: #CE2028;
-    animation: moveWave 1.2s infinite ease-in-out;
+    animation: barWave 1.2s infinite ease-in-out;
 }
 
-.w-bar:nth-child(2n) { animation-delay: 0.2s; height: 50px; }
-.w-bar:nth-child(3n) { animation-delay: 0.4s; height: 20px; }
-.w-bar:nth-child(4n) { animation-delay: 0.6s; height: 60px; }
+/* 错位动画 */
+.bar:nth-child(2n) { animation-delay: 0.2s; height: 40px; }
+.bar:nth-child(3n) { animation-delay: 0.5s; height: 18px; }
+.bar:nth-child(4n) { animation-delay: 0.8s; height: 60px; }
 
-@keyframes moveWave {
+@keyframes barWave {
     0%, 100% { transform: scaleY(1); }
     50% { transform: scaleY(2.5); }
 }
 
-/* 响应式适配 */
+/* 内容布局 (占据剩余空间) */
+.final-content {
+    flex: 1;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+}
+
+.final-text-area { flex: 1; margin-right: 30px; }
+.final-tag { color: var(--red); font-size: 0.6rem; font-weight: 700; letter-spacing: 2px; }
+.final-ep-title { 
+    font-family: 'Bebas Neue'; 
+    font-size: 1.6rem; 
+    color: var(--white); 
+    margin-top: 5px;
+    letter-spacing: 1px;
+}
+
+/* 音频控制条样式 */
+.final-audio-controls {
+    width: 280px; /* 限制播放器宽度 */
+    filter: invert(100%) hue-rotate(180deg) brightness(1.5);
+    opacity: 0.9;
+    transition: opacity 0.3s;
+}
+
+.final-audio-controls:hover { opacity: 1; }
+
+/* --- 响应式适配 (Pad & Mobile) --- */
 @media (max-width: 850px) {
-    .pod-console-new { height: auto !important; flex-direction: column; }
-    .console-img-left { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid #1a1a1a; }
-    .console-main-content { padding: 30px; flex-direction: column; gap: 20px; text-align: center; }
-    .custom-audio-player { width: 100%; }
+    .final-pod-bar { height: auto !important; flex-direction: column; }
+    .final-visual { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid #1a1a1a; }
+    .final-content { padding: 30px; flex-direction: column; gap: 20px; text-align: center; }
+    .final-audio-controls { width: 100%; }
 }
     
     
