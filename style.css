@@ -79,3 +79,66 @@ body, html { background: var(--black); color: var(--white); font-family: 'Montse
     .unique-img-box { width: 100%; height: 200px; }
     .unique-content { padding: 30px; flex-direction: column; gap: 20px; }
 }
+
+/* 杂志展示容器设为 relative，方便内部指示器定位 */
+.magazine-display {
+    flex: 1;
+    overflow: visible; /* 确保指示器不被截断 */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 杂志专属指示器：紧贴展示框底部 */
+.mag-scroll-indicator {
+    align-self: flex-start; /* 对齐到展示框左侧或居中 */
+    margin-top: 15px;      /* 紧贴展示框的间距 */
+    color: #555;           /* 灰色 */
+    font-size: 0.65rem;    /* 小字 */
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- 2. 播客动态线条设计 --- */
+.unique-pod-console {
+    position: relative; /* 必须为 relative 以承载绝对定位的线条 */
+}
+
+.unique-waves {
+    position: absolute;
+    right: 50px; /* 放在右侧背景 */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.15; /* 透明度，确保不干扰文字阅读 */
+    pointer-events: none; /* 防止遮挡点击 */
+}
+
+.u-bar {
+    width: 2px;
+    height: 20px;
+    background: var(--red);
+    animation: uWave 1.2s infinite ease-in-out;
+}
+
+/* 让线条跳动错落有致 */
+.u-bar:nth-child(2n) { animation-delay: 0.2s; height: 45px; }
+.u-bar:nth-child(3n) { animation-delay: 0.4s; height: 25px; }
+.u-bar:nth-child(4n) { animation-delay: 0.1s; height: 60px; }
+
+@keyframes uWave {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(2.2); }
+}
+
+/* 确保内容在动态背景之上 */
+.unique-content {
+    position: relative;
+    z-index: 2;
+}
