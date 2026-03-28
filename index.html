@@ -79,7 +79,30 @@
     </section>
 
     
-<script>
+    <section class="snap-section">
+        <div class="work-container">
+            <div class="work-description">
+                <h3 class="section-title-alt">03. AUDIO STRATEGY</h3>
+                <h4 class="work-name">THROUGH WATER’S EYES</h4>
+                <div class="work-context">
+                    <p class="en-desc">"Would you like to hear the world through water’s eyes?"</p>
+                    <p class="zh-desc">以“水”的视角审视世界。将日常的水声转化为深邃的哲学景观。</p>
+                </div>
+                <div class="logic-tag">SOUND ART & NARRATIVE</div>
+            </div>
+
+            <div class="podcast-display">
+                <div class="pod-card">
+                    <audio controls class="custom-audio" id="mainAudio">
+                        <source src="audio/water-podcast.mp3" type="audio/mpeg">
+                        您的浏览器不支持音频播放。
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div> <script>
     // 1. 头像 3D 跟随
     const avatar = document.querySelector('.hero-avatar');
     document.addEventListener('mousemove', (e) => {
@@ -90,10 +113,9 @@
         }
     });
 
-    // 2. 杂志横向滑动拦截
+    // 2. 杂志横向滑动
     const mag = document.getElementById('magScroll');
     const main = document.querySelector('.main-container');
-
     if (mag && main) {
         mag.addEventListener('mouseenter', () => { main.style.overflowY = 'hidden'; });
         mag.addEventListener('mouseleave', () => { main.style.overflowY = 'scroll'; });
@@ -102,49 +124,6 @@
             mag.scrollLeft += e.deltaY * 1.5; 
         }, { passive: false });
     }
-
-    // 3. B 站嵌入视频控制 (点击封面 -> 播放)
-    const videoWrapper = document.getElementById('videoWrapper');
-    const videoCover = document.getElementById('videoCover');
-    const biliPlayer = document.getElementById('biliPlayer');
-
-    if (videoCover && biliPlayer) {
-        videoCover.addEventListener('click', () => {
-            videoWrapper.classList.add('playing');
-            const currentSrc = biliPlayer.src;
-            if (!currentSrc.includes('autoplay=1')) {
-                biliPlayer.src = currentSrc + "&autoplay=1";
-            }
-        });
-    }
 </script>
-
 </body>
 </html>
-
-<section class="snap-section">
-    <div class="work-container">
-        <div class="work-description">
-            <h3 class="section-title-alt">03. AUDIO STRATEGY</h3>
-            <h4 class="work-name">THROUGH WATER’S EYES</h4>
-            <div class="work-context">
-                <p class="en-desc">"Would you like to hear the world through water’s eyes?"</p>
-                <p class="zh-desc">以“水”的视角审视世界。将日常的水声转化为深邃的哲学景观。</p>
-            </div>
-        </div>
-
-        <div class="podcast-display">
-            <audio controls class="custom-audio" style="display: block !important; width: 300px;">
-                <source src="audio/water-podcast.mp3" type="audio/mpeg">
-                您的浏览器不支持音频播放，请检查文件路径。
-            </audio>
-        </div>
-    </div>
-</section>
-                        </audio>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
