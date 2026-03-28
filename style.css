@@ -18,29 +18,49 @@ body, html { background: var(--black); color: var(--white); font-family: 'Montse
 .skill-labels { display: flex; gap: 12px; margin-top: 25px; }
 .skill-labels span { border: 1px solid var(--red); padding: 5px 12px; font-size: 0.7rem; color: var(--red); font-weight: 700; letter-spacing: 1px; }
 
+/* --- HERO 头像：3D跟手 + 强烈Hover故障变色 --- */
 .avatar-container {
     flex: 0 0 250px;
     perspective: 1000px;
     position: relative;
-    /* 移除所有可能导致排队的 transition */
+    overflow: hidden;
+    cursor: crosshair;
 }
 
 .hero-avatar {
     width: 100%;
-    filter: grayscale(100%) contrast(1.1);
+    filter: grayscale(100%) brightness(1) contrast(1.1);
     border-radius: 4px;
-    /* 核心：直接绑定到 transform，不设缓冲时间 */
-    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.02);
-    animation: avatarGlitch猛烈 2s infinite ease-in-out;
-    pointer-events: none; /* 穿透至容器，提高采样率 */
+    /* 核心：只监听坐标变量，没有任何 transition，实现零延迟跟手 */
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1);
+    
+    position: relative;
+    z-index: 2;
+    pointer-events: none; /* 穿透给父容器 */
+    will-change: transform, filter; /* 核心：告诉浏览器提前准备硬件加速 */
 }
 
-@keyframes avatarGlitch {
-    0%, 90%, 100% { filter: grayscale(100%) brightness(1); transform: scale(1); }
-    92% { filter: grayscale(0%) brightness(1.3) sepia(0.3); transform: scale(1.02) translate(2px, -1px); }
-    94% { filter: grayscale(100%) brightness(1.5); transform: scale(0.98) translate(-2px, 1px); }
-    96% { filter: grayscale(0%) contrast(1.5); transform: scale(1.01); }
+/* **重点修复**：只有鼠标滑过容器时，才激活这个强烈的故障变色动画 */
+.avatar-container:hover .hero-avatar {
+    animation: avatarHoverGlitch 1.5s infinite ease-out; /* 缩短周期，更高频 */
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.05); /* 增加一点缩放感 */
 }
+
+/* 强烈故障色调动画：在极短时间内爆发出高对比度的霓虹色彩 */
+@keyframes avatarHoverGlitch {
+    0%, 90%, 100% { filter: grayscale(100%) brightness(1); }
+    
+    /* 1. 瞬间爆发霓虹红 (刺眼感) */
+    92% { filter: grayscale(0%) brightness(1.6) contrast(2) saturate(3) hue-rotate(-10deg) drop-shadow(0 0 10px #CE2028); transform: translate(3px, -2px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+    
+    /* 2. 瞬间反相 (形成强冷暖对比) */
+    94% { filter: invert(1) brightness(1.3) contrast(1.5) hue-rotate(180deg) drop-shadow(0 0 15px #00FFFF); transform: translate(-3px, 2px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+    
+    /* 3. 极速蓝绿故障 */
+    96% { filter: grayscale(0%) brightness(1.5) contrast(1.8) saturate(2) hue-rotate(100deg) sepia(0.5); transform: translate(0); }
+}
+
+
 
 /* --- 4. 作品集通用设计 --- */
 .work-container { display: flex; width: 100%; align-items: center; gap: 60px; min-height: 450px; }
@@ -112,42 +132,61 @@ body, html { background: var(--black); color: var(--white); font-family: 'Montse
     gap: 10px;
 }
 
-/* 播客控制台容器：必须是 relative */
+/* --- 播客控制台：层级重组 --- */
 .unique-pod-console {
     position: relative;
-    background: #080808;
-    overflow: hidden; /* 必须溢出隐藏，否则线条会飞出去 */
-    z-index: 1;
+    width: 100%;
+    max-width: 750px;
+    height: 140px;
+    background: #080808; /* 背景色 */
+    border: 1px solid #1a1a1a;
+    display: flex;
+    align-items: center;
+    overflow: hidden; /* 核心：防止线条飞出框外 */
+    border-radius: 4px;
+    z-index: 1; /* 统一整个控制台的层级 */
 }
 
-/* 强制定位在背景，且不占位 */
+/* 动态线条容器：层级调为 0，介于背景和文字之间 */
 .unique-waves {
     position: absolute;
     top: 0;
-    right: 20px; /* 靠右显示 */
-    width: 200px; /* 明确宽度 */
+    right: 40px; /* 靠右 */
+    width: 250px; 
     height: 100%;
     display: flex !important;
-    align-items: center;
+    align-items: center; 
     justify-content: flex-end;
-    gap: 8px;
-    z-index: 0; /* 确保在图片和文字下方 */
-    opacity: 0.3;
+    gap: 10px;
+    z-index: 0; /* 核心修改：确保线条不会被 `#080808` 背景覆盖 */
+    opacity: 0.3; /* 淡淡的红，不干扰阅读 */
+    pointer-events: none; /* 防止遮挡点击 */
 }
 
+/* 线条实体：使用 ScaleY 动画提高性能 */
 .u-bar {
+    display: inline-block;
     width: 3px;
-    background: var(--red);
+    height: 30px; /* 赋予初始高度 */
+    background: #CE2028; /* 直接给颜色方便观察 */
     border-radius: 2px;
-    animation: waveJump 0.8s infinite ease-in-out;
-    min-height: 10px; /* 即使静止也有高度 */
+    transform-origin: center; /* 确保向上下对称缩放 */
+    animation: waveJumpScale 0.8s infinite ease-in-out;
 }
 
-/* 错位动画 */
-.u-bar:nth-child(odd) { animation-delay: 0.2s; }
-.u-bar:nth-child(3n) { animation-delay: 0.4s; }
+/* 明显错位 */
+.u-bar:nth-child(2n) { animation-delay: 0.1s; }
+.u-bar:nth-child(3n) { animation-delay: 0.3s; }
+.u-bar:nth-child(4n) { animation-delay: 0.2s; }
 
-@keyframes waveJump {
-    0%, 100% { height: 20%; }
-    50% { height: 70%; }
+/* ScaleY 动画：响应更利落，更安全 */
+@keyframes waveJumpScale {
+    0%, 100% { transform: scaleY(1); opacity: 0.2; }
+    50% { transform: scaleY(3); opacity: 0.5; } /* 极速跳动 */
+}
+
+/* 确保内容层级更高 */
+.unique-img-box, .unique-content {
+    position: relative;
+    z-index: 5; /* 核心：远远高于独 unique-waves */
 }
