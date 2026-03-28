@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yi Lu | Portfolio</title>
+    <title>Yi Lu | Visual Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=6.0">
+    <link rel="stylesheet" href="style.css?v=7.0">
 </head>
 <body>
 
@@ -18,13 +18,14 @@
                 <h2 class="role-tag">VISUAL STRATEGIST <span class="red-dot">●</span> BRAND OPERATIONS</h2>
                 <div class="bio-box">
                     <p class="edu">悉尼大学 · 数字传播与文化硕士 (2026届)</p>
-                    <p class="desc">AIGC 创作者 / 品牌策划 / 跨媒介制作人</p>
+                    <p class="desc">AIGC 创作者 / 品牌策划 / 跨媒介制作人：摄影 · 短片 · 杂志 · 播客</p>
                 </div>
             </div>
             <div class="avatar-container">
                 <img src="images/avatar.png" alt="Yi Lu" class="hero-avatar">
             </div>
         </div>
+        <div class="scroll-indicator">SCROLL TO EXPLORE</div>
     </section>
 
     <section class="snap-section">
@@ -32,15 +33,17 @@
             <div class="work-description">
                 <h3 class="section-title-alt">01. EDITORIAL</h3>
                 <h4 class="work-name">16-PAGE VISUAL NARRATIVE</h4>
-                <p class="work-context">探索超现实主义与数字排版。通过 7 组跨页设计构建视觉叙事。</p>
+                <p class="work-context">探索超现实主义与数字排版。通过 7 组跨页设计，构建流动的视觉叙事。</p>
+                <div class="logic-tag">STRATEGY: VISUAL FLOW</div>
             </div>
             <div class="magazine-display">
                 <div class="magazine-container" id="magScroll">
                     <div class="magazine-track">
-                        <div class="mag-page"><img src="images/Page1.jpg" alt="P01"></div>
-                        <div class="mag-page"><img src="images/Spread1.jpg" alt="P02"></div>
-                        <div class="mag-page"><img src="images/Spread2.jpg" alt="P04"></div>
-                        <div class="mag-page"><img src="images/Spread3.jpg" alt="P06"></div>
+                        <div class="mag-page single"><img src="images/Page1.jpg" alt="P01"><span class="page-tag">P01</span></div>
+                        <div class="mag-page spread"><img src="images/Spread1.jpg" alt="P02-03"><span class="page-tag">P02-03</span></div>
+                        <div class="mag-page spread"><img src="images/Spread2.jpg" alt="P04-05"><span class="page-tag">P04-05</span></div>
+                        <div class="mag-page spread"><img src="images/Spread3.jpg" alt="P06-07"><span class="page-tag">P06-07</span></div>
+                        <div class="mag-page spread"><img src="images/Spread4.jpg" alt="P08-09"><span class="page-tag">P08-09</span></div>
                     </div>
                 </div>
             </div>
@@ -52,48 +55,3 @@
             <div class="work-description">
                 <h3 class="section-title-alt">02. MOTION</h3>
                 <h4 class="work-name">THE CUBE OF BLOOD</h4>
-                <p class="work-context">基于 AIGC 资产的叙事动画实验。红黑视觉张力构建。</p>
-            </div>
-            <div class="video-display">
-                <iframe src="//player.bilibili.com/player.html?bvid=BV1UhQqB7EfS&page=1&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-            </div>
-        </div>
-    </section>
-
-    <section class="snap-section">
-        <div class="work-container">
-            <div class="work-description">
-                <h3 class="section-title-alt">03. AUDIO STRATEGY</h3>
-                <h4 class="work-name">THROUGH WATER’S EYES</h4>
-                <p class="work-context">以“水”的视角审视世界。日常水声的哲学化表达。</p>
-            </div>
-            <div class="podcast-display">
-                <div class="unique-pod-console">
-                    <div class="unique-img-box"><img src="images/podcast-cover.jpg" alt="Cover"></div>
-                    <div class="unique-content">
-                        <p class="unique-title">EP.01 - Philosophy of Flow</p>
-                        <audio controls class="unique-player">
-                            <source src="https://lynn59729-spec.github.io/portfolio/audio/water-podcast.mp3" type="audio/mpeg">
-                        </audio>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-</div>
-
-<script>
-    // 杂志横向滚动锁定逻辑
-    const mag = document.getElementById('magScroll');
-    if (mag) {
-        mag.addEventListener('wheel', (e) => {
-            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-                e.preventDefault();
-                mag.scrollLeft += e.deltaY;
-            }
-        }, { passive: false });
-    }
-</script>
-</body>
-</html>
