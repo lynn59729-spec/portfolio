@@ -110,33 +110,33 @@
     
 <script>
     // --- 1. 杂志横向滚动修复 ---
-const mag = document.getElementById('magScroll');
-if (mag) {
-    mag.addEventListener('wheel', (e) => {
-        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-            e.preventDefault();
-            mag.scrollLeft += e.deltaY * 1.5; 
-        }
-    }, { passive: false });
-}
-    
-<script>
-   const container = document.querySelector('.avatar-container');
-if (container) {
-    container.addEventListener('mousemove', (e) => {
-        const rect = container.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        // 使用 CSS 变量直接控制旋转，响应速度最快
-        container.style.setProperty('--ry', (x * 30) + 'deg');
-        container.style.setProperty('--rx', (y * -30) + 'deg');
-    });
-    container.addEventListener('mouseleave', () => {
-        container.style.setProperty('--ry', '0deg');
-        container.style.setProperty('--rx', '0deg');
-    });
-}
-    
+    const mag = document.getElementById('magScroll');
+    if (mag) {
+        mag.addEventListener('wheel', (e) => {
+            // 只有当用户是在杂志区域滚动时才拦截
+            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                e.preventDefault();
+                mag.scrollLeft += e.deltaY * 1.5; 
+            }
+        }, { passive: false });
+    }
+
+    // --- 2. 头像 3D 跟踪逻辑 ---
+    const container = document.querySelector('.avatar-container');
+    if (container) {
+        container.addEventListener('mousemove', (e) => {
+            const rect = container.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            // 响应坐标变量
+            container.style.setProperty('--ry', (x * 30) + 'deg');
+            container.style.setProperty('--rx', (y * -30) + 'deg');
+        });
+        container.addEventListener('mouseleave', () => {
+            container.style.setProperty('--ry', '0deg');
+            container.style.setProperty('--rx', '0deg');
+        });
+    }
 </script>
 </body>
 </html>
