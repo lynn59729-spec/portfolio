@@ -192,103 +192,164 @@ body, html {
         padding-top: 50px;
     }
 
-/* --- 03. AUDIO SECTION 细节优化 --- */
-.pod-card {
+/* --- 03. AUDIO 控制台设计 (长方形) --- */
+.pod-console {
     width: 100%;
-    max-width: 650px; /* 进一步收窄容器 */
-    background: rgba(10, 10, 10, 0.9);
+    max-width: 800px;
+    height: 180px; /* 固定的长方形高度 */
+    background: #080808;
     border: 1px solid #1a1a1a;
-    display: flex;
-    padding: 25px 30px;
-    gap: 30px;
-    align-items: center;
-    backdrop-filter: blur(10px);
-}
-
-/* 缩小后的图片框尺寸 */
-.pod-visual {
-    width: 150px;  /* 恢复并缩小，不再占据过多视线 */
-    height: 150px;
     position: relative;
-    flex-shrink: 0;
+    overflow: hidden; /* 隐藏溢出的线条 */
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    border-radius: 2px;
 }
 
-.pod-visual img {
+/* 背景动态声波线条 */
+.wave-container {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    opacity: 0.15; /* 线条作为微弱背景 */
+    pointer-events: none;
+}
+
+.wave-bar {
+    width: 2px;
+    height: 40px;
+    background: var(--red);
+    animation: soundWave 1.2s infinite ease-in-out;
+}
+
+/* 错开每根线条的动画时间，形成起伏感 */
+.wave-bar:nth-child(2n) { animation-delay: 0.2s; height: 60px; }
+.wave-bar:nth-child(3n) { animation-delay: 0.5s; height: 30px; }
+.wave-bar:nth-child(4n) { animation-delay: 0.8s; height: 80px; }
+
+@keyframes soundWave {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(2.5); }
+}
+
+/* 内容布局 */
+.console-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.console-text { flex: 1; }
+.pod-ep-title { 
+    font-family: 'Bebas Neue'; 
+    font-size: 1.8rem; 
+    color: var(--white); 
+    margin-top: 5px;
+}
+
+/* 播放器样式 */
+.custom-audio {
+    width: 300px; /* 限制播放器宽度，保持呼吸感 */
+    filter: invert(100%) hue-rotate(180deg) brightness(1.5);
+}
+
+/* 响应式：移动端变回堆叠 */
+@media (max-width: 800px) {
+    .pod-console { height: auto; padding: 30px; }
+    .console-content { flex-direction: column; gap: 20px; text-align: center; }
+    .custom-audio { width: 100%; }
+}
+
+/* --- 04. PHOTOGRAPHY 视觉走廊 (长方形) --- */
+.photo-gallery-wide {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 850px;
+}
+
+.photo-card {
+    position: relative;
+    overflow: hidden;
+    background: #050505;
+    border: 1px solid #1a1a1a;
+    transition: border-color 0.4s ease;
+}
+
+.photo-card:hover {
+    border-color: var(--red);
+}
+
+.photo-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     filter: grayscale(100%) brightness(0.7);
-    border: 1px solid #222;
+    transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: block;
 }
 
-.water-ripple {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%; height: 100%;
-    border: 1px solid var(--red);
-    border-radius: 50%;
-    animation: ripple 3s infinite linear;
-    pointer-events: none; /* 防止挡住点击 */
-    z-index: 1;
+/* 悬停唤醒：恢复色彩与亮度 */
+.photo-card:hover img {
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1.02);
 }
 
-/* --- 04. PHOTOGRAPHY SECTION 走廊设计 --- */
-.photo-gallery {
-    flex: 1;
-    height: 60vh;
+/* 布局比例 */
+.photo-card.wide {
+    height: 320px; /* 宽屏长方形 */
+}
+
+.photo-row {
     display: flex;
-    align-items: center;
+    gap: 20px;
+    height: 200px;
 }
 
-.gallery-track {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 15px;
-    width: 100%;
-    height: 100%;
+.photo-card.medium {
+    flex: 1;
 }
 
-.gallery-item {
-    position: relative;
-    overflow: hidden;
-    background: #000;
-    border: 1px solid #1a1a1a;
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(100%);
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.gallery-item:hover img {
-    filter: grayscale(0%) contrast(1.1);
-    transform: scale(1.03);
-}
-
-/* 布局分布 */
-.gallery-item.tall { grid-row: span 2; }
-.gallery-item.wide { grid-column: span 1; }
-
-.photo-info {
+/* 摄影参数标签 */
+.photo-meta {
     position: absolute;
-    bottom: 10px; left: 10px;
-    font-size: 0.6rem;
-    color: var(--red);
-    letter-spacing: 1px;
+    bottom: 0; left: 0; width: 100%;
+    padding: 15px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     opacity: 0;
-    transition: opacity 0.3s;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
 }
 
-.gallery-item:hover .photo-info { opacity: 1; }
-
-/* 响应式适配 */
-@media (max-width: 850px) {
-    .pod-card { flex-direction: column; padding: 20px; }
-    .gallery-track { grid-template-columns: 1fr; grid-template-rows: auto; }
+.photo-card:hover .photo-meta {
+    opacity: 1;
+    transform: translateY(0);
 }
-    
+
+.photo-meta span {
+    font-size: 0.6rem;
+    color: var(--white);
+    letter-spacing: 2px;
+    font-family: 'Bebas Neue';
+}
+
+.photo-meta .tech {
+    color: var(--red);
+}
+
+/* 移动端适配 */
+@media (max-width: 900px) {
+    .photo-row { flex-direction: column; height: auto; }
+    .photo-card.wide, .photo-card.medium { height: 200px; }
+}
