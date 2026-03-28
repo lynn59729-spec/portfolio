@@ -1,76 +1,81 @@
+/* --- 1. 全局字体与颜色设定 --- */
 :root { --red: #CE2028; --black: #050505; --white: #FFFFFF; --grey: #808080; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body, html { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; height: 100vh; overflow: hidden; }
 
-.main-container { height: 100vh; overflow-y: auto; scroll-snap-type: y mandatory; }
-.snap-section { height: 100vh; width: 100%; scroll-snap-align: start; display: flex; align-items: center; padding: 0 8%; flex-shrink: 0; }
+/* --- 2. 布局核心 --- */
+.main-container { height: 100vh; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+.snap-section { height: 100vh; width: 100%; scroll-snap-align: start; display: flex; align-items: center; padding: 0 8%; flex-shrink: 0; overflow: hidden; }
 
-/* HERO */
+/* --- 3. HERO (恢复闪烁变色效果) --- */
+.hero { background: radial-gradient(circle at 70%, #1a0505 0%, var(--black) 70%); }
 .content-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-.glitch-text { font-family: 'Bebas Neue'; font-size: 5rem; line-height: 0.9; }
-.role-tag { font-family: 'Bebas Neue'; font-size: 1.5rem; color: var(--red); }
-.avatar-container { flex: 0 0 250px; }
-.hero-avatar { width: 100%; filter: grayscale(100%); border-radius: 4px; }
+.glitch-text { font-family: 'Bebas Neue'; font-size: clamp(4rem, 10vw, 7.5rem); line-height: 0.85; margin-bottom: 20px; letter-spacing: -2px; }
+.role-tag { font-family: 'Bebas Neue'; font-size: 1.8rem; color: var(--red); letter-spacing: 3px; }
+.bio-box { margin: 30px 0; }
+.edu { font-weight: 700; font-size: 1.1rem; margin-bottom: 8px; }
+.desc { font-weight: 300; font-size: 0.95rem; color: var(--grey); line-height: 1.8; }
+.skill-labels { display: flex; gap: 12px; margin-top: 25px; }
+.skill-labels span { border: 1px solid var(--red); padding: 5px 12px; font-size: 0.7rem; color: var(--red); font-weight: 700; letter-spacing: 1px; }
 
-/* 通用容器：解决内容消失的关键 */
-.work-container { display: flex; width: 100%; align-items: center; gap: 60px; min-height: 400px; }
-.work-container.invert { flex-direction: row-reverse; }
-.work-description { flex: 0 0 320px; }
-
-/* 杂志板块 */
-.magazine-display { flex: 1; overflow: hidden; }
-.magazine-container { width: 100%; overflow-x: auto; }
-.magazine-track { display: flex; gap: 20px; }
-.mag-page img { height: 60vh; width: auto; border: 1px solid #222; }
-
-/* 视频板块修复 */
-.video-display { flex: 1; min-width: 500px; }
-.iframe-wrapper { position: relative; width: 100%; padding-top: 56.25%; background: #111; }
-.iframe-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid #222; }
-
-/* 播客板块修复 */
-.podcast-display { flex: 1; display: flex; justify-content: flex-end; min-width: 400px; }
-.unique-pod-console {
-    width: 100%; max-width: 700px; height: 140px;
-    background: #080808; border: 1px solid #1a1a1a;
-    display: flex; align-items: center; overflow: hidden;
-}
-.unique-img-box { width: 140px; height: 140px; flex-shrink: 0; }
-.unique-img-box img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); }
-.unique-content { flex: 1; padding: 0 30px; display: flex; justify-content: space-between; align-items: center; }
-.unique-title { font-family: 'Bebas Neue'; font-size: 1.6rem; color: #fff; }
-.unique-player { width: 260px; filter: invert(100%); }
-
-/* 移动端 */
-@media (max-width: 900px) {
-    .snap-section { height: auto; padding: 60px 5%; scroll-snap-align: none; }
-    .work-container { flex-direction: column; text-align: center; min-height: auto; }
-    .video-display, .podcast-display { min-width: 100%; width: 100%; }
-    .unique-pod-console { height: auto; flex-direction: column; }
-    .unique-img-box { width: 100%; height: 180px; }
-}
-
-/* 头像闪烁变色效果 */
-.hero-avatar {
-    width: 100%;
-    filter: grayscale(100%) contrast(1.1);
-    border-radius: 4px;
+.avatar-container { flex: 0 0 250px; perspective: 1000px; }
+.hero-avatar { 
+    width: 100%; 
+    filter: grayscale(100%) contrast(1.1); 
+    border-radius: 4px; 
     transition: transform 0.1s ease-out;
-    animation: avatarGlitch 4s infinite; /* 增加闪烁动画 */
+    animation: avatarGlitch 5s infinite; 
 }
 
 @keyframes avatarGlitch {
-    0% { filter: grayscale(100%) brightness(1); transform: translate(0); }
-    92% { filter: grayscale(100%) brightness(1); transform: translate(0); }
-    93% { filter: grayscale(0%) brightness(1.2) sepia(0.5) hue-rotate(-20deg); transform: translate(2px, -1px); }
-    94% { filter: grayscale(100%) brightness(1); transform: translate(-2px, 1px); }
-    95% { filter: grayscale(0%) brightness(1.1) contrast(1.2); transform: translate(0); }
-    100% { filter: grayscale(100%) brightness(1); }
+    0%, 90%, 100% { filter: grayscale(100%) brightness(1); transform: scale(1); }
+    92% { filter: grayscale(0%) brightness(1.3) sepia(0.3); transform: scale(1.02) translate(2px, -1px); }
+    94% { filter: grayscale(100%) brightness(1.5); transform: scale(0.98) translate(-2px, 1px); }
+    96% { filter: grayscale(0%) contrast(1.5); transform: scale(1.01); }
 }
 
-/* 播客播放器颜色反转（方便在黑底看到控制条） */
-.unique-player {
-    width: 260px;
-    filter: invert(1) hue-rotate(180deg) brightness(1.5); /* 重点：确保在黑背景可见 */
-    height: 35px;
+/* --- 4. 作品集通用设计 --- */
+.work-container { display: flex; width: 100%; align-items: center; gap: 60px; min-height: 450px; }
+.work-container.invert { flex-direction: row-reverse; }
+.work-description { flex: 0 0 350px; }
+.section-title-alt { color: var(--red); font-family: 'Bebas Neue'; font-size: 1.4rem; letter-spacing: 2px; margin-bottom: 12px; }
+.work-name { font-family: 'Bebas Neue'; font-size: 3rem; margin-bottom: 20px; line-height: 1; }
+.work-context { color: var(--grey); font-size: 0.95rem; line-height: 1.7; margin-bottom: 25px; }
+.logic-tag { display: inline-block; background: #151515; padding: 6px 15px; font-size: 0.75rem; color: var(--red); font-weight: 700; border-left: 3px solid var(--red); }
+
+/* 杂志板块修复 */
+.magazine-display { flex: 1; overflow: hidden; }
+.magazine-container { width: 100%; overflow-x: auto; padding: 20px 0; }
+.magazine-track { display: flex; gap: 30px; }
+.mag-page img { height: 65vh; width: auto; border: 1px solid #222; box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
+.page-tag { display: block; font-size: 10px; color: #444; margin-top: 10px; text-align: center; font-family: 'Bebas Neue'; }
+
+/* 视频板块修复 */
+.video-display { flex: 1; min-width: 550px; }
+.iframe-wrapper { position: relative; width: 100%; padding-top: 56.25%; background: #000; box-shadow: 0 20px 60px rgba(0,0,0,0.9); }
+.iframe-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid #222; }
+
+/* 播客板块：大尺寸控制台 */
+.podcast-display { flex: 1; display: flex; justify-content: flex-end; min-width: 450px; }
+.unique-pod-console {
+    width: 100%; max-width: 750px; height: 140px;
+    background: #080808; border: 1px solid #1a1a1a;
+    display: flex; align-items: center; overflow: hidden; border-radius: 4px;
+}
+.unique-img-box { width: 140px; height: 140px; flex-shrink: 0; border-right: 1px solid #1a1a1a; }
+.unique-img-box img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); }
+.unique-content { flex: 1; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+.unique-tag { color: var(--red); font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 5px; }
+.unique-title { font-family: 'Bebas Neue'; font-size: 2rem; color: #fff; margin: 0; }
+.unique-player { width: 280px; filter: invert(1) hue-rotate(180deg) brightness(1.5); }
+
+/* --- 5. 响应式适配 --- */
+@media (max-width: 950px) {
+    .snap-section { height: auto; padding: 80px 5%; scroll-snap-align: none; }
+    .work-container { flex-direction: column !important; text-align: center; gap: 40px; }
+    .video-display, .podcast-display { min-width: 100%; }
+    .mag-page img { height: 45vh; }
+    .unique-pod-console { height: auto; flex-direction: column; }
+    .unique-img-box { width: 100%; height: 200px; }
+    .unique-content { padding: 30px; flex-direction: column; gap: 20px; }
 }
