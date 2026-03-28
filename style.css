@@ -104,41 +104,62 @@ body, html { background: var(--black); color: var(--white); font-family: 'Montse
     gap: 10px;
 }
 
-/* --- 2. 播客动态线条设计 --- */
+/* 播客控制台容器：必须是 relative */
 .unique-pod-console {
-    position: relative; /* 必须为 relative 以承载绝对定位的线条 */
+    position: relative; 
+    width: 100%; 
+    max-width: 750px; 
+    height: 140px;
+    background: #080808; 
+    border: 1px solid #1a1a1a;
+    display: flex; 
+    align-items: center; 
+    overflow: hidden; 
+    border-radius: 4px;
 }
 
+/* 动态线条容器：强制置于底层 */
 .unique-waves {
     position: absolute;
-    right: 50px; /* 放在右侧背景 */
+    top: 0;
+    right: 40px; /* 放在右侧背景 */
     height: 100%;
-    display: flex;
+    display: flex !important; /* 强制显示 */
     align-items: center;
-    gap: 8px;
-    opacity: 0.15; /* 透明度，确保不干扰文字阅读 */
-    pointer-events: none; /* 防止遮挡点击 */
+    gap: 10px;
+    z-index: 1; 
+    pointer-events: none;
 }
 
+/* 线条基础样式 */
 .u-bar {
-    width: 2px;
-    height: 20px;
+    display: block;
+    width: 3px;
+    height: 30px;
     background: var(--red);
-    animation: uWave 1.2s infinite ease-in-out;
+    opacity: 0.2; /* 淡淡的红，不干扰文字 */
+    border-radius: 2px;
+    transform-origin: bottom;
+    animation: waveJump 1s infinite ease-in-out;
 }
 
-/* 让线条跳动错落有致 */
-.u-bar:nth-child(2n) { animation-delay: 0.2s; height: 45px; }
-.u-bar:nth-child(3n) { animation-delay: 0.4s; height: 25px; }
-.u-bar:nth-child(4n) { animation-delay: 0.1s; height: 60px; }
+/* 错落有致的动画延迟和高度 */
+.u-bar:nth-child(1) { animation-delay: 0.1s; height: 40px; }
+.u-bar:nth-child(2) { animation-delay: 0.3s; height: 70px; }
+.u-bar:nth-child(3) { animation-delay: 0.2s; height: 50px; }
+.u-bar:nth-child(4) { animation-delay: 0.5s; height: 90px; }
+.u-bar:nth-child(5) { animation-delay: 0.4s; height: 40px; }
+.u-bar:nth-child(6) { animation-delay: 0.1s; height: 60px; }
+.u-bar:nth-child(7) { animation-delay: 0.6s; height: 30px; }
+.u-bar:nth-child(8) { animation-delay: 0.2s; height: 80px; }
 
-@keyframes uWave {
-    0%, 100% { transform: scaleY(1); }
-    50% { transform: scaleY(2.2); }
+@keyframes waveJump {
+    0%, 100% { transform: scaleY(0.4); opacity: 0.1; }
+    50% { transform: scaleY(1.2); opacity: 0.3; }
 }
 
-/* 确保内容在动态背景之上 */
-.unique-content {
+/* 确保内容层级更高，不被线条遮挡 */
+.unique-img-box, .unique-content {
     position: relative;
-    z-index: 2;
+    z-index: 5;
 }
