@@ -1,80 +1,71 @@
 :root { --red: #CE2028; --black: #050505; --white: #FFFFFF; --grey: #808080; }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
+body, html { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; height: 100vh; overflow: hidden; }
 
-body, html { 
-    background: var(--black); 
-    color: var(--white); 
-    font-family: 'Montserrat', sans-serif; 
-    height: 100%; 
-    overflow: hidden; /* 防止双滚动条 */
-}
-
-/* 核心：确保主容器可以滚动，且吸附正常 */
-.main-container {
-    height: 100vh;
-    overflow-y: auto; 
-    scroll-snap-type: y mandatory;
-    -webkit-overflow-scrolling: touch;
-}
-
-.snap-section {
-    height: 100vh;
-    width: 100%;
-    scroll-snap-align: start;
-    display: flex;
-    align-items: center;
-    padding: 0 8%;
-    flex-shrink: 0;
-    overflow: hidden; /* 关键：防止单个板块溢出 */
-}
+.main-container { height: 100vh; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+.snap-section { height: 100vh; width: 100%; scroll-snap-align: start; display: flex; align-items: center; padding: 0 8%; flex-shrink: 0; overflow: hidden; }
 
 /* HERO */
+.hero { background: radial-gradient(circle at 70%, #1a0505 0%, var(--black) 70%); }
 .content-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-.glitch-text { font-family: 'Bebas Neue'; font-size: 5rem; line-height: 0.9; color: var(--white); }
-.role-tag { font-family: 'Bebas Neue'; font-size: 1.5rem; color: var(--red); letter-spacing: 2px; }
-.avatar-container { flex: 0 0 250px; }
-.hero-avatar { width: 100%; filter: grayscale(100%); border-radius: 4px; }
+.glitch-text { font-family: 'Bebas Neue'; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 0.9; margin-bottom: 20px; }
+.role-tag { font-family: 'Bebas Neue'; font-size: 1.6rem; color: var(--red); letter-spacing: 2px; }
+.bio-box { margin: 25px 0; }
+.edu { font-weight: 700; font-size: 1rem; margin-bottom: 5px; }
+.desc { font-weight: 300; font-size: 0.88rem; color: var(--grey); line-height: 1.7; }
+.avatar-container { flex: 0 0 250px; perspective: 1000px; }
+.hero-avatar { width: 100%; filter: grayscale(100%) contrast(1.1); border-radius: 4px; transition: transform 0.1s ease-out; }
 
 /* 通用布局 */
-.work-container { display: flex; width: 100%; align-items: center; gap: 40px; }
+.work-container { display: flex; width: 100%; align-items: center; gap: 60px; }
 .work-container.invert { flex-direction: row-reverse; }
-.work-description { flex: 0 0 300px; }
+.work-description { flex: 0 0 320px; }
 .section-title-alt { color: var(--red); font-family: 'Bebas Neue'; font-size: 1.2rem; margin-bottom: 10px; }
-.work-name { font-family: 'Bebas Neue'; font-size: 2rem; margin-bottom: 15px; }
-.work-context { color: var(--grey); font-size: 0.9rem; line-height: 1.6; }
+.work-name { font-family: 'Bebas Neue'; font-size: 2.5rem; margin-bottom: 15px; }
+.work-context { color: var(--grey); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
+.logic-tag { display: inline-block; background: #1a1a1a; padding: 5px 12px; font-size: 0.7rem; color: var(--red); font-weight: 700; }
 
-/* 杂志板块修复：限制高度，防止充斥屏幕 */
+/* 杂志板块：恢复大展示 */
 .magazine-display { flex: 1; overflow: hidden; }
-.magazine-container { width: 100%; overflow-x: auto; padding-bottom: 10px; }
-.magazine-track { display: flex; gap: 20px; }
-.mag-page img { 
-    height: 50vh; /* 限制图片高度为屏幕的一半 */
-    width: auto; 
-    border: 1px solid #222; 
-}
+.magazine-container { width: 100%; overflow-x: auto; padding: 20px 0; }
+.magazine-track { display: flex; gap: 30px; }
+.mag-page img { height: 65vh; width: auto; border: 1px solid #222; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.page-tag { display: block; font-size: 10px; color: #555; margin-top: 8px; text-align: center; }
 
 /* 视频板块 */
-.video-display { flex: 1; aspect-ratio: 16/9; background: #000; border: 1px solid #222; }
+.video-display { flex: 1; aspect-ratio: 16/9; background: #111; border: 1px solid #222; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
 .video-display iframe { width: 100%; height: 100%; }
 
-/* 播客板块：锁死高度，解决脱离问题 */
+/* 播客板块：调大尺寸 */
 .podcast-display { flex: 1; display: flex; justify-content: flex-end; }
 .unique-pod-console {
-    width: 100%; max-width: 600px; height: 100px;
-    background: #0a0a0a; border: 1px solid #1a1a1a;
-    display: flex; align-items: center; overflow: hidden;
+    width: 100%; max-width: 800px; 
+    height: 140px; /* 从100px增加到140px */
+    background: #080808; border: 1px solid #1a1a1a;
+    display: flex; align-items: center; overflow: hidden; border-radius: 4px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
 }
-.unique-img-box { width: 100px; height: 100px; flex-shrink: 0; }
-.unique-img-box img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); }
-.unique-content { flex: 1; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-.unique-title { font-family: 'Bebas Neue'; font-size: 1.2rem; }
-.unique-player { width: 200px; filter: invert(100%); }
+.unique-img-box { 
+    width: 140px; /* 同步增加 */
+    height: 140px; 
+    flex-shrink: 0; 
+    border-right: 1px solid #1a1a1a; 
+}
+.unique-img-box img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) brightness(0.8); transition: 0.3s; }
+.unique-pod-console:hover img { filter: grayscale(0%) brightness(1); }
 
-/* 移动端适配 */
-@media (max-width: 800px) {
-    .snap-section { height: auto; padding: 50px 5%; scroll-snap-align: none; }
-    .work-container { flex-direction: column; text-align: center; }
+.unique-content { flex: 1; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+.unique-tag { color: var(--red); font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+.unique-title { font-family: 'Bebas Neue'; font-size: 1.8rem; color: #fff; margin: 0; letter-spacing: 1px; }
+.unique-player { width: 280px; filter: invert(100%) hue-rotate(180deg) brightness(1.5); opacity: 0.8; }
+.unique-player:hover { opacity: 1; }
+
+/* 响应式 */
+@media (max-width: 900px) {
+    .snap-section { height: auto; padding: 60px 5%; scroll-snap-align: none; }
+    .work-container { flex-direction: column; text-align: center; gap: 30px; }
+    .mag-page img { height: 40vh; }
     .unique-pod-console { height: auto; flex-direction: column; }
-    .unique-img-box { width: 100%; height: 150px; }
+    .unique-img-box { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid #1a1a1a; }
+    .unique-content { padding: 30px; flex-direction: column; gap: 20px; }
 }
