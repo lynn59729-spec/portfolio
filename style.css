@@ -192,118 +192,91 @@ body, html {
         padding-top: 50px;
     }
 
-/* --- 03. 播客精致窄条控制台 (最终优化版) --- */
-.final-pod-bar {
-    width: 100%;
-    max-width: 800px;
-    height: 120px !important; /* 进一步缩窄控制台高度，显得更精致 */
-    background: #080808;
-    border: 1px solid #1a1a1a;
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden; /* 隐藏溢出的线条 */
-    border-radius: 4px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+/* --- 03. 强制更新：精致长方音频控制台 --- */
+.unique-pod-console {
+    width: 100% !important;
+    max-width: 800px !important;
+    height: 110px !important; /* 极窄长方形，非常精致 */
+    background: #0a0a0a !important;
+    border: 1px solid #1a1a1a !important;
+    display: flex !important;
+    align-items: center !important;
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 4px !important;
+    margin: 20px 0 !important;
 }
 
-/* 小型封面图容器 (锁定 100px) */
-.final-visual {
-    width: 120px; /* 与高度保持一致，形成方块 */
-    height: 120px;
-    position: relative;
-    flex-shrink: 0;
-    border-right: 1px solid #1a1a1a;
+/* 缩小的图片：仅占据 110px */
+.unique-img-box {
+    width: 110px !important;
+    height: 110px !important;
+    flex-shrink: 0 !important;
+    border-right: 1px solid #1a1a1a !important;
 }
 
-.final-visual img {
-    width: 100%;
+.unique-img-box img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    filter: grayscale(100%) brightness(0.7) !important;
+}
+
+/* 动态背景线条 */
+.unique-waves {
+    position: absolute;
+    right: 40px;
     height: 100%;
-    object-fit: cover;
-    filter: grayscale(100%) brightness(0.7);
-    transition: filter 0.3s;
-}
-
-.final-visual:hover img {
-    filter: grayscale(0%) brightness(1); /* 悬停时恢复色彩 */
-}
-
-.final-visual-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(206, 32, 40, 0.05); /* 极淡的红色调 */
-}
-
-/* 动态声波线条背景 (移到底层) */
-.final-wave-container {
-    position: absolute;
-    right: 50px;
-    width: 50%; height: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 12px;
-    opacity: 0.12; /* 线条透明度 */
-    pointer-events: none;
+    gap: 8px;
+    opacity: 0.1;
     z-index: 1;
+    pointer-events: none;
 }
 
-.bar {
+.u-bar {
     width: 2px;
-    height: 25px;
+    height: 20px;
     background: #CE2028;
-    animation: barWave 1.2s infinite ease-in-out;
+    animation: uWave 1.2s infinite ease-in-out;
 }
+.u-bar:nth-child(2n) { animation-delay: 0.2s; height: 40px; }
+.u-bar:nth-child(3n) { animation-delay: 0.5s; height: 15px; }
 
-/* 错位动画 */
-.bar:nth-child(2n) { animation-delay: 0.2s; height: 40px; }
-.bar:nth-child(3n) { animation-delay: 0.5s; height: 18px; }
-.bar:nth-child(4n) { animation-delay: 0.8s; height: 60px; }
-
-@keyframes barWave {
+@keyframes uWave {
     0%, 100% { transform: scaleY(1); }
-    50% { transform: scaleY(2.5); }
+    50% { transform: scaleY(2.2); }
 }
 
-/* 内容布局 (占据剩余空间) */
-.final-content {
-    flex: 1;
-    padding: 0 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    z-index: 5;
+/* 内容区域 */
+.unique-content {
+    flex: 1 !important;
+    padding: 0 30px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    z-index: 5 !important;
 }
 
-.final-text-area { flex: 1; margin-right: 30px; }
-.final-tag { color: var(--red); font-size: 0.6rem; font-weight: 700; letter-spacing: 2px; }
-.final-ep-title { 
-    font-family: 'Bebas Neue'; 
-    font-size: 1.6rem; 
-    color: var(--white); 
-    margin-top: 5px;
-    letter-spacing: 1px;
+.unique-title {
+    font-family: 'Bebas Neue' !important;
+    font-size: 1.4rem !important;
+    color: #fff !important;
+    margin: 0 !important;
 }
 
-/* 音频控制条样式 */
-.final-audio-controls {
-    width: 280px; /* 限制播放器宽度 */
-    filter: invert(100%) hue-rotate(180deg) brightness(1.5);
-    opacity: 0.9;
-    transition: opacity 0.3s;
+.unique-player {
+    width: 260px !important;
+    filter: invert(100%) hue-rotate(180deg) brightness(1.5) !important;
 }
 
-.final-audio-controls:hover { opacity: 1; }
-
-/* --- 响应式适配 (Pad & Mobile) --- */
-@media (max-width: 850px) {
-    .final-pod-bar { height: auto !important; flex-direction: column; }
-    .final-visual { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid #1a1a1a; }
-    .final-content { padding: 30px; flex-direction: column; gap: 20px; text-align: center; }
-    .final-audio-controls { width: 100%; }
+/* 移动端强制适配 */
+@media (max-width: 768px) {
+    .unique-pod-console { height: auto !important; flex-direction: column !important; }
+    .unique-img-box { width: 100% !important; height: 200px !important; }
+    .unique-content { padding: 20px !important; flex-direction: column !important; gap: 15px !important; }
 }
-    
     
 /* --- 04. PHOTOGRAPHY 视觉走廊 (长方形) --- */
 .photo-gallery-wide {
