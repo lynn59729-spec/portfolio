@@ -114,60 +114,40 @@ body, html { background: var(--black); color: var(--white); font-family: 'Montse
 
 /* 播客控制台容器：必须是 relative */
 .unique-pod-console {
-    position: relative; 
-    width: 100%; 
-    max-width: 750px; 
-    height: 140px;
-    background: #080808; 
-    border: 1px solid #1a1a1a;
-    display: flex; 
-    align-items: center; 
-    overflow: hidden; 
-    border-radius: 4px;
+    position: relative;
+    background: #080808;
+    overflow: hidden; /* 必须溢出隐藏，否则线条会飞出去 */
+    z-index: 1;
 }
 
-/* 动态线条容器：强制置于底层 */
+/* 强制定位在背景，且不占位 */
 .unique-waves {
     position: absolute;
     top: 0;
-    right: 40px; /* 放在右侧背景 */
+    right: 20px; /* 靠右显示 */
+    width: 200px; /* 明确宽度 */
     height: 100%;
-    display: flex !important; /* 强制显示 */
+    display: flex !important;
     align-items: center;
-    gap: 10px;
-    z-index: 1; 
-    pointer-events: none;
+    justify-content: flex-end;
+    gap: 8px;
+    z-index: 0; /* 确保在图片和文字下方 */
+    opacity: 0.3;
 }
 
-/* 线条基础样式 */
 .u-bar {
-    display: block;
     width: 3px;
-    height: 30px;
     background: var(--red);
-    opacity: 0.2; /* 淡淡的红，不干扰文字 */
     border-radius: 2px;
-    transform-origin: bottom;
-    animation: waveJump 1s infinite ease-in-out;
+    animation: waveJump 0.8s infinite ease-in-out;
+    min-height: 10px; /* 即使静止也有高度 */
 }
 
-/* 错落有致的动画延迟和高度 */
-.u-bar:nth-child(1) { animation-delay: 0.1s; height: 40px; }
-.u-bar:nth-child(2) { animation-delay: 0.3s; height: 70px; }
-.u-bar:nth-child(3) { animation-delay: 0.2s; height: 50px; }
-.u-bar:nth-child(4) { animation-delay: 0.5s; height: 90px; }
-.u-bar:nth-child(5) { animation-delay: 0.4s; height: 40px; }
-.u-bar:nth-child(6) { animation-delay: 0.1s; height: 60px; }
-.u-bar:nth-child(7) { animation-delay: 0.6s; height: 30px; }
-.u-bar:nth-child(8) { animation-delay: 0.2s; height: 80px; }
+/* 错位动画 */
+.u-bar:nth-child(odd) { animation-delay: 0.2s; }
+.u-bar:nth-child(3n) { animation-delay: 0.4s; }
 
 @keyframes waveJump {
-    0%, 100% { transform: scaleY(0.4); opacity: 0.1; }
-    50% { transform: scaleY(1.2); opacity: 0.3; }
-}
-
-/* 确保内容层级更高，不被线条遮挡 */
-.unique-img-box, .unique-content {
-    position: relative;
-    z-index: 5;
+    0%, 100% { height: 20%; }
+    50% { height: 70%; }
 }
