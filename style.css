@@ -93,7 +93,7 @@ body, html { background: var(--black); color: var(--white); font-family: 'Montse
 .mag-scroll-indicator {
     align-self: flex-start; /* 对齐到展示框左侧或居中 */
     margin-top: 15px;      /* 紧贴展示框的间距 */
-    color: #555;           /* 灰色 */
+    color: #444; /* 深灰色 */
     font-size: 0.65rem;    /* 小字 */
     letter-spacing: 2px;
     font-weight: 700;
