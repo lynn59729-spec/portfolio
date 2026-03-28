@@ -110,24 +110,22 @@
 </div>
 
 <script>
-    const avatar = document.querySelector('.hero-avatar');
-    document.addEventListener('mousemove', (e) => {
-        if(avatar) {
-            const x = (window.innerWidth / 2 - e.pageX) / 45;
-            const y = (window.innerHeight / 2 - e.pageY) / 45;
-            avatar.style.transform = `rotateY(${x}deg) rotateX(${-y}deg) scale(1.02)`;
-        }
+   const container = document.querySelector('.avatar-container');
+if (container) {
+    container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        // 使用 CSS 变量直接控制旋转，响应速度最快
+        container.style.setProperty('--ry', (x * 30) + 'deg');
+        container.style.setProperty('--rx', (y * -30) + 'deg');
     });
-
-    const mag = document.getElementById('magScroll');
-    if (mag) {
-        mag.addEventListener('wheel', (e) => {
-            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-                e.preventDefault();
-                mag.scrollLeft += e.deltaY * 1.5;
-            }
-        }, { passive: false });
-    }
+    container.addEventListener('mouseleave', () => {
+        container.style.setProperty('--ry', '0deg');
+        container.style.setProperty('--rx', '0deg');
+    });
+}
+    
 </script>
 </body>
 </html>
