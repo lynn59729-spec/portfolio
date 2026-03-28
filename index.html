@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yi Lu | Visual Strategist & AIGC Creator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=3.0">
+</head>
+<body>
+
 <div class="main-container">
     
     <section class="snap-section hero">
@@ -7,7 +18,7 @@
                 <h2 class="role-tag">VISUAL STRATEGIST <span class="red-dot">●</span> BRAND OPERATIONS</h2>
                 <div class="bio-box">
                     <p class="edu">悉尼大学 · 数字传播与文化硕士 (2026届)</p>
-                    <p class="desc">AIGC 创作者 / Brand Strategist / 跨媒介制作人</p>
+                    <p class="desc">AIGC 创作者 / 品牌策划 / 跨媒介制作人：摄影 · 短片 · 杂志 · 播客</p>
                 </div>
                 <div class="skill-labels">
                     <span>AIGC PRODUCTION</span>
@@ -20,12 +31,14 @@
             </div>
         </div>
         <div class="scroll-indicator">SCROLL TO EXPLORE</div>
-    </section> <section class="snap-section magazine-section">
-        <div class="work-container editorial-layout">
+    </section>
+
+    <section class="snap-section">
+        <div class="work-container">
             <div class="work-description">
                 <h3 class="section-title-alt">01. EDITORIAL</h3>
                 <h4 class="work-name">16-PAGE VISUAL NARRATIVE</h4>
-                <p class="work-context">探索超现实主义与数字排版的边界。构建流动的视觉叙事。</p>
+                <p class="work-context">探索超现实主义与数字排版的边界。通过 7 组跨页设计，构建流动的视觉叙事。</p>
                 <div class="logic-tag">STRATEGY: VISUAL FLOW</div>
             </div>
 
@@ -35,154 +48,4 @@
                         <div class="mag-page single"><img src="images/Page1.jpg" alt="P01"><span class="page-tag">P01</span></div>
                         <div class="mag-page spread"><img src="images/Spread1.jpg" alt="P02"><span class="page-tag">P02-03</span></div>
                         <div class="mag-page spread"><img src="images/Spread2.jpg" alt="P04"><span class="page-tag">P04-05</span></div>
-                        <div class="mag-page spread"><img src="images/Spread3.jpg" alt="P06"><span class="page-tag">P06-07</span></div>
-                        <div class="mag-page spread"><img src="images/Spread4.jpg" alt="P08"><span class="page-tag">P08-09</span></div>
-                        <div class="mag-page spread"><img src="images/Spread5.jpg" alt="P10"><span class="page-tag">P10-11</span></div>
-                        <div class="mag-page spread"><img src="images/Spread6.jpg" alt="P12"><span class="page-tag">P12-13</span></div>
-                        <div class="mag-page spread"><img src="images/Spread7.jpg" alt="P14"><span class="page-tag">P14-15</span></div>
-                    </div>
-                </div>
-                <div class="mag-scroll-hint">USE MOUSE WHEEL TO SWIPE</div>
-            </div>
-        </div>
-    </section> <section class="snap-section motion-section">
-        <div class="work-container motion-layout">
-            <div class="work-description">
-                <h3 class="section-title-alt">02. MOTION</h3>
-                <h4 class="work-name">THE CUBE OF BLOOD</h4>
-                <p class="work-context">《锈湖安魂曲》：基于 AIGC 资产的叙事动画实验。</p>
-                <div class="logic-tag">MJ -> AE -> PR WORKFLOW</div>
-            </div>
-            
-            <div class="video-display">
-                <iframe 
-                    id="biliPlayer" 
-                    src="//player.bilibili.com/player.html?bvid=BV1UhQqB7EfS&page=1&high_quality=1&danmaku=0" 
-                    scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
-                </iframe>
-            </div>
-        </div>
-    </section> <section class="snap-section audio-section">
-        <div class="work-container podcast-layout">
-            <div class="work-description">
-                <h3 class="section-title-alt">03. AUDIO STRATEGY</h3>
-                <h4 class="work-name">THROUGH WATER’S EYES</h4>
-                <div class="work-context">
-                    <p class="en-desc">"Would you like to hear the world through water’s eyes?"</p>
-                    <p class="zh-desc">以“水”的视角审视世界。将日常的水声转化为深邃的哲学景观。</p>
-                </div>
-                <div class="logic-tag">SOUND ART & NARRATIVE</div>
-            </div>
-
-            <div class="podcast-display">
-                <div class="unique-pod-console">
-                    <div class="unique-img-box">
-                        <img src="images/podcast-cover.jpg" alt="Cover">
-                        <div class="final-visual-overlay"></div>
-                    </div>
-
-                    <div class="unique-content">
-                        <div class="unique-text-area">
-                            <span class="unique-tag">EXPERIMENTAL AUDIO</span>
-                            <p class="unique-title">EP.01 - The Philosophy of Flow / 水的哲学</p>
-                        </div>
-                        <audio controls class="unique-player">
-                            <source src="https://lynn59729-spec.github.io/portfolio/audio/water-podcast.mp3" type="audio/mpeg">
-                        </audio>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> </div> ```
-
----
-
-### 🎨 2. 配套 `style.css` (修正类名与比例)
-
-请删除你 CSS 中关于播客（Podcast）的所有旧代码，粘贴下面这段经过精准比例对齐和强制锁定的样式：
-
-```css
-/* --- 03. AUDIO STRATEGY 终极修复方案 --- */
-.podcast-layout {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    gap: 50px !important;
-    width: 100% !important;
-    height: 100% !important;
-}
-
-.podcast-layout .work-description {
-    flex: 0 0 35% !important; /* 左侧文字 */
-}
-
-.podcast-layout .podcast-display {
-    flex: 1 !important; /* 右侧撑开 */
-    display: flex !important;
-    justify-content: flex-end !important; /* 强制贴右侧 */
-}
-
-/* 核心容器：窄条、锁死高度、不溢出 */
-.unique-pod-console {
-    width: 100% !important;
-    max-width: 800px !important;
-    height: 100px !important; /* 强制窄高度，营造轨道感 */
-    background: #080808 !important;
-    border: 1px solid #1a1a1a !important;
-    display: flex !important;
-    align-items: center !important;
-    border-radius: 4px !important;
-    overflow: hidden !important; /* 核心：将所有溢出内容（线条、图片）强制剪掉 */
-    position: relative !important;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5) !important;
-}
-
-/* 100x100 的嵌入式图片容器 */
-.unique-img-box {
-    width: 100px !important;
-    height: 100px !important;
-    flex-shrink: 0 !important;
-    position: relative !important;
-    border-right: 1px solid #1a1a1a !important;
-    overflow: hidden !important;
-}
-
-.unique-img-box img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important; /* 强制裁剪并填满 100x100 且不变形 */
-    filter: grayscale(100%) brightness(0.7) !important;
-    transition: filter 0.3s ease !important;
-}
-
-/* 悬停唤醒 */
-.unique-pod-console:hover img {
-    filter: grayscale(0%) brightness(1) !important;
-}
-
-/* 图片上的红色微调 */
-.final-visual-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(206, 32, 40, 0.05) !important;
-    pointer-events: none !important;
-}
-
-/* 右侧内容区域 */
-.unique-content {
-    flex: 1 !important;
-    padding: 0 30px !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    z-index: 10 !important;
-}
-
-.unique-text-area { flex: 1 !important; margin-right: 25px !important; }
-.unique-tag { color: var(--red) !important; font-size: 0.65rem !important; font-weight: 700 !important; letter-spacing: 2px !important; }
-.unique-title { 
-    font-family: 'Bebas Neue' !important; 
-    font-size: 1.6rem !important; 
-    letter-spacing: 1px !important;
-    color: var(--white) !important; 
-    margin-top: 5px !important
+                        <div class="mag-page spread"><img src="images/Spread3.jpg" alt="P06"><span
