@@ -350,8 +350,8 @@ body, html {
 
 /* 最终优化的播放器外观 */
 .custom-audio {
-    width: 100%;
-    height: 40px;
+    width: 140%;
+    height: 20px;
     position: relative;
     z-index: 10; /* 确保在涟漪上方 */
     filter: invert(100%) hue-rotate(180deg) brightness(1.5);
