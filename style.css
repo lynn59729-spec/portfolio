@@ -1,20 +1,37 @@
 /* --- 1. 全局字体与颜色设定 --- */
 :root { --red: #CE2028; --black: #050505; --white: #FFFFFF; --grey: #808080; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body, html { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; height: 100vh; overflow: hidden; }
+body, html { 
+    background: var(--black); 
+    color: var(--white); 
+    font-family: 'Montserrat', sans-serif; 
+    height: 100vh; 
+    width: 100vw;       /* 锁定宽度 */
+    overflow-x: hidden; /* 核心：禁止整页横向滑动 */
+    overflow-y: hidden; /* 保持整页纵向由 main-container 控制 */
+}
 
-/* --- 2. 布局核心 --- */
-.main-container { height: 100vh; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+.main-container { 
+    height: 100vh; 
+    width: 100vw;
+    overflow-y: auto; 
+    overflow-x: hidden; /* 核心：主容器也禁止横滑 */
+    scroll-snap-type: y mandatory; 
+    scroll-behavior: smooth; 
+}
+
 .snap-section { 
     height: 100vh; 
-    width: 100%; 
+    width: 100%;        /* 严格限制在 100% 宽度内 */
+    max-width: 100vw;   /* 二重保险 */
     scroll-snap-align: start; 
     display: flex; 
     align-items: center; 
     padding: 0 8%; 
     flex-shrink: 0; 
-    overflow: visible; /* 改为 visible 或 clip */
+    overflow: hidden;   /* 裁剪掉任何超出本屏幕宽度的东西 */
 }
+
 
 /* --- 3. HERO (恢复闪烁变色效果) --- */
 .hero { background: radial-gradient(circle at 70%, #1a0505 0%, var(--black) 70%); }
@@ -91,12 +108,14 @@ body, html { background: var(--black); color: var(--white); font-family: 'Montse
 /* 杂志板块修复 */
 .magazine-display {
     flex: 1;
+    min-width: 0;  
     position: relative;
     overflow: hidden;    /* 隐藏溢出，让图片只在这一块区域内动 */
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
+
 
 .magazine-container {
     width: 100%;
