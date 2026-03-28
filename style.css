@@ -49,3 +49,28 @@ body, html { background: var(--black); color: var(--white); font-family: 'Montse
     .unique-pod-console { height: auto; flex-direction: column; }
     .unique-img-box { width: 100%; height: 180px; }
 }
+
+/* 头像闪烁变色效果 */
+.hero-avatar {
+    width: 100%;
+    filter: grayscale(100%) contrast(1.1);
+    border-radius: 4px;
+    transition: transform 0.1s ease-out;
+    animation: avatarGlitch 4s infinite; /* 增加闪烁动画 */
+}
+
+@keyframes avatarGlitch {
+    0% { filter: grayscale(100%) brightness(1); transform: translate(0); }
+    92% { filter: grayscale(100%) brightness(1); transform: translate(0); }
+    93% { filter: grayscale(0%) brightness(1.2) sepia(0.5) hue-rotate(-20deg); transform: translate(2px, -1px); }
+    94% { filter: grayscale(100%) brightness(1); transform: translate(-2px, 1px); }
+    95% { filter: grayscale(0%) brightness(1.1) contrast(1.2); transform: translate(0); }
+    100% { filter: grayscale(100%) brightness(1); }
+}
+
+/* 播客播放器颜色反转（方便在黑底看到控制条） */
+.unique-player {
+    width: 260px;
+    filter: invert(1) hue-rotate(180deg) brightness(1.5); /* 重点：确保在黑背景可见 */
+    height: 35px;
+}
