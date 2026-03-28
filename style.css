@@ -72,9 +72,28 @@ body, html { background: var(--black); color: var(--white); font-family: 'Montse
 .logic-tag { display: inline-block; background: #151515; padding: 6px 15px; font-size: 0.75rem; color: var(--red); font-weight: 700; border-left: 3px solid var(--red); }
 
 /* 杂志板块修复 */
-.magazine-display { flex: 1; overflow: hidden; }
-.magazine-container { width: 100%; overflow-x: auto; padding: 20px 0; }
-.magazine-track { display: flex; gap: 30px; }
+.magazine-display {
+    flex: 1;
+    position: relative;
+    overflow: visible; 
+}
+.magazine-container {
+    width: 100%;
+    overflow-x: auto; /* 必须允许横向滚动 */
+    overflow-y: hidden;
+    cursor: grab;
+    /* 隐藏默认滚动条但保持滚动功能 */
+    scrollbar-width: none; 
+}
+.magazine-container::-webkit-scrollbar { display: none; }
+
+.magazine-track {
+    display: flex;
+    gap: 30px;
+    padding-bottom: 20px;
+    /* 确保轨道宽度由内容撑开 */
+    width: max-content; 
+}
 .mag-page img { height: 65vh; width: auto; border: 1px solid #222; box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
 .page-tag { display: block; font-size: 10px; color: #444; margin-top: 10px; text-align: center; font-family: 'Bebas Neue'; }
 
