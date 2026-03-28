@@ -192,104 +192,103 @@ body, html {
         padding-top: 50px;
     }
 
-/* --- PODCAST SECTION 视觉完全恢复 --- */
-.podcast-display {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.pod-card {
+/* --- 03. AUDIO 控制台最终版 (窄长方形 + 动态线条) --- */
+.pod-console {
     width: 100%;
-    max-width: 750px;
-    background: rgba(10, 10, 10, 0.9);
+    max-width: 800px;
+    height: 160px; /* 强制窄长方形高度 */
+    background: #080808;
     border: 1px solid #1a1a1a;
+    position: relative;
+    overflow: hidden;
     display: flex;
-    padding: 40px;
-    gap: 40px;
-    backdrop-filter: blur(10px);
+    align-items: center;
     border-radius: 2px;
-    position: relative;
-    overflow: hidden; /* 确保涟漪不溢出卡片 */
 }
 
-/* 封面区域 */
-.pod-visual {
-    width: 200px;
-    height: 200px;
-    position: relative;
+/* 左侧：嵌入式图片 */
+.console-img {
+    width: 160px;
+    height: 160px;
     flex-shrink: 0;
-    z-index: 10;
+    position: relative;
+    border-right: 1px solid #1a1a1a;
 }
 
-.pod-visual img {
+.console-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(100%) brightness(0.8);
-    border: 1px solid #222;
-    z-index: 5;
-    position: relative;
+    filter: grayscale(100%) brightness(0.6);
 }
 
-/* 核心技巧：确保涟漪和封面不遮挡点击 */
-.water-ripple {
+.img-overlay-red {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to right, rgba(206, 32, 40, 0.2), transparent);
+}
+
+/* 背景：动态声波线条 */
+.wave-container {
+    position: absolute;
+    right: 30px;
+    width: 50%;
     height: 100%;
-    border: 1px solid var(--red);
-    border-radius: 50%;
-    animation: ripple 3s infinite linear;
-    z-index: 1;
-    opacity: 0;
-    pointer-events: none; /* 允许点击穿透 */
-}
-
-.delay-1 { animation-delay: 1.5s; }
-
-@keyframes ripple {
-    0% { width: 100%; height: 100%; opacity: 0.5; }
-    100% { width: 160%; height: 160%; opacity: 0; }
-}
-
-/* 播放信息区域 */
-.pod-player {
-    flex: 1;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    z-index: 10;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    opacity: 0.12; /* 淡淡的背景感 */
+    pointer-events: none;
+    z-index: 1;
 }
 
-.pod-tag { color: var(--red); font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; }
-.pod-ep-title { font-family: 'Bebas Neue'; font-size: 1.6rem; letter-spacing: 1px; margin-bottom: 25px; color: var(--white); }
+.wave-bar {
+    width: 2px;
+    height: 30px;
+    background: var(--red);
+    animation: soundWave 1.2s infinite ease-in-out;
+}
 
-/* 深度定制音频播放器颜色：适配红黑主题 */
+/* 错位动画 */
+.wave-bar:nth-child(2n) { animation-delay: 0.2s; height: 50px; }
+.wave-bar:nth-child(3n) { animation-delay: 0.5s; height: 25px; }
+.wave-bar:nth-child(4n) { animation-delay: 0.8s; height: 70px; }
+
+@keyframes soundWave {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(2.5); }
+}
+
+/* 右侧：内容区 */
+.console-content {
+    flex: 1;
+    padding: 0 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+}
+
+.pod-ep-title { 
+    font-family: 'Bebas Neue'; 
+    font-size: 1.6rem; 
+    color: var(--white); 
+    margin: 5px 0 0;
+}
+
 .custom-audio {
-    width: 100%;
-    height: 40px;
+    width: 280px;
     filter: invert(100%) hue-rotate(180deg) brightness(1.5);
-    opacity: 0.85;
-    transition: opacity 0.3s;
-    z-index: 10; /* 确保在最上层 */
 }
 
-.custom-audio:hover {
-    opacity: 1;
-}
-
-/* 描述文字排版 */
-.en-desc { font-size: 0.8rem; line-height: 1.6; color: var(--grey); font-style: italic; }
-.zh-desc { font-size: 0.85rem; line-height: 1.8; color: #aaa; font-weight: 300; }
-
-/* 移动端适配 */
+/* 移动端适配：变回堆叠 */
 @media (max-width: 850px) {
-    .pod-card { flex-direction: column; text-align: center; padding: 30px; gap: 20px; }
-    .pod-visual { width: 160px; height: 160px; margin: 0 auto; }
+    .pod-console { height: auto; flex-direction: column; }
+    .console-img { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid #1a1a1a; }
+    .console-content { padding: 30px; flex-direction: column; gap: 20px; text-align: center; }
+    .wave-container { width: 100%; justify-content: center; right: 0; }
 }
     
 /* --- 04. PHOTOGRAPHY 视觉走廊 (长方形) --- */
