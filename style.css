@@ -78,11 +78,11 @@ body, html {
     border-radius: 4px; 
 }
 
-/* --- 03. 播客：极致窄条控制台 (强制覆盖) --- */
-.ultra-narrow-bar {
+/* --- 03. 播客：极致窄条控制台 (类名已校对) --- */
+.unique-pod-console {
     width: 100% !important;
     max-width: 800px !important;
-    height: 100px !important; /* 极窄高度 */
+    height: 100px !important; /* 强制窄高度 */
     background: #080808 !important;
     border: 1px solid #1a1a1a !important;
     display: flex !important;
@@ -92,21 +92,21 @@ body, html {
     border-radius: 2px !important;
 }
 
-.bar-img {
-    width: 100px !important; /* 强制缩小图片 */
+.unique-img-box {
+    width: 100px !important; /* 强制图片变小 */
     height: 100px !important;
     flex-shrink: 0 !important;
     border-right: 1px solid #1a1a1a !important;
 }
 
-.bar-img img {
+.unique-img-box img {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
     filter: grayscale(100%) brightness(0.7) !important;
 }
 
-.bar-waves {
+.unique-waves {
     position: absolute;
     right: 30px;
     height: 100%;
@@ -117,21 +117,21 @@ body, html {
     z-index: 1;
 }
 
-.b-line {
+.u-bar {
     width: 2px;
     height: 20px;
     background: #CE2028;
     animation: bWave 1.2s infinite ease-in-out;
 }
-.b-line:nth-child(2n) { animation-delay: 0.2s; height: 40px; }
-.b-line:nth-child(3n) { animation-delay: 0.5s; height: 15px; }
+.u-bar:nth-child(2n) { animation-delay: 0.2s; height: 40px; }
+.u-bar:nth-child(3n) { animation-delay: 0.5s; height: 15px; }
 
 @keyframes bWave {
     0%, 100% { transform: scaleY(1); }
     50% { transform: scaleY(2.2); }
 }
 
-.bar-content {
+.unique-content {
     flex: 1 !important;
     padding: 0 30px !important;
     display: flex !important;
@@ -140,21 +140,21 @@ body, html {
     z-index: 5 !important;
 }
 
-.bar-ep-title {
+.unique-title {
     font-family: 'Bebas Neue' !important;
     font-size: 1.4rem !important;
     color: #fff !important;
     margin: 0 !important;
 }
 
-.bar-audio-player {
+.unique-player {
     width: 240px !important;
     filter: invert(100%) hue-rotate(180deg) brightness(1.5) !important;
 }
 
-/* --- 响应式适配 --- */
+/* 响应式适配 */
 @media (max-width: 850px) {
-    .ultra-narrow-bar { height: auto !important; flex-direction: column !important; }
-    .bar-img { width: 100% !important; height: 180px !important; }
-    .bar-content { padding: 20px !important; flex-direction: column !important; gap: 15px !important; }
+    .unique-pod-console { height: auto !important; flex-direction: column !important; }
+    .unique-img-box { width: 100% !important; height: 180px !important; }
+    .unique-content { padding: 20px !important; flex-direction: column !important; gap: 15px !important; }
 }
