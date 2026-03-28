@@ -75,7 +75,14 @@ body, html { background: var(--black); color: var(--white); font-family: 'Montse
 /* --- 4. 作品集通用设计 --- */
 .work-container { display: flex; width: 100%; align-items: center; gap: 60px; min-height: 450px; }
 .work-container.invert { flex-direction: row-reverse; }
-.work-description { flex: 0 0 350px; }
+.work-description { flex: 0 0 350px;
+    position: sticky;    /* 开启粘性定位 */
+    left: 0;             /* 靠左固定 */
+    top: 0;              /* 这里的 top 会配合 flex 居中生效 */
+    z-index: 20;         /* 确保文字永远在图片层级之上 */
+    background: var(--black); /* 建议加个背景色，防止图片滑到文字下面时重叠干扰 */
+    padding-right: 20px;
+}
 .section-title-alt { color: var(--red); font-family: 'Bebas Neue'; font-size: 1.4rem; letter-spacing: 2px; margin-bottom: 12px; }
 .work-name { font-family: 'Bebas Neue'; font-size: 3rem; margin-bottom: 20px; line-height: 1; }
 .work-context { color: var(--grey); font-size: 0.95rem; line-height: 1.7; margin-bottom: 25px; }
@@ -85,8 +92,11 @@ body, html { background: var(--black); color: var(--white); font-family: 'Montse
 .magazine-display {
     flex: 1;
     position: relative;
-    overflow: visible; 
-
+    overflow: hidden;    /* 隐藏溢出，让图片只在这一块区域内动 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 .magazine-container {
     width: 100%;
