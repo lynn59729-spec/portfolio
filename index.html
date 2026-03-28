@@ -107,7 +107,19 @@
     </section>
 
 </div>
-
+    
+<script>
+    // --- 1. 杂志横向滚动修复 ---
+const mag = document.getElementById('magScroll');
+if (mag) {
+    mag.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+            e.preventDefault();
+            mag.scrollLeft += e.deltaY * 1.5; 
+        }
+    }, { passive: false });
+}
+    
 <script>
    const container = document.querySelector('.avatar-container');
 if (container) {
