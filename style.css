@@ -191,90 +191,6 @@ body, html {
         height: auto;
         padding-top: 50px;
     }
-    .video-display {
-        width: 100%;
-        max-width: 100%;
-    }
-    .work-description {
-        flex: 0 0 auto;
-        width: 100%;
-        text-align: center;
-        padding: 0;
-    }
-}
-
-/* --- PODCAST SECTION 修复版 --- */
-.podcast-display {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 0; /* 防止溢出 */
-}
-
-.pod-visual {
-    width: 220px;
-    height: 220px;
-    position: relative;
-    flex-shrink: 0;
-}
-
-.pod-visual img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 5;
-    position: relative;
-    filter: grayscale(100%) brightness(0.7);
-    border: 1px solid #222;
-}
-
-/* 播放器交互区域 */
-.pod-player {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: hidden; 
-}
-
-.pod-tag { color: var(--red); font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 8px; }
-.pod-ep-title { font-family: 'Bebas Neue'; font-size: 1.8rem; letter-spacing: 1px; margin-bottom: 20px; color: var(--white); }
-
-
-/* 涟漪动画保持不变 */
-.water-ripple {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    border: 1px solid var(--red);
-    border-radius: 50%;
-    animation: ripple 3s infinite linear;
-    z-index: 1;
-    opacity: 0;
-}
-.delay-1 { animation-delay: 1.5s; }
-@keyframes ripple {
-    0% { width: 100%; height: 100%; opacity: 0.5; }
-    100% { width: 160%; height: 160%; opacity: 0; }
-}
-
-/* 移动端适配 */
-@media (max-width: 850px) {
-    .pod-card { flex-direction: column; text-align: center; padding: 20px; }
-    .pod-visual { width: 180px; height: 180px; }
-}
-
-
-
-/* 检查父容器是否把内容切掉了 */
-.podcast-display, .work-container {
-    overflow: visible !important;
-}
-
 /* --- PODCAST SECTION 视觉完全恢复 --- */
 .podcast-display {
     flex: 1;
@@ -294,27 +210,29 @@ body, html {
     backdrop-filter: blur(10px);
     border-radius: 2px;
     position: relative;
+    overflow: hidden; /* 确保涟漪不溢出卡片 */
 }
 
-/* 封面与涟漪特效 */
+/* 封面区域 */
 .pod-visual {
     width: 200px;
     height: 200px;
     position: relative;
     flex-shrink: 0;
+    z-index: 10;
 }
 
 .pod-visual img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 5;
-    position: relative;
     filter: grayscale(100%) brightness(0.8);
     border: 1px solid #222;
+    z-index: 5;
+    position: relative;
 }
 
-/* 核心：确保涟漪不遮挡点击 */
+/* 核心技巧：确保涟漪和封面不遮挡点击 */
 .water-ripple {
     position: absolute;
     top: 50%;
@@ -337,29 +255,31 @@ body, html {
     100% { width: 160%; height: 160%; opacity: 0; }
 }
 
-/* 播放区域排版 */
+/* 播放信息区域 */
 .pod-player {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    z-index: 10;
 }
 
 .pod-tag { color: var(--red); font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; }
 .pod-ep-title { font-family: 'Bebas Neue'; font-size: 1.6rem; letter-spacing: 1px; margin-bottom: 25px; color: var(--white); }
 
-/* 最终优化的播放器外观 */
+/* 深度定制音频播放器颜色：适配红黑主题 */
 .custom-audio {
-    width: 140%;
-    height: 20px;
-    position: relative;
-    z-index: 10; /* 确保在涟漪上方 */
+    width: 100%;
+    height: 40px;
     filter: invert(100%) hue-rotate(180deg) brightness(1.5);
     opacity: 0.85;
     transition: opacity 0.3s;
+    z-index: 10; /* 确保在最上层 */
 }
 
-.custom-audio:hover { opacity: 1; }
+.custom-audio:hover {
+    opacity: 1;
+}
 
 /* 描述文字排版 */
 .en-desc { font-size: 0.8rem; line-height: 1.6; color: var(--grey); font-style: italic; }
@@ -367,6 +287,18 @@ body, html {
 
 /* 移动端适配 */
 @media (max-width: 850px) {
-    .pod-card { flex-direction: column; padding: 30px; gap: 20px; text-align: center; }
+    .pod-card { flex-direction: column; text-align: center; padding: 30px; gap: 20px; }
     .pod-visual { width: 160px; height: 160px; margin: 0 auto; }
+}    .video-display {
+        width: 100%;
+        max-width: 100%;
+    }
+    .work-description {
+        flex: 0 0 auto;
+        width: 100%;
+        text-align: center;
+        padding: 0;
+    }
 }
+
+
