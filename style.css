@@ -266,7 +266,7 @@ body, html {
     .console-content { flex-direction: column; gap: 20px; text-align: center; }
     .custom-audio { width: 100%; }
 }
-
+    
 /* --- 04. PHOTOGRAPHY 视觉走廊 (长方形) --- */
 .photo-gallery-wide {
     flex: 1;
