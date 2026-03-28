@@ -18,14 +18,27 @@ body, html { background: var(--black); color: var(--white); font-family: 'Montse
 .skill-labels { display: flex; gap: 12px; margin-top: 25px; }
 .skill-labels span { border: 1px solid var(--red); padding: 5px 12px; font-size: 0.7rem; color: var(--red); font-weight: 700; letter-spacing: 1px; }
 
-.avatar-container { flex: 0 0 250px; perspective: 1000px; }
+.avatar-container { 
+    flex: 0 0 250px; 
+    perspective: 1000px; 
+    position: relative;
+    /* 核心：告诉浏览器这个容器会频繁变动，不要排队渲染 */
+    will-change: transform; 
+}
+
 .hero-avatar { 
     width: 100%; 
     filter: grayscale(100%) contrast(1.1); 
     border-radius: 4px; 
-    transition: transform 0.1s ease-out;
-    animation: avatarGlitch 5s infinite; 
+    /* 移除之前的 transition: transform 0.1s; 它会导致跟手延迟 */
+    
+    /* 变色动画：保持猛烈，但优化性能 */
+    animation: avatarGlitch猛烈 2s infinite ease-in-out; 
+    position: relative;
+    z-index: 2;
+    pointer-events: none; /* 让鼠标事件直接穿透给父容器，反应更快 */
 }
+
 
 @keyframes avatarGlitch {
     0%, 90%, 100% { filter: grayscale(100%) brightness(1); transform: scale(1); }
