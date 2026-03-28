@@ -34,73 +34,59 @@ body, html {
     flex-shrink: 0;
 }
 
-
-
-/* --- 3. HERO 视觉微调 (22% 比例头像) --- */
+/* --- 3. HERO --- */
 .hero { background: radial-gradient(circle at 70%, #1a0505 0%, var(--black) 70%); }
-.content-wrapper { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    width: 100%; 
-    min-height: 60vh; /* 新增：保证基础高度 */
-}
-
+.content-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
 .text-info { flex: 0 0 65%; }
 .glitch-text { font-family: 'Bebas Neue'; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 0.9; margin-bottom: 20px; }
 .role-tag { font-family: 'Bebas Neue'; font-size: 1.6rem; color: var(--red); letter-spacing: 2px; }
-
 .bio-box { margin: 25px 0; }
-.edu { font-weight: 700; font-size: 1rem; margin-bottom: 5px; color: var(--white); }
+.edu { font-weight: 700; font-size: 1rem; margin-bottom: 5px; }
 .desc { font-weight: 300; font-size: 0.88rem; color: var(--grey); line-height: 1.7; }
-
 .skill-labels { display: flex; gap: 10px; margin-top: 20px; }
-.skill-labels span {
-    border: 1px solid var(--red);
-    padding: 4px 10px;
-    font-size: 0.65rem;
-    color: var(--red);
-    font-weight: 700;
-    letter-spacing: 1px;
-}
+.skill-labels span { border: 1px solid var(--red); padding: 4px 10px; font-size: 0.65rem; color: var(--red); font-weight: 700; }
 
-/* 核心修改：让头像更精致 */
-.avatar-container { 
-    flex: 0 0 22%; 
-    max-width: 250px; 
-    perspective: 1000px;
-    margin-left: auto;
-}
-.hero-avatar { 
-    width: 100%; 
-    filter: grayscale(100%) contrast(1.1); 
-    transition: transform 0.1s ease-out; 
-    border-radius: 4px; 
-}
+.avatar-container { flex: 0 0 22%; max-width: 250px; perspective: 1000px; margin-left: auto; }
+.hero-avatar { width: 100%; filter: grayscale(100%) contrast(1.1); transition: transform 0.1s ease-out; border-radius: 4px; }
 
-/* --- 03. 播客控制台：最初设计的长条感 --- */
-.podcast-display {
-    flex: 1; /* 关键：让播放器容器占据右侧所有剩余空间 */
-    display: flex;
-    justify-content: flex-end; /* 强制将控制台推向最右侧 */
-}
+/* --- 4. 通用内容展示 --- */
+.work-container { display: flex; width: 100%; align-items: center; gap: 40px; }
+.work-container.invert { flex-direction: row-reverse; }
+.work-description { flex: 0 0 320px; }
+.section-title-alt { color: var(--red); font-family: 'Bebas Neue'; font-size: 1.2rem; letter-spacing: 2px; margin-bottom: 10px; }
+.work-name { font-family: 'Bebas Neue'; font-size: 2.2rem; margin-bottom: 15px; }
+.work-context { color: var(--grey); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
+.logic-tag { display: inline-block; background: #1a1a1a; padding: 5px 12px; font-size: 0.7rem; color: var(--red); font-weight: 700; }
+
+/* 杂志板块 */
+.magazine-display { flex: 1; overflow: hidden; }
+.magazine-container { width: 100%; overflow-x: auto; }
+.magazine-track { display: flex; gap: 20px; padding: 20px 0; }
+.mag-page img { height: 400px; width: auto; border: 1px solid #222; }
+.page-tag { display: block; font-size: 10px; color: #555; margin-top: 5px; }
+
+/* 视频板块 */
+.video-display { flex: 1; aspect-ratio: 16/9; background: #111; border: 1px solid #222; overflow: hidden; }
+.video-display iframe { width: 100%; height: 100%; }
+
+/* --- 5. 播客板块：窄条控制台 --- */
+.podcast-display { flex: 1; display: flex; justify-content: flex-end; }
 
 .unique-pod-console {
     width: 100%;
-    max-width: 750px; /* 限制最大宽度，防止在大屏上拉得太长 */
-    height: 100px; /* 锁定高度，实现窄长条感 */
-    background: #080808;
+    max-width: 700px;
+    height: 100px; /* 强制窄高度 */
+    background: #0a0a0a;
     border: 1px solid #1a1a1a;
     display: flex;
     align-items: center;
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* 核心：防止图片脱离 */
     border-radius: 2px;
 }
 
-/* 图片变窄：100px 宽度 */
 .unique-img-box {
-    width: 100px; 
+    width: 100px; /* 锁死 100x100 */
     height: 100px;
     flex-shrink: 0;
     border-right: 1px solid #1a1a1a;
@@ -110,36 +96,9 @@ body, html {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(100%) brightness(0.6);
+    filter: grayscale(100%) brightness(0.7);
 }
 
-/* 动态背景线条 */
-.unique-waves {
-    position: absolute;
-    right: 40px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    opacity: 0.1;
-    z-index: 1;
-}
-
-.u-bar {
-    width: 2px;
-    height: 20px;
-    background: var(--red);
-    animation: uWave 1.2s infinite ease-in-out;
-}
-.u-bar:nth-child(2n) { animation-delay: 0.2s; height: 40px; }
-.u-bar:nth-child(3n) { animation-delay: 0.5s; height: 15px; }
-
-@keyframes uWave {
-    0%, 100% { transform: scaleY(1); }
-    50% { transform: scaleY(2.2); }
-}
-
-/* 内容布局 */
 .unique-content {
     flex: 1;
     padding: 0 30px;
@@ -154,19 +113,35 @@ body, html {
     font-size: 1.3rem;
     color: #fff;
     margin: 0;
-    letter-spacing: 1px;
 }
 
 .unique-player {
-    width: 260px;
+    width: 240px;
     filter: invert(100%) hue-rotate(180deg) brightness(1.5);
-    opacity: 0.8;
 }
 
-/* 移动端强制堆叠 */
+/* 动态背景线条 */
+.unique-waves {
+    position: absolute;
+    right: 40px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.1;
+}
+.u-bar { width: 2px; height: 20px; background: var(--red); animation: uWave 1.2s infinite ease-in-out; }
+.u-bar:nth-child(2n) { animation-delay: 0.2s; height: 35px; }
+.u-bar:nth-child(3n) { animation-delay: 0.4s; height: 15px; }
+
+@keyframes uWave { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(2); } }
+
+/* --- 6. 响应式 --- */
 @media (max-width: 900px) {
+    .snap-section { padding: 40px 5%; height: auto; scroll-snap-align: none; }
+    .content-wrapper, .work-container { flex-direction: column; text-align: center; }
+    .avatar-container { margin: 20px auto; }
     .unique-pod-console { height: auto; flex-direction: column; }
-    .unique-img-box { width: 100%; height: 180px; border-right: none; border-bottom: 1px solid #1a1a1a; }
+    .unique-img-box { width: 100%; height: 180px; }
     .unique-content { padding: 25px; flex-direction: column; gap: 15px; }
-    .unique-player { width: 100%; }
 }
