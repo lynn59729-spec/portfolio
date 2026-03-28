@@ -109,26 +109,27 @@
 </div>
     
 <script>
-    // --- 1. 杂志横向滚动修复 ---
+    // --- 1. 杂志横向滚动修复 (增强版) ---
     const mag = document.getElementById('magScroll');
     if (mag) {
+        // 使用 wheel 事件并强制拦截冒泡
         mag.addEventListener('wheel', (e) => {
-            // 只有当用户是在杂志区域滚动时才拦截
-            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-                e.preventDefault();
+            // 检查是否有纵向滚动偏移
+            if (Math.abs(e.deltaY) > 0) {
+                e.preventDefault(); // 阻止整页翻页
+                e.stopPropagation(); // 阻止事件传递给父容器的 scroll-snap
                 mag.scrollLeft += e.deltaY * 1.5; 
             }
         }, { passive: false });
     }
 
-    // --- 2. 头像 3D 跟踪逻辑 ---
+    // --- 2. 头像 3D 跟踪逻辑 (保持不变) ---
     const container = document.querySelector('.avatar-container');
     if (container) {
         container.addEventListener('mousemove', (e) => {
             const rect = container.getBoundingClientRect();
             const x = (e.clientX - rect.left) / rect.width - 0.5;
             const y = (e.clientY - rect.top) / rect.height - 0.5;
-            // 响应坐标变量
             container.style.setProperty('--ry', (x * 30) + 'deg');
             container.style.setProperty('--rx', (y * -30) + 'deg');
         });
@@ -137,6 +138,7 @@
             container.style.setProperty('--rx', '0deg');
         });
     }
+</script>
 </script>
 </body>
 </html>
