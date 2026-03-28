@@ -5,7 +5,16 @@ body, html { background: var(--black); color: var(--white); font-family: 'Montse
 
 /* --- 2. 布局核心 --- */
 .main-container { height: 100vh; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
-.snap-section { height: 100vh; width: 100%; scroll-snap-align: start; display: flex; align-items: center; padding: 0 8%; flex-shrink: 0; overflow: hidden; }
+.snap-section { 
+    height: 100vh; 
+    width: 100%; 
+    scroll-snap-align: start; 
+    display: flex; 
+    align-items: center; 
+    padding: 0 8%; 
+    flex-shrink: 0; 
+    overflow: visible; /* 改为 visible 或 clip */
+}
 
 /* --- 3. HERO (恢复闪烁变色效果) --- */
 .hero { background: radial-gradient(circle at 70%, #1a0505 0%, var(--black) 70%); }
@@ -77,16 +86,18 @@ body, html { background: var(--black); color: var(--white); font-family: 'Montse
     flex: 1;
     position: relative;
     overflow: visible; 
-}
+
+
 .magazine-container {
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
     cursor: grab;
     position: relative;
-    z-index: 10; /* 确保它在最上层，能接收到鼠标事件 */
-    scrollbar-width: none; 
-    touch-action: pan-x; /* 优化触摸屏体验 */
+    z-index: 99; /* 提高层级 */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+     touch-action: pan-x;
 }
 
 /* 确保指示器不会挡住容器 */
