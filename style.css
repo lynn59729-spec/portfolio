@@ -32,15 +32,17 @@ body, html {
     overflow: hidden;   /* 裁剪掉任何超出本屏幕宽度的东西 */
 }
 
-/* 让 GIF 悬浮在头像侧边，带一点透明感和混合模式 */
+/* 让 GIF 悬浮在头像侧边 */
 .aigc-deco {
     position: absolute;
-    top: -40px;      /* 调整位置 */
-    right: -40px;    /* 调整位置 */
-    width: 120px;    /* 调整大小 */
-    z-index: 1;      /* 在头像下方 */
-    opacity: 0.6;    /* 淡淡的透明感 */
-    mix-blend-mode:
+    top: -40px;      
+    right: -40px;    
+    width: 120px;    
+    z-index: 3;      /* 调高层级，确保在头像上方，或者 z-index: 1 在下方 */
+    opacity: 0.8;    
+    mix-blend-mode: screen; /* 核心：滤掉 GIF 的黑色背景，仅保留亮部 */
+    pointer-events: none;   /* 核心：防止 GIF 挡住鼠标对头像的 3D 跟踪效果 */
+}
     
 /* --- 3. HERO (恢复闪烁变色效果) --- */
 .hero { background: radial-gradient(circle at 70%, #1a0505 0%, var(--black) 70%); }
