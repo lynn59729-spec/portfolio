@@ -36,6 +36,34 @@ body, html {
 .aigc-deco {
     position: absolute;
     top: -40px;      
+
+    /* 1. 保护文字部分不被挤压 */
+.text-info {
+    flex: 1;                /* 占用剩余的所有空间 */
+    min-width: 600px;       /* 核心：设置一个最小宽度，防止文字缩成一团 */
+    word-break: keep-all;   /* 核心：防止中文或英文单词在不该换行的地方断开 */
+    white-space: nowrap;    /* 如果是标题不想换行，可以用这个 */
+}
+
+/* 2. 针对标题文字的特殊处理 */
+.glitch-text {
+    white-space: nowrap;    /* 强制“YI LU / 卢怡”在一行显示 */
+    width: max-content;     /* 宽度根据内容自动撑开 */
+}
+
+/* 3. 针对 Role Tag 的处理 */
+.role-tag {
+    white-space: nowrap;    /* 防止“VISUAL DESIGNER...”折成两行 */
+}
+
+/* 4. 确保 Hero 容器不会把内容挤扁 */
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 50px;              /* 给文字和头像之间留出固定空隙 */
+}
     right: -40px;    
     width: 120px;    
     z-index: 3;      /* 调高层级，确保在头像上方，或者 z-index: 1 在下方 */
